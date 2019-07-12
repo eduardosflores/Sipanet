@@ -1,0 +1,211 @@
+/**
+ * Configurations of forms website
+ */
+.textField
+{
+    font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;
+    font-size:10pt;
+    border:1px solid gray;
+    height:17px;
+}
+
+.textArea
+{
+    font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;
+    font-size:10pt;
+    border:1px solid gray;
+}
+
+.fieldset
+{
+    padding:10px;
+    padding-top:5px;
+}
+
+.tbFrm
+{
+    width:100%;
+}
+
+.tbTituloFrm
+{
+    text-align:right;
+    width:10%;
+}
+
+.tbFieldFrm
+{
+    text-align:left;
+}
+
+.textAreaComent
+{
+    text-align:left;
+    height:50px;
+    width:240px;
+}
+.textAreaAddNoticia
+{
+    text-align:left;
+    height:140px;
+    width:340px;
+}
+
+.comboBox
+{
+    font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;
+    font-size:10pt;
+    border:1px solid gray;
+}
+
+.textFieldWidth40
+{
+    width:40px;
+}
+
+.textFieldWidth80
+{
+    width:80px;
+}
+
+.textFieldWidth120
+{
+    width:120px;
+}
+
+.textFieldWidth160
+{
+    width:160px;
+}
+
+.textFieldWidth200
+{
+    width:200px;
+}
+
+.textFieldWidth240
+{
+    width:240px;
+}
+
+.textFieldWidth270
+{
+    width:270px;
+}
+
+.textFieldWidth300
+{
+    width:300px;
+}
+
+.textFieldWidth320
+{
+    width:320px;
+}
+
+.textFieldDisabled
+{
+	background-color: #eee;
+}
+
+.btnForm
+{
+    font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;;
+    font-size:11px;
+    border:1px solid #000000;
+}
+
+.btnForm10
+{
+    font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;;
+    font-size:10px;
+    border:1px solid #000000;
+}
+
+.txtSearchTop
+{
+	font-size:11px;
+    padding:1px;
+    margin-top:2px;
+	border:1px solid #000000;
+	width:230px;
+}
+
+/* Classe de ajuste do form de search no topo */
+.frm_search_top
+{
+    margin:0;
+    padding:0;
+}
+
+/* Configurations of login error (user not found)*/
+#contentErrorLoginHome
+{
+    margin-bottom:2px;
+    margin-top:2px;
+    color:black;
+    display:none;
+    border:1px solid #D40000;
+    background-color:#FFD7D7;
+    width:90%;
+    margin:auto;
+    text-align:center;
+}
+
+#contentErrorSignUp
+{
+    margin-bottom:2px;
+    margin-top:2px;
+    color:black;
+    display:none;
+    border:1px solid #D40000;
+    background-color:#FFD7D7;
+    width:90%;
+    margin:auto;
+    text-align:center;
+}
+
+.contentErrorDefault
+{
+    margin-bottom:2px;
+    margin-top:2px;
+    color:black;
+    display:none;
+    border:1px solid #D40000;
+    background-color:#FFD7D7;
+    width:90%;
+    margin:auto;
+    text-align:center;
+}
+
+/* Table with form login in page login */
+.tbFormLogin
+{
+    width:100%;
+    float:left;
+}
+
+.tbFormSignUp
+{
+    width:100%;
+    float:left;
+}
+
+.validateForm
+{
+    color:red;
+    display:none;
+}
+
+.validateCheckUserName
+{
+    color:red;
+    font-weight:bolder;
+    display:none;
+}
+
+.forms
+{
+    padding:0px;
+    margin:0px;
+}

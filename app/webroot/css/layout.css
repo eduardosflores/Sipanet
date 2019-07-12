@@ -1,0 +1,288 @@
+body
+{
+    font-family:Verdana, Arial, Helvetica, sans-serif;
+    font-size:11px;
+    padding:0px;
+    margin:0px;
+}
+
+a
+{
+    text-decoration:none;
+    color:#00468c;
+}
+a:hover
+{
+    text-decoration:underline;
+    color:#FF0000;
+}
+
+#topo
+{
+    background-image:url(../img/bg_topo.jpg);
+    background-repeat:repeat-x;
+    width:100%;
+    float:left;
+}
+
+.brasao
+{
+    width:80%;
+}
+
+.promocoes {
+    text-align:right;
+    width:10%;
+}
+
+.div_principal
+{
+    width:98%;
+    text-align:center;
+    margin:10px auto 5px auto;
+}
+
+.lbInfoPagFrm
+{
+    text-align:left;
+    font-size:12px;
+    font-weight:bolder;
+}
+
+.lbTituloLegend
+{
+    font-size:16px;
+}
+
+.titulo_sistema
+{
+    font-family:"Trebuchet MS", Arial, Verdana;
+    font-size:35px;
+    font-weight:bolder;
+    width:10%;
+    text-align:right;
+    padding-right:10px;
+    color:#FFFFFF;
+}
+
+.tb_topo
+{
+    border-collapse:collapse;
+    width:100%;
+    padding:0px;
+    margin:0px;
+}
+
+.row_yellow
+{
+    background-image:url(../img/img_row_yellow_topo.jpg);
+    background-repeat:repeat-x;
+}
+
+.td_menu
+{
+    background-color:#D3D3D3;
+    height:23px;
+}
+
+.td_row_gray_topo
+{
+    background-image:url(../img/row_gray_topo.jpg);
+    background-repeat:repeat-x;
+}
+
+.td_btn_logoff
+{
+    padding-right:3px;
+    text-align:right;
+}
+
+.td_table_menu
+{
+    padding-left:3px;
+    text-align:left;
+}
+
+#div_conteudo
+{
+    float:left;
+    width:100%;
+    background-image:url(../img/bg_conteudo.jpg);
+    background-repeat:repeat-x;
+}
+
+#div_rodape
+{
+    border-top:1px solid #B4B4B4;
+    float:left;
+    width:100%;
+    background-image:url(../img/bg_footer.jpg);
+    background-repeat:repeat-x;
+    height:50px;
+    text-align:right;
+    padding-top:1px;
+    font-size:10px;
+}
+
+/** config. do grid */
+.tbGrid
+{
+    width:100%;
+    border:1px solid #CDC5BF;
+}
+
+.tdTituloGrid
+{
+    background-color: #2f519b;
+    padding:3px;
+    text-align:left;
+    font-weight:bolder;
+    color:#FFFFFF;
+}
+
+.tdTituloGridTramitacaoDestino
+{
+    background-color: #0a6bcc;
+    padding:3px;
+    text-align:left;
+    font-weight:bolder;
+    color:#FFFFFF;
+}
+
+.tdTituloAcoesGrid
+{
+    background-color: #2f519b;
+    padding:5px;
+    text-align:center;
+    font-weight:bolder;
+    width:7%;
+    color:#FFFFFF;
+}
+
+.tdConteudoGrid
+{
+    text-align:left;
+}
+
+.trConteudoGridRow1
+{
+    background-color: #FFFFFF;
+}
+.trConteudoGridRow2
+{
+    background-color: #e9f6ff;
+}
+
+.tdAcoesGrid
+{
+    text-align:center;
+}
+
+.div_ola_usuario
+{
+    width:99%;
+    font-size:11px;
+    text-align:right;
+}
+
+.tdTituloExibirDetalhes
+{
+    text-align:right;
+    width:12%;
+}
+.tbConteudoExibirDetalhes
+{
+    text-align:left;
+    width:100%;
+    font-size:12px;
+}
+
+.tdBtnVoltar
+{
+    text-align:center;
+}
+
+.tdConteudoExibirDetalhes
+{
+    text-align:left;
+}
+
+
+/* Exibição de mensagens */
+#mensagem_conteudo
+{
+    width: 80%;
+    margin-left: 10%;
+    padding: 10px 0px;
+    font-size: 12px;
+    color: #000;
+}
+#mensagem_conteudo div
+{
+    padding: 5px;
+    margin-bottom: 10px;
+}
+#mensagem_conteudo .erro
+{
+    background-color:#fff2f2;
+    border: 1px solid #f00;
+}
+#mensagem_conteudo .erro p
+{
+    font-weight: bold;
+}
+#mensagem_conteudo .aviso
+{
+    background-color:#fffef2;
+    border: 1px solid #D5BD24;
+}
+#mensagem_conteudo .sucesso
+{
+    background-color:#ecfff1;
+    border: 1px solid #0e8e03;
+}
+
+#mensagem_conteudo .funcionalidade
+{
+    background-color:#69C;
+    border: 1px solid;
+    border-color: #0a6bcc;
+    text-align: center;
+    color: #fff;
+    font-weight: bold;
+   
+}
+
+div.aviso {
+    text-align:center;
+    padding:3px;
+    font-size:10pt;
+    color:#333;
+}
+
+p.aviso {
+    padding:0;
+    margin:0;
+}
+
+div.atencao {
+    background-color: #ffff99;
+    border: 1px solid #FF9900;
+}
+
+div.tooltip {
+    width: 300px;
+    background-color:#FFFF99;
+    border: 2px solid #FF9900;
+    font-size: 80%;
+    color: #666;
+    text-align:left;
+}
+
+div.tooltip h2 {
+    background-color:#FFFFCC;
+    padding:4px;
+    margin:0;
+    font-size:10pt;
+    text-align:center;
+}

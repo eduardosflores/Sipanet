@@ -1,0 +1,15 @@
+SipaNet v2.4.1
+
+
+
+Novas Funcionalidades:
+
+Recebimento de multiplos processos de uma só vez.
+Visualizar processos que estão parados no setor.
+Visualizacao da quantidade de dias que um processo está parado no setor.
+Gravação do numero de dias máximo em que um determinado tipo de processo pode passar em um setor.
+
+
+Correção de Bugs
+
+No cadastro de Servidores, o sistema não lista os setores inativos.

@@ -1,0 +1,45 @@
+*Requisitos
+
+PHP5
+POSTRGESQL  8.2
+Apache 2.x com mod_rewrite habilitado
+
+*Instalacao
+
+Criar base da dados no postgreSql:
+
+O CharSet deve ser ISO 8859-1 ou LATIN1
+
+Para criar no Linux: createdb -U postgres sipanet -E latin1 --locale=POSIX -T template0 
+
+Descompacte e execute o dump do banco de dados disponível em sql/sipanet.tar.bz2
+
+OBS: O DUMP do arquivo deve ser executado em modo texto (PSQL).
+
+psql> \i CAMINHO_DO_ARQUIVO_SQL.sql
+
+Configure o arquivo de banco de dados: sipanet/app/config/database.php
+
+**EXEMPLO DE CONFIGURAÇÃO database.php**
+
+class DATABASE_CONFIG {
+
+	var $default = array(
+		'driver' => 'postgres',
+		'persistent' => false,
+		'host' => 'localhost',
+		'login' => 'postgres',
+		'password' => 'postgres',
+		'database' => 'sipanet',
+		'prefix' => '',
+	);
+}
+
+Execute a URL do servidor:
+ex: http://localhost/sipanet
+
+*Login: administrador
+*Senha: 123456
+
+Para visualizar os erros, edite o arquivo core.php em: app/config/core.php e altere a tag DEBUG de 0 para 1.
+

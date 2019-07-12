@@ -1,0 +1,170 @@
+*****************
+Módulos
+*****************
+* Processo
+	* 1 - Tramitar
+	* 2 - Receber	
+	* 3 - Cancelar tramitação
+	* 4 - Cadastrar
+	* 5 - Arquivar
+	* 6 - Desarquivar
+	* 7 - Paralisar
+	* 8 - Liberar processo paralisado
+	* 9 - Anexar processo
+	* 10 - Desanexar processo
+	* 11 - Distribuir processo
+	* 12 - Devolver processo distribuído
+
+* Consultar
+	* 13 - "Processo" - Processo | Todos os processos | Tramitação
+	* 14 - "Outros" - Interessados | Órgãos | Setores | Servidores
+
+* Cadastros
+	* Interessados - é o mesmo que pode cadastrar processo
+	* 15 - Setores (dentro do órgão em que está logado)
+	* 16 - Servidores (dentro do órgão em que está logado)
+	* 17 - Outros cadastros
+	* 18 - Cadastros para todos os orgaos
+
+* 19 - Relatórios
+* 20 - Gráficos
+* 21 - Administrador
+
+
+delete from permissoes_grupo;
+delete from modulos;
+select setval('modulos_id_seq', 1, false);
+insert into modulos (descricao) values ('Tramitar Processo');
+insert into modulos (descricao) values ('Receber Processo');
+insert into modulos (descricao) values ('Cancelar Tramitação');
+insert into modulos (descricao) values ('Cadastrar Processo');
+insert into modulos (descricao) values ('Arquivar Processo');
+insert into modulos (descricao) values ('Desarquivar Processo');
+insert into modulos (descricao) values ('Paralisar Processo');
+insert into modulos (descricao) values ('Liberar Processo');
+insert into modulos (descricao) values ('Anexar Processo');
+insert into modulos (descricao) values ('Desanexar Processo');
+insert into modulos (descricao) values ('Distribuir Processo');
+insert into modulos (descricao) values ('Devolver Processo');
+
+insert into modulos (descricao) values ('Consultar Processo');
+insert into modulos (descricao) values ('Consultar Outros');
+
+
+insert into modulos (descricao) values ('Cadastrar Setor');
+insert into modulos (descricao) values ('Cadastrar Servidor');
+insert into modulos (descricao) values ('Cadastrar Outros');
+insert into modulos (descricao) values ('Cadastrar Todos os Orgaos');
+
+insert into modulos (descricao) values ('Relatorio');
+insert into modulos (descricao) values ('Graficos');
+
+insert into modulos (descricao) values ('Administração');
+
+
+*****************
+Grupos de Usuário
+*****************
+
+1 - Administrador
+	Pode:
+		Tudo (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21)
+2 - Cadastro
+	Pode:
+		Tramitar processo - 1
+		Receber processo - 2
+		Cadastrar processo - 4
+		Cadastrar interessado - 4
+		Consultar processo - 13
+		Consultar outros - 14
+4 - Completo
+	Pode:
+		Tudo menos Cadastrar Todos os Orgaos (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21)
+5 - Tramitação
+	Pode:
+		Tramitar processo - 1
+		Receber processo - 2
+		Consultar processo - 13
+		Consultar outros - 14
+6 - Visitante
+7 - Procurador
+	Pode:
+		Distribuir processo - 11
+		Devolver processo - 12
+8 - Coordenador PGE
+
+delete from permissoes_grupo;
+select setval('permissoes_grupo_id_seq', 1, false);
+insert into permissoes_grupo (grupo_usuario_id, modulo_id) values (1, 1);
+insert into permissoes_grupo (grupo_usuario_id, modulo_id) values (1, 2);
+insert into permissoes_grupo (grupo_usuario_id, modulo_id) values (1, 3);
+insert into permissoes_grupo (grupo_usuario_id, modulo_id) values (1, 4);
+insert into permissoes_grupo (grupo_usuario_id, modulo_id) values (1, 5);
+insert into permissoes_grupo (grupo_usuario_id, modulo_id) values (1, 6);
+insert into permissoes_grupo (grupo_usuario_id, modulo_id) values (1, 7);
+insert into permissoes_grupo (grupo_usuario_id, modulo_id) values (1, 8);
+insert into permissoes_grupo (grupo_usuario_id, modulo_id) values (1, 9);
+insert into permissoes_grupo (grupo_usuario_id, modulo_id) values (1, 10);
+insert into permissoes_grupo (grupo_usuario_id, modulo_id) values (1, 11);
+insert into permissoes_grupo (grupo_usuario_id, modulo_id) values (1, 12);
+insert into permissoes_grupo (grupo_usuario_id, modulo_id) values (1, 13);
+insert into permissoes_grupo (grupo_usuario_id, modulo_id) values (1, 14);
+insert into permissoes_grupo (grupo_usuario_id, modulo_id) values (1, 15);
+insert into permissoes_grupo (grupo_usuario_id, modulo_id) values (1, 16);
+insert into permissoes_grupo (grupo_usuario_id, modulo_id) values (1, 17);
+insert into permissoes_grupo (grupo_usuario_id, modulo_id) values (1, 18);
+insert into permissoes_grupo (grupo_usuario_id, modulo_id) values (1, 19);
+insert into permissoes_grupo (grupo_usuario_id, modulo_id) values (1, 20);
+insert into permissoes_grupo (grupo_usuario_id, modulo_id) values (1, 21);
+
+insert into permissoes_grupo (grupo_usuario_id, modulo_id) values (2, 1);
+insert into permissoes_grupo (grupo_usuario_id, modulo_id) values (2, 2);
+insert into permissoes_grupo (grupo_usuario_id, modulo_id) values (2, 3);
+insert into permissoes_grupo (grupo_usuario_id, modulo_id) values (2, 4);
+insert into permissoes_grupo (grupo_usuario_id, modulo_id) values (2, 5);
+insert into permissoes_grupo (grupo_usuario_id, modulo_id) values (2, 6);
+insert into permissoes_grupo (grupo_usuario_id, modulo_id) values (2, 7);
+insert into permissoes_grupo (grupo_usuario_id, modulo_id) values (2, 8);
+insert into permissoes_grupo (grupo_usuario_id, modulo_id) values (2, 9);
+insert into permissoes_grupo (grupo_usuario_id, modulo_id) values (2, 10);
+insert into permissoes_grupo (grupo_usuario_id, modulo_id) values (2, 11);
+insert into permissoes_grupo (grupo_usuario_id, modulo_id) values (2, 12);
+insert into permissoes_grupo (grupo_usuario_id, modulo_id) values (2, 13);
+insert into permissoes_grupo (grupo_usuario_id, modulo_id) values (2, 14);
+
+
+
+insert into permissoes_grupo (grupo_usuario_id, modulo_id) values (4, 1);
+insert into permissoes_grupo (grupo_usuario_id, modulo_id) values (4, 2);
+insert into permissoes_grupo (grupo_usuario_id, modulo_id) values (4, 3);
+insert into permissoes_grupo (grupo_usuario_id, modulo_id) values (4, 4);
+insert into permissoes_grupo (grupo_usuario_id, modulo_id) values (4, 5);
+insert into permissoes_grupo (grupo_usuario_id, modulo_id) values (4, 6);
+insert into permissoes_grupo (grupo_usuario_id, modulo_id) values (4, 7);
+insert into permissoes_grupo (grupo_usuario_id, modulo_id) values (4, 8);
+insert into permissoes_grupo (grupo_usuario_id, modulo_id) values (4, 9);
+insert into permissoes_grupo (grupo_usuario_id, modulo_id) values (4, 10);
+insert into permissoes_grupo (grupo_usuario_id, modulo_id) values (4, 11);
+insert into permissoes_grupo (grupo_usuario_id, modulo_id) values (4, 12);
+insert into permissoes_grupo (grupo_usuario_id, modulo_id) values (4, 13);
+insert into permissoes_grupo (grupo_usuario_id, modulo_id) values (4, 14);
+insert into permissoes_grupo (grupo_usuario_id, modulo_id) values (4, 15);
+insert into permissoes_grupo (grupo_usuario_id, modulo_id) values (4, 16);
+insert into permissoes_grupo (grupo_usuario_id, modulo_id) values (4, 17);
+insert into permissoes_grupo (grupo_usuario_id, modulo_id) values (4, 19);
+insert into permissoes_grupo (grupo_usuario_id, modulo_id) values (4, 20);
+
+insert into permissoes_grupo (grupo_usuario_id, modulo_id) values (5, 1);
+insert into permissoes_grupo (grupo_usuario_id, modulo_id) values (5, 2);
+insert into permissoes_grupo (grupo_usuario_id, modulo_id) values (5, 3);
+insert into permissoes_grupo (grupo_usuario_id, modulo_id) values (5, 5);
+insert into permissoes_grupo (grupo_usuario_id, modulo_id) values (5, 6);
+insert into permissoes_grupo (grupo_usuario_id, modulo_id) values (5, 9);
+insert into permissoes_grupo (grupo_usuario_id, modulo_id) values (5, 10);
+insert into permissoes_grupo (grupo_usuario_id, modulo_id) values (5, 11);
+insert into permissoes_grupo (grupo_usuario_id, modulo_id) values (5, 12);
+insert into permissoes_grupo (grupo_usuario_id, modulo_id) values (5, 13);
+insert into permissoes_grupo (grupo_usuario_id, modulo_id) values (5, 14);
+
+insert into permissoes_grupo (grupo_usuario_id, modulo_id) values (7, 11);
+insert into permissoes_grupo (grupo_usuario_id, modulo_id) values (7, 12);

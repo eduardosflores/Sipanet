@@ -1,0 +1,2065 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Db flnm="sipanet_itec" nm="sipanet" ver="1.3.4">
+  <VerLbl/>
+  <VerNotes/>
+  <DefTblOpts/>
+  <DocFolder>/home/flaubert/www/sipanet/trunk/docs/documentos</DocFolder>
+  <Sch Cm="" nm="public">
+    <Tbl UsSo="1" nm="arquivamentos">
+      <Cm>Guarda historico de arquivamentos dos processos</Cm>
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="id" nm="pkarquivamentos"/>
+      <Cl au="1" df="nextval('arquivamentos_id_seq'::regclass)" nm="id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="processo_id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="setor_id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+        <Cm>Setor onde o processo foi arquivado</Cm>
+      </Cl>
+      <Cl au="0" df="" nm="motivo" nu="0">
+        <DT ds="Text" en="" id="703" ln="null" sc="null" sg="1"/>
+        <Cm>Motivo ou observacoes a respeito do arquivamento.</Cm>
+      </Cl>
+      <Cl au="0" df="now()" nm="data" nu="0">
+        <DT ds="TimeStamp" en="" id="93" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="data_desarquivamento" nu="1">
+        <DT ds="TimeStamp" en="" id="93" ln="null" sc="null" sg="1"/>
+        <Cm>Data em que o processo foi desarquivado.</Cm>
+      </Cl>
+      <Cl au="0" df="" nm="motivo_desarquivamento" nu="1">
+        <DT ds="Text" en="" id="703" ln="null" sc="null" sg="1"/>
+        <Cm>Motivo do desarquivamento.</Cm>
+      </Cl>
+      <Fk deAc="3" nm="fk_arquivamentos_processos" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="processos" oe="1" sch="public" zr="0"/>
+        <CdTb mn="1" nm="arquivamentos" oe="1" sch="public" zr="1"/>
+        <ClPr cdCl="processo_id" prCl="id"/>
+      </Fk>
+      <Fk deAc="3" nm="fk_arquivamentos_setores" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="setores" oe="1" sch="public" zr="0"/>
+        <CdTb mn="1" nm="arquivamentos" oe="1" sch="public" zr="1"/>
+        <ClPr cdCl="setor_id" prCl="id"/>
+      </Fk>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="assuntos_mensagem">
+      <Cm>Assuntos da mensagem</Cm>
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="id" nm="pkassuntos_mensagem"/>
+      <Cl au="1" df="nextval('assuntos_mensagem_id_seq'::regclass)" nm="id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="descricao" nu="0">
+        <DT ds="VarChar" en="" id="12" ln="150" sc="null" sg="1"/>
+      </Cl>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="cargos">
+      <Cm>Cargos do funcionario</Cm>
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="id" nm="pkcargos"/>
+      <Cl au="1" df="nextval('cargos_id_seq'::regclass)" nm="id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="descricao" nu="0">
+        <DT ds="VarChar" en="" id="12" ln="200" sc="null" sg="1"/>
+      </Cl>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="divisoes">
+      <Cm>O processo pode ser dividido para varios servidores</Cm>
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="id" nm="pkdivisoes"/>
+      <Cl au="1" df="nextval('divisoes_id_seq'::regclass)" nm="id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="processo_id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="servidor_id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Fk deAc="3" nm="fk_divisoes_processos" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="processos" oe="1" sch="public" zr="0"/>
+        <CdTb mn="1" nm="divisoes" oe="1" sch="public" zr="1"/>
+        <ClPr cdCl="processo_id" prCl="id"/>
+      </Fk>
+      <Fk deAc="3" nm="fk_divisoes_servidores" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="servidores" oe="1" sch="public" zr="0"/>
+        <CdTb mn="1" nm="divisoes" oe="1" sch="public" zr="1"/>
+        <ClPr cdCl="servidor_id" prCl="id"/>
+      </Fk>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="emails_suporte">
+      <Cm>Endereços de email do suporte - as mensagens deverão ser enviadas para todos os e-mails cadastrados</Cm>
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="id" nm="pkemails_suporte"/>
+      <Cl au="1" df="nextval('emails_suporte_id_seq'::regclass)" nm="id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="descricao" nu="0">
+        <DT ds="VarChar" en="" id="12" ln="150" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="email" nu="0">
+        <DT ds="VarChar" en="" id="12" ln="100" sc="null" sg="1"/>
+      </Cl>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="etiquetas">
+      <Cm>Configurações de etiquetas disponíveis</Cm>
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="id" nm="pketiquetas"/>
+      <Cl au="1" df="nextval('etiquetas_id_seq'::regclass)" nm="id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="descricao" nu="0">
+        <DT ds="VarChar" en="" id="12" ln="100" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="linhas" nu="0">
+        <DT ds="SmallInt" en="" id="5" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="margem_esquerda" nu="0">
+        <DT ds="Numeric" en="" id="2" ln="5" sc="2" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="margem_superior" nu="0">
+        <DT ds="Numeric" en="" id="2" ln="5" sc="2" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="largura" nu="0">
+        <DT ds="Numeric" en="" id="2" ln="6" sc="2" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="altura" nu="0">
+        <DT ds="Numeric" en="" id="2" ln="6" sc="2" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="margem_entre_etiquetas" nu="0">
+        <DT ds="Numeric" en="" id="2" ln="5" sc="2" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="altura_texto" nu="0">
+        <DT ds="Numeric" en="" id="2" ln="5" sc="2" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="margem_seguranca_lateral" nu="0">
+        <DT ds="Numeric" en="" id="2" ln="5" sc="2" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="margem_seguranca_superior" nu="0">
+        <DT ds="Numeric" en="" id="2" ln="5" sc="2" sg="1"/>
+      </Cl>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="grupos_usuario">
+      <Cm>Grupos de usuario para definicao de permissoes</Cm>
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="id" nm="pkgrupos_usuario"/>
+      <Cl au="1" df="nextval('grupos_usuario_id_seq'::regclass)" nm="id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="descricao" nu="0">
+        <DT ds="VarChar" en="" id="12" ln="100" sc="null" sg="1"/>
+      </Cl>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="historico_devolucoes">
+      <TblOpts/>
+      <Pk ClNs="id" nm="pkhistorico_devolucoes"/>
+      <Cl au="1" df="" nm="id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="data_devolucao" nu="0">
+        <DT ds="TimeStamp" en="" id="93" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="processo_id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="servidor_id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Fk deAc="3" nm="fk_historico_devolucoes_processos" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="processos" oe="1" sch="public" zr="0"/>
+        <CdTb mn="1" nm="historico_devolucoes" oe="1" sch="public" zr="1"/>
+        <ClPr cdCl="processo_id" prCl="id"/>
+      </Fk>
+      <Fk deAc="3" nm="fk_historico_devolucoes_servidores" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="servidores" oe="1" sch="public" zr="0"/>
+        <CdTb mn="1" nm="historico_devolucoes" oe="1" sch="public" zr="1"/>
+        <ClPr cdCl="servidor_id" prCl="id"/>
+      </Fk>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="historico_divisoes">
+      <TblOpts/>
+      <Pk ClNs="id" nm="pkhistorico_divisoes"/>
+      <Cl au="1" df="" nm="id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="data_divisao" nu="0">
+        <DT ds="TimeStamp" en="" id="93" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="processo_id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="servidor_id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Fk deAc="3" nm="fk_historico_divisoes_processos" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="processos" oe="1" sch="public" zr="0"/>
+        <CdTb mn="1" nm="historico_divisoes" oe="1" sch="public" zr="1"/>
+        <ClPr cdCl="processo_id" prCl="id"/>
+      </Fk>
+      <Fk deAc="3" nm="fk_historico_divisoes_servidores" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="servidores" oe="1" sch="public" zr="0"/>
+        <CdTb mn="1" nm="historico_divisoes" oe="1" sch="public" zr="1"/>
+        <ClPr cdCl="servidor_id" prCl="id"/>
+      </Fk>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="interessados">
+      <Cm>Cadastro de interessados</Cm>
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="id" nm="pkinteressados"/>
+      <Cl au="1" df="nextval('interessados_id_seq'::regclass)" nm="id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="tipo_interessado_id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="nome" nu="0">
+        <DT ds="VarChar" en="" id="12" ln="150" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="cpf_cnpj" nu="1">
+        <DT ds="VarChar" en="" id="12" ln="18" sc="null" sg="1"/>
+        <Cm>CPF ou CNPJ do interessado</Cm>
+      </Cl>
+      <Cl au="0" df="" nm="matricula" nu="1">
+        <DT ds="VarChar" en="" id="12" ln="50" sc="null" sg="1"/>
+      </Cl>
+      <Fk deAc="3" nm="fk_interessados_tipos_interessado" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="tipos_interessado" oe="1" sch="public" zr="0"/>
+        <CdTb mn="1" nm="interessados" oe="1" sch="public" zr="1"/>
+        <ClPr cdCl="tipo_interessado_id" prCl="id"/>
+      </Fk>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="logs">
+      <Cm>Guarda historico das principais acoes dos servidores no sistema para auditoria</Cm>
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="id" nm="pklogs"/>
+      <Cl au="1" df="nextval('logs_id_seq'::regclass)" nm="id" nu="0">
+        <DT ds="BigInt" en="" id="-5" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="acao" nu="0">
+        <DT ds="VarChar" en="" id="12" ln="100" sc="null" sg="1"/>
+        <Cm>Acao efetuada (Login, Cadastro, Atualizacao)</Cm>
+      </Cl>
+      <Cl au="0" df="" nm="servidor_id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+        <Cm>Servidor que efetuou a acao</Cm>
+      </Cl>
+      <Cl au="0" df="" nm="entidade" nu="0">
+        <DT ds="VarChar" en="" id="12" ln="200" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="objeto_id" nu="1">
+        <DT ds="BigInt" en="" id="-5" ln="null" sc="null" sg="1"/>
+        <Cm>PK do objeto que sofreu a acao</Cm>
+      </Cl>
+      <Cl au="0" df="" nm="objeto_original" nu="1">
+        <DT ds="Text" en="" id="703" ln="null" sc="null" sg="1"/>
+        <Cm>Objeto serializado antes da acao</Cm>
+      </Cl>
+      <Cl au="0" df="" nm="objeto_modificado" nu="1">
+        <DT ds="Text" en="" id="703" ln="null" sc="null" sg="1"/>
+        <Cm>Objeto serializado apos a acao</Cm>
+      </Cl>
+      <Cl au="0" df="now()" nm="criacao" nu="0">
+        <DT ds="TimeStamp" en="" id="93" ln="null" sc="null" sg="1"/>
+        <Cm>Data e hora de criacao da acao, adicionado automaticamente</Cm>
+      </Cl>
+      <Fk deAc="3" nm="fk_logs_servidores" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="servidores" oe="1" sch="public" zr="0"/>
+        <CdTb mn="1" nm="logs" oe="1" sch="public" zr="1"/>
+        <ClPr cdCl="servidor_id" prCl="id"/>
+      </Fk>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="mensagens_suporte">
+      <Cm>Mensagens enviadas para o suporte técnico</Cm>
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="id" nm="pkmensagens_suporte"/>
+      <Cl au="1" df="nextval('mensagens_suporte_id_seq'::regclass)" nm="id" nu="0">
+        <DT ds="BigInt" en="" id="-5" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="assunto_mensagem_id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="tipo_mensagem_id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="nome" nu="0">
+        <DT ds="VarChar" en="" id="12" ln="100" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="orgao_id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="telefone" nu="0">
+        <DT ds="VarChar" en="" id="12" ln="15" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="email" nu="0">
+        <DT ds="VarChar" en="" id="12" ln="100" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="mensagem" nu="0">
+        <DT ds="Text" en="" id="703" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="data_cadastro" nu="0">
+        <DT ds="Date" en="" id="91" ln="null" sc="null" sg="1"/>
+        <Cm>now()</Cm>
+      </Cl>
+      <Cl au="0" df="false" nm="resolvido" nu="0">
+        <DT ds="Boolean" en="" id="16" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Fk deAc="3" nm="fk_mensagens_suporte_assuntos_mensagem" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="assuntos_mensagem" oe="1" sch="public" zr="0"/>
+        <CdTb mn="1" nm="mensagens_suporte" oe="1" sch="public" zr="1"/>
+        <ClPr cdCl="assunto_mensagem_id" prCl="id"/>
+      </Fk>
+      <Fk deAc="3" nm="fk_mensagens_suporte_orgaos" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="orgaos" oe="1" sch="public" zr="0"/>
+        <CdTb mn="1" nm="mensagens_suporte" oe="1" sch="public" zr="1"/>
+        <ClPr cdCl="orgao_id" prCl="id"/>
+      </Fk>
+      <Fk deAc="3" nm="fk_mensagens_suporte_tipos_mensagem" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="tipos_mensagem" oe="1" sch="public" zr="0"/>
+        <CdTb mn="1" nm="mensagens_suporte" oe="1" sch="public" zr="1"/>
+        <ClPr cdCl="tipo_mensagem_id" prCl="id"/>
+      </Fk>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="modulos">
+      <Cm>Modulos do sistema</Cm>
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="id" nm="pkmodulos"/>
+      <Cl au="1" df="nextval('modulos_id_seq'::regclass)" nm="id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="descricao" nu="0">
+        <DT ds="VarChar" en="" id="12" ln="100" sc="null" sg="1"/>
+      </Cl>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="naturezas">
+      <Cm>Cadastro das possiveis naturezas do processo</Cm>
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="id" nm="pknaturezas"/>
+      <Cl au="1" df="nextval('naturezas_id_seq'::regclass)" nm="id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="descricao" nu="0">
+        <DT ds="VarChar" en="" id="12" ln="200" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="true" nm="ativo" nu="0">
+        <DT ds="Boolean" en="" id="16" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="orgaos">
+      <Cm>Orgaos publicos do estado</Cm>
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="id" nm="pkorgaos"/>
+      <Cl au="1" df="nextval('orgaos_id_seq'::regclass)" nm="id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="codigo" nu="1">
+        <DT ds="VarChar" en="" id="12" ln="100" sc="null" sg="1"/>
+        <Cm>Codigo do orgao no cadastro estadual</Cm>
+      </Cl>
+      <Cl au="0" df="" nm="descricao" nu="1">
+        <DT ds="VarChar" en="" id="12" ln="200" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="sigla" nu="1">
+        <DT ds="VarChar" en="" id="12" ln="100" sc="null" sg="1"/>
+        <Cm>Sigla ou mnemonico do orgao</Cm>
+      </Cl>
+      <Cl au="0" df="true" nm="ativo" nu="0">
+        <DT ds="Boolean" en="" id="16" ln="null" sc="null" sg="1"/>
+        <Cm>Se o orgao esta ativo ou nao</Cm>
+      </Cl>
+      <Cl au="0" df="false" nm="externo" nu="0">
+        <DT ds="Boolean" en="" id="16" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="codigo_antigo" nu="1">
+        <DT ds="VarChar" en="" id="12" ln="100" sc="null" sg="1"/>
+        <Cm>Código do órgão no sistema do SGP</Cm>
+      </Cl>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="paralisacoes">
+      <Cm>Paralisacoes sofridas pelos processos. Serve para guardar o historico e obter informacoes no futuro.</Cm>
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="id" nm="pkparalisacoes"/>
+      <Cl au="1" df="nextval('paralisacoes_id_seq'::regclass)" nm="id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="processo_id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="motivo" nu="0">
+        <DT ds="Text" en="" id="703" ln="null" sc="null" sg="1"/>
+        <Cm>Motivo ou observacoes a respeito da paralisacao.</Cm>
+      </Cl>
+      <Cl au="0" df="now()" nm="data" nu="0">
+        <DT ds="TimeStamp" en="" id="93" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="setor_id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+        <Cm>Setor onde o processo foi paralisado</Cm>
+      </Cl>
+      <Cl au="0" df="" nm="servidor_id" nu="1">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="data_liberacao" nu="1">
+        <DT ds="TimeStamp" en="" id="93" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Fk deAc="3" nm="fk_paralisacoes_processos" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="processos" oe="1" sch="public" zr="0"/>
+        <CdTb mn="1" nm="paralisacoes" oe="1" sch="public" zr="1"/>
+        <ClPr cdCl="processo_id" prCl="id"/>
+      </Fk>
+      <Fk deAc="3" nm="fk_paralisacoes_servidores" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="servidores" oe="1" sch="public" zr="0"/>
+        <CdTb mn="1" nm="paralisacoes" oe="1" sch="public" zr="1"/>
+        <ClPr cdCl="servidor_id" prCl="id"/>
+      </Fk>
+      <Fk deAc="3" nm="fk_paralisacoes_setores" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="setores" oe="1" sch="public" zr="0"/>
+        <CdTb mn="1" nm="paralisacoes" oe="1" sch="public" zr="1"/>
+        <ClPr cdCl="setor_id" prCl="id"/>
+      </Fk>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="permissoes_grupo">
+      <Cm>Permissoes do grupo de usuario</Cm>
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="id" nm="pkpermissoes_grupo"/>
+      <Cl au="1" df="nextval('permissoes_grupo_id_seq'::regclass)" nm="id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="modulo_id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="grupo_usuario_id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Fk deAc="3" nm="fk_permissoes_grupo_grupos_usuario" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="grupos_usuario" oe="1" sch="public" zr="0"/>
+        <CdTb mn="1" nm="permissoes_grupo" oe="1" sch="public" zr="1"/>
+        <ClPr cdCl="grupo_usuario_id" prCl="id"/>
+      </Fk>
+      <Fk deAc="3" nm="fk_permissoes_grupo_niveis" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="modulos" oe="1" sch="public" zr="0"/>
+        <CdTb mn="1" nm="permissoes_grupo" oe="1" sch="public" zr="1"/>
+        <ClPr cdCl="modulo_id" prCl="id"/>
+      </Fk>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="permissoes_servidor">
+      <Cm>Permissoes que o servidor possui, independente do grupo de usuario ao qual ele pertence</Cm>
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="id" nm="pkpermissoes_servidor"/>
+      <Cl au="1" df="nextval('permissoes_servidor_id_seq'::regclass)" nm="id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="modulo_id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="servidor_id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Fk deAc="3" nm="fk_permissoes_servidor_niveis" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="modulos" oe="1" sch="public" zr="0"/>
+        <CdTb mn="1" nm="permissoes_servidor" oe="1" sch="public" zr="1"/>
+        <ClPr cdCl="modulo_id" prCl="id"/>
+      </Fk>
+      <Fk deAc="3" nm="fk_permissoes_servidor_servidores" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="servidores" oe="1" sch="public" zr="0"/>
+        <CdTb mn="1" nm="permissoes_servidor" oe="1" sch="public" zr="1"/>
+        <ClPr cdCl="servidor_id" prCl="id"/>
+      </Fk>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="processos">
+      <Cm>Guarda informacoes sobre os processos</Cm>
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="id" nm="pkprocessos"/>
+      <Cl au="1" df="nextval('processos_id_seq'::regclass)" nm="id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="interessado_id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="natureza_id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="servidor_id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="setor_id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+        <Cm>Setor em que o processo foi cadastrado. É importante manter este dado já que o servidor pode mudar de setor.</Cm>
+      </Cl>
+      <Cl au="0" df="" nm="situacao_id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="numero_orgao" nu="0">
+        <DT ds="VarChar" en="" id="12" ln="100" sc="null" sg="1"/>
+        <Cm>O numero do processo e: orgao-numero/ano</Cm>
+      </Cl>
+      <Cl au="0" df="" nm="numero_processo" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+        <Cm>O numero do processo e: orgao-numero/ano</Cm>
+      </Cl>
+      <Cl au="0" df="" nm="numero_ano" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+        <Cm>O numero do processo e: orgao-numero/ano</Cm>
+      </Cl>
+      <Cl au="0" df="" nm="titulo_assunto" nu="0">
+        <DT ds="VarChar" en="" id="12" ln="200" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="assunto" nu="0">
+        <DT ds="Text" en="" id="703" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="now()" nm="data_cadastro" nu="0">
+        <DT ds="TimeStamp" en="" id="93" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="false" nm="processo_externo" nu="0">
+        <DT ds="Boolean" en="" id="16" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="1" nm="volumes" nu="1">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+        <Cm>Quantidade de volumes do processo</Cm>
+      </Cl>
+      <Cl au="0" df="1" nm="paginas" nu="1">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+        <Cm>Número de páginas do processo</Cm>
+      </Cl>
+      <Cl au="0" df="" nm="documento_numero" nu="1">
+        <DT ds="VarChar" en="" id="12" ln="50" sc="null" sg="1"/>
+        <Cm>Número do documento (ofício, memorando etc) que gerou o processo</Cm>
+      </Cl>
+      <Fk deAc="3" nm="fk_processos_interessados" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="interessados" oe="1" sch="public" zr="0"/>
+        <CdTb mn="1" nm="processos" oe="1" sch="public" zr="1"/>
+        <ClPr cdCl="interessado_id" prCl="id"/>
+      </Fk>
+      <Fk deAc="3" nm="fk_processos_naturezas" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="naturezas" oe="1" sch="public" zr="0"/>
+        <CdTb mn="1" nm="processos" oe="1" sch="public" zr="1"/>
+        <ClPr cdCl="natureza_id" prCl="id"/>
+      </Fk>
+      <Fk deAc="3" nm="fk_processos_servidores" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="servidores" oe="1" sch="public" zr="0"/>
+        <CdTb mn="1" nm="processos" oe="1" sch="public" zr="1"/>
+        <ClPr cdCl="servidor_id" prCl="id"/>
+      </Fk>
+      <Fk deAc="3" nm="fk_processos_setores" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="setores" oe="1" sch="public" zr="0"/>
+        <CdTb mn="1" nm="processos" oe="1" sch="public" zr="1"/>
+        <ClPr cdCl="setor_id" prCl="id"/>
+      </Fk>
+      <Fk deAc="3" nm="fk_processos_situacoes" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="situacoes" oe="1" sch="public" zr="0"/>
+        <CdTb mn="1" nm="processos" oe="1" sch="public" zr="1"/>
+        <ClPr cdCl="situacao_id" prCl="id"/>
+      </Fk>
+      <Idx clu="0" nm="idx_numero_processo_numero_orgao_numero_ano" unq="0">
+        <ClNs>numero_orgao, numero_processo, numero_ano</ClNs>
+      </Idx>
+      <Idx clu="0" nm="idx_unique_numero_processo_numero_orgao_numero_ano" unq="1">
+        <ClNs>numero_orgao, numero_processo, numero_ano</ClNs>
+      </Idx>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="processos_anexos">
+      <Cm>Guarda informacoes sobre anexacao de processos</Cm>
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="id" nm="pkprocessos_anexos"/>
+      <Cl au="1" df="nextval('processos_anexos_id_seq'::regclass)" nm="id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="processo_principal_id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="processo_anexo_id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="true" nm="ativo" nu="0">
+        <DT ds="Boolean" en="" id="16" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Fk deAc="3" nm="fk_processos_anexos_processos_anexo" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="processos" oe="1" sch="public" zr="0"/>
+        <CdTb mn="1" nm="processos_anexos" oe="1" sch="public" zr="1"/>
+        <ClPr cdCl="processo_anexo_id" prCl="id"/>
+      </Fk>
+      <Fk deAc="3" nm="fk_processos_anexos_processos_principal" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="processos" oe="1" sch="public" zr="0"/>
+        <CdTb mn="1" nm="processos_anexos" oe="1" sch="public" zr="1"/>
+        <ClPr cdCl="processo_principal_id" prCl="id"/>
+      </Fk>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="servidores">
+      <Cm>Servidores estaduais</Cm>
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="id" nm="pkservidores"/>
+      <Cl au="1" df="nextval('servidores_id_seq'::regclass)" nm="id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="setor_id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+        <Cm>Setor ao qual o servidor esta atrelado</Cm>
+      </Cl>
+      <Cl au="0" df="" nm="grupo_usuario_id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+        <Cm>Grupo ao qual o servidor pertence</Cm>
+      </Cl>
+      <Cl au="0" df="" nm="cargo_id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="nome" nu="0">
+        <DT ds="VarChar" en="" id="12" ln="200" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="cpf" nu="0">
+        <DT ds="VarChar" en="" id="12" ln="14" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="matricula" nu="0">
+        <DT ds="VarChar" en="" id="12" ln="50" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="login" nu="0">
+        <DT ds="VarChar" en="" id="12" ln="50" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="senha" nu="0">
+        <DT ds="VarChar" en="" id="12" ln="100" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="true" nm="ativo" nu="0">
+        <DT ds="Boolean" en="" id="16" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="now()" nm="data_cadastro" nu="0">
+        <DT ds="Date" en="" id="91" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="data_permissao_inicio" nu="1">
+        <DT ds="Date" en="" id="91" ln="null" sc="null" sg="1"/>
+        <Cm>Se estiver preenchido, este campo define a partir de que data o servidor tem acesso ao sistema</Cm>
+      </Cl>
+      <Cl au="0" df="" nm="data_permissao_fim" nu="1">
+        <DT ds="Date" en="" id="91" ln="null" sc="null" sg="1"/>
+        <Cm>Se estiver preenchido, este campo define ate qual data o servidor tem acesso ao sistema</Cm>
+      </Cl>
+      <Fk deAc="3" nm="fk_servidores_cargos" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="cargos" oe="1" sch="public" zr="0"/>
+        <CdTb mn="1" nm="servidores" oe="1" sch="public" zr="1"/>
+        <ClPr cdCl="cargo_id" prCl="id"/>
+      </Fk>
+      <Fk deAc="3" nm="fk_servidores_grupos_usuario" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="grupos_usuario" oe="1" sch="public" zr="0"/>
+        <CdTb mn="1" nm="servidores" oe="1" sch="public" zr="1"/>
+        <ClPr cdCl="grupo_usuario_id" prCl="id"/>
+      </Fk>
+      <Fk deAc="3" nm="fk_servidores_setores" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="setores" oe="1" sch="public" zr="0"/>
+        <CdTb mn="1" nm="servidores" oe="1" sch="public" zr="1"/>
+        <ClPr cdCl="setor_id" prCl="id"/>
+      </Fk>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="setores">
+      <Cm>Setores dos orgaos</Cm>
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="id" nm="pksetores"/>
+      <Cl au="1" df="nextval('setores_id_seq'::regclass)" nm="id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="orgao_id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+        <Cm>Orgao ao qual o setor pertence</Cm>
+      </Cl>
+      <Cl au="0" df="" nm="sigla" nu="1">
+        <DT ds="VarChar" en="" id="12" ln="100" sc="null" sg="1"/>
+        <Cm>Mnemonico ou sigla para o setor</Cm>
+      </Cl>
+      <Cl au="0" df="" nm="descricao" nu="1">
+        <DT ds="VarChar" en="" id="12" ln="200" sc="null" sg="1"/>
+        <Cm>Descricao ou nome do setor</Cm>
+      </Cl>
+      <Cl au="0" df="true" nm="ativo" nu="0">
+        <DT ds="Boolean" en="" id="16" ln="null" sc="null" sg="1"/>
+        <Cm>Se esta ativo ou nao</Cm>
+      </Cl>
+      <Cl au="0" df="false" nm="permite_divisao" nu="1">
+        <DT ds="Boolean" en="" id="16" ln="null" sc="null" sg="1"/>
+        <Cm>Define se o setor permite que o processo seja dividido entre os servidores</Cm>
+      </Cl>
+      <Fk deAc="3" nm="fk_setores_orgaos" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="orgaos" oe="1" sch="public" zr="0"/>
+        <CdTb mn="1" nm="setores" oe="1" sch="public" zr="1"/>
+        <ClPr cdCl="orgao_id" prCl="id"/>
+      </Fk>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="setores_servidores">
+      <Cm>Setores pelos quais um servidor pode responder, além do setor principal (associado diretamente à tabela de servidores)</Cm>
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="id" nm="pksetores_servidores"/>
+      <Cl au="1" df="nextval('setores_servidores_id_seq'::regclass)" nm="id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="setor_id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="servidor_id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Fk deAc="3" nm="fk_setores_servidores_servidores" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="servidores" oe="1" sch="public" zr="0"/>
+        <CdTb mn="1" nm="setores_servidores" oe="1" sch="public" zr="1"/>
+        <ClPr cdCl="servidor_id" prCl="id"/>
+      </Fk>
+      <Fk deAc="3" nm="fk_setores_servidores_setores" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="setores" oe="1" sch="public" zr="0"/>
+        <CdTb mn="1" nm="setores_servidores" oe="1" sch="public" zr="1"/>
+        <ClPr cdCl="setor_id" prCl="id"/>
+      </Fk>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="situacoes">
+      <Cm>Situacoes do processo</Cm>
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="id" nm="pksituacoes"/>
+      <Cl au="1" df="nextval('situacoes_id_seq'::regclass)" nm="id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="descricao" nu="0">
+        <DT ds="VarChar" en="" id="12" ln="100" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="sigla" nu="0">
+        <DT ds="Char" en="" id="1" ln="1" sc="null" sg="1"/>
+      </Cl>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="tipos_interessado">
+      <Cm>Tipos de interessado (Pessoa Fisica, Juridica etc)</Cm>
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="id" nm="pktipos_interessado"/>
+      <Cl au="1" df="nextval('tipos_interessado_id_seq'::regclass)" nm="id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="descricao" nu="0">
+        <DT ds="VarChar" en="" id="12" ln="50" sc="null" sg="1"/>
+      </Cl>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="tipos_mensagem">
+      <Cm>Tipos de mensagem (dúvida, sugestão, reclamação)</Cm>
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="id" nm="pktipos_mensagem"/>
+      <Cl au="1" df="nextval('tipos_mensagem_id_seq'::regclass)" nm="id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="descricao" nu="0">
+        <DT ds="VarChar" en="" id="12" ln="150" sc="null" sg="1"/>
+      </Cl>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="tramites">
+      <Cm>Tramitacoes do processo</Cm>
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="id" nm="pktramites"/>
+      <Cl au="1" df="nextval('tramites_id_seq'::regclass)" nm="id" nu="0">
+        <DT ds="BigInt" en="" id="-5" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="processo_id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="setor_origem_id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="servidor_origem_id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+        <Cm>Servidor que cadastrou o tramite</Cm>
+      </Cl>
+      <Cl au="0" df="now()" nm="data_tramite" nu="0">
+        <DT ds="TimeStamp" en="" id="93" ln="null" sc="null" sg="1"/>
+        <Cm>Data de cadastro do tramite</Cm>
+      </Cl>
+      <Cl au="0" df="" nm="setor_recebimento_id" nu="1">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="servidor_recebimento_id" nu="1">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+        <Cm>Servidor que recebeu o processo</Cm>
+      </Cl>
+      <Cl au="0" df="" nm="data_recebimento" nu="1">
+        <DT ds="TimeStamp" en="" id="93" ln="null" sc="null" sg="1"/>
+        <Cm>Data de recebimento do processo</Cm>
+      </Cl>
+      <Cl au="0" df="false" nm="flag_recebimento" nu="0">
+        <DT ds="Boolean" en="" id="16" ln="null" sc="null" sg="1"/>
+        <Cm>Se o processo foi recebido no destino ou nao</Cm>
+      </Cl>
+      <Cl au="0" df="" nm="numero_folhas" nu="1">
+        <DT ds="SmallInt" en="" id="5" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="observacoes" nu="1">
+        <DT ds="Text" en="" id="703" ln="null" sc="null" sg="1"/>
+        <Cm>Observações acerca do trâmite/processo</Cm>
+      </Cl>
+      <Fk deAc="3" nm="fk_tramites_processos" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="processos" oe="1" sch="public" zr="0"/>
+        <CdTb mn="1" nm="tramites" oe="1" sch="public" zr="1"/>
+        <ClPr cdCl="processo_id" prCl="id"/>
+      </Fk>
+      <Fk deAc="3" nm="fk_tramites_servidores" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="servidores" oe="1" sch="public" zr="0"/>
+        <CdTb mn="1" nm="tramites" oe="1" sch="public" zr="1"/>
+        <ClPr cdCl="servidor_origem_id" prCl="id"/>
+      </Fk>
+      <Fk deAc="3" nm="fk_tramites_servidores_recebimento" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="servidores" oe="1" sch="public" zr="1"/>
+        <CdTb mn="1" nm="tramites" oe="1" sch="public" zr="1"/>
+        <ClPr cdCl="servidor_recebimento_id" prCl="id"/>
+      </Fk>
+      <Fk deAc="3" nm="fk_tramites_setores_origem" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="setores" oe="1" sch="public" zr="0"/>
+        <CdTb mn="1" nm="tramites" oe="1" sch="public" zr="1"/>
+        <ClPr cdCl="setor_origem_id" prCl="id"/>
+      </Fk>
+      <Fk deAc="3" nm="fk_tramites_setores_recebimento" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="setores" oe="1" sch="public" zr="1"/>
+        <CdTb mn="1" nm="tramites" oe="1" sch="public" zr="1"/>
+        <ClPr cdCl="setor_recebimento_id" prCl="id"/>
+      </Fk>
+      <Idx clu="0" nm="idx_tramites_processo_id" unq="0">
+        <ClNs>processo_id</ClNs>
+      </Idx>
+      <SchTrHis/>
+    </Tbl>
+    <Proc nm="public.inserir_arquivamentos()">
+      <src>CREATE FUNCTION public.inserir_arquivamentos() 
+ RETURNS integer AS 
+$BODY$
+DECLARE
+    arquivamento RECORD;
+    processo_itec processos.id%TYPE;  
+    setor processos.id%TYPE; 
+    contador INTEGER;
+BEGIN
+contador:=0;
+-- BUSCA PROCESSO ANEXOS DA UNCISAL
+    FOR arquivamento in SELECT * from sipa_uncisal.arquivamentos ORDER BY processo_id ASC LOOP
+    contador := contador + 1;    
+
+        SELECT id into processo_itec FROM processos where id_uncisal = arquivamento.processo_id LIMIT 1;
+    SELECT id INTO setor FROM setores WHERE id_uncisal = arquivamento.setor_id LIMIT 1;
+
+    INSERT INTO arquivamentos (processo_id,setor_id,motivo,data,data_desarquivamento,motivo_desarquivamento) VALUES (processo_itec,setor,arquivamento.motivo,arquivamento.data,arquivamento.data_desarquivamento,arquivamento.motivo_desarquivamento);
+
+    RAISE NOTICE 'QUANTIDADE PROCESSADA: %', contador;
+
+    END LOOP;
+
+    RETURN 1;
+END
+$BODY$
+ LANGUAGE 'plpgsql' VOLATILE;</src>
+    </Proc>
+    <Proc nm="public.inserir_paralisacoes()">
+      <src>CREATE FUNCTION public.inserir_paralisacoes() 
+ RETURNS integer AS 
+$BODY$
+DECLARE
+    paralisacao RECORD;
+    processo_itec processos.id%TYPE;  
+    setor processos.id%TYPE; 
+    contador INTEGER;
+BEGIN
+contador:=0;
+-- BUSCA PROCESSO ANEXOS DA UNCISAL
+    FOR paralisacao in SELECT * from sipa_uncisal.paralisacoes ORDER BY processo_id ASC LOOP
+    contador := contador + 1;    
+
+        SELECT id into processo_itec FROM processos where id_uncisal = paralisacao.processo_id LIMIT 1;
+    SELECT id INTO setor FROM setores WHERE id_uncisal = paralisacao.setor_id LIMIT 1;
+
+    INSERT INTO paralisacoes (processo_id,motivo,data,setor_id) VALUES (processo_itec,paralisacao.motivo,paralisacao.data,setor);
+
+    RAISE NOTICE 'QUANTIDADE PROCESSADA: %', contador;
+
+    END LOOP;
+
+    RETURN 1;
+END
+$BODY$
+ LANGUAGE 'plpgsql' VOLATILE;</src>
+    </Proc>
+    <Proc nm="public.inserir_processos()">
+      <src>CREATE FUNCTION public.inserir_processos() 
+ RETURNS integer AS 
+$BODY$
+DECLARE
+    processo_uncisal RECORD;
+    verificacao processos.id%TYPE;
+    servidor_uncisal RECORD;
+    natureza_uncisal RECORD;
+    interessado_uncisal RECORD;
+    setor_uncisal RECORD;
+    orgao_uncisal RECORD;
+    novo_numero_orgao processos.numero_orgao%TYPE;
+BEGIN
+
+    CREATE INDEX idx_naturezas_id_uncisal ON naturezas (id_uncisal);
+    CREATE INDEX idx_setores_id_uncisal ON setores (id_uncisal);
+    CREATE INDEX idx_servidores_id_uncisal ON servidores (id_uncisal);
+    CREATE INDEX idx_interessados_id_uncisal ON interessados (id_uncisal);
+
+/************************************************************************************************/
+    FOR processo_uncisal IN SELECT * FROM sipa_uncisal.processos LOOP
+
+/*-- Verifica se já existe processo com número igual*/
+
+        SELECT id INTO verificacao 
+        FROM processos 
+        WHERE (numero_orgao = processo_uncisal.numero_orgao OR numero_orgao||'0' = processo_uncisal.numero_orgao) 
+    AND numero_processo = processo_uncisal.numero_processo 
+    AND numero_ano = processo_uncisal.numero_ano;
+
+    IF (verificacao IS NULL) THEN
+
+    ----CASO NAO EXISTA O PROCESSO: INSERIR NA BASE DO ITEC
+
+        --Seleciona id do setor criado no itec
+        SELECT id INTO setor_uncisal FROM setores where id_uncisal = processo_uncisal.setor_id ORDER BY id desc LIMIT 1;
+
+        --Seleciona id do servidor criado no itec
+        SELECT id INTO servidor_uncisal FROM servidores where id_uncisal = processo_uncisal.servidor_id ORDER BY id desc LIMIT 1;
+
+        --Seleciona id da natureza criada no itec
+        SELECT id INTO natureza_uncisal FROM naturezas where id_uncisal = processo_uncisal.natureza_id ORDER BY id desc LIMIT 1;
+
+        --Seleciona id do interessado criado no itec
+        SELECT id INTO interessado_uncisal FROM interessados where id_uncisal = processo_uncisal.interessado_id ORDER BY id desc LIMIT 1;
+
+        --CORRIGE NUMERO DO ORGAO; pegar numero do orgao no itec com id_da uncisal
+        SELECT codigo into novo_numero_orgao from orgaos where (codigo||'0' =  processo_uncisal.numero_orgao or codigo = processo_uncisal.numero_orgao) LIMIT 1;
+        IF (novo_numero_orgao is NULL) then        
+            novo_numero_orgao = '4101';        
+        END IF;
+
+        INSERT INTO processos     (interessado_id,natureza_id,servidor_id,setor_id,situacao_id,numero_orgao,numero_processo,numero_ano,titulo_assunto,assunto,data_cadastro,processo_externo,volumes,paginas,documento_numero,id_uncisal)
+VALUES (interessado_uncisal.id, natureza_uncisal.id, servidor_uncisal.id, setor_uncisal.id, processo_uncisal.situacao_id, novo_numero_orgao,processo_uncisal.numero_processo, 
+    processo_uncisal.numero_ano, processo_uncisal.titulo_assunto, processo_uncisal.assunto, processo_uncisal.data_cadastro, processo_uncisal.processo_externo, processo_uncisal.volumes, 
+    processo_uncisal.paginas,processo_uncisal.documento_numero,processo_uncisal.id);
+
+        RAISE NOTICE 'PROCESSO INSERIDO = "%"', processo_uncisal.id;
+    ELSE
+        --CASO EXISTE O PROCESSO: SETAR para processo INTERNO caso     
+    UPDATE processos set processo_externo = 'f' where id = verificacao;
+        RAISE NOTICE 'PROCESSO ATUALIZADO';
+
+    END IF;
+    RAISE NOTICE 'Processo com o id = "%"', verificacao;
+
+    END LOOP;
+
+    DROP INDEX idx_naturezas_id_uncisal;
+    DROP INDEX idx_setores_id_uncisal;
+    DROP INDEX idx_servidores_id_uncisal;
+    DROP INDEX idx_interessados_id_uncisal;
+
+    RETURN 1;
+END
+$BODY$
+ LANGUAGE 'plpgsql' VOLATILE;</src>
+    </Proc>
+    <Proc nm="public.inserir_processos_anexos()">
+      <src>CREATE FUNCTION public.inserir_processos_anexos() 
+ RETURNS integer AS 
+$BODY$
+DECLARE
+    processo RECORD;
+    processo_principal processos.id%TYPE;    
+    processo_anexo processos.id%TYPE;
+    contador INTEGER;
+BEGIN
+contador:=0;
+-- BUSCA PROCESSO ANEXOS DA UNCISAL
+    FOR processo in SELECT * from sipa_uncisal.processos_anexos ORDER BY processo_principal_id ASC LOOP
+    contador := contador + 1;    
+        SELECT id into processo_principal FROM processos where id_uncisal = processo.processo_principal_id;
+        SELECT id into processo_anexo FROM processos where id_uncisal = processo.processo_anexo_id;
+
+    INSERT INTO processos_anexos (processo_principal_id,processo_anexo_id) VALUES (processo_principal,processo_anexo);
+
+    RAISE NOTICE 'QUANTIDADE PROCESSADA: %', contador;
+
+    END LOOP;
+
+    RETURN 1;
+END
+$BODY$
+ LANGUAGE 'plpgsql' VOLATILE;</src>
+    </Proc>
+    <Proc nm="public.inserir_setores_servidores()">
+      <src>CREATE FUNCTION public.inserir_setores_servidores() 
+ RETURNS integer AS 
+$BODY$
+DECLARE
+    setor_servidor RECORD;
+    setor setores.id%TYPE;    
+    servidor servidores.id%TYPE;
+    contador INTEGER;
+BEGIN
+contador:=0;
+-- BUSCA PROCESSO ANEXOS DA UNCISAL
+    FOR setor_servidor in SELECT * from sipa_uncisal.setores_servidores LOOP
+    contador:=contador+1;    
+        SELECT id into setor FROM setores where id_uncisal = setor_servidor.setor_id;
+        SELECT id into servidor FROM servidores where id_uncisal = setor_servidor.servidor_id;
+
+    INSERT INTO setores_servidores (setor_id,servidor_id) VALUES (setor,servidor);
+
+    RAISE NOTICE 'QUANTIDADE PROCESSADA: %', contador;
+
+    END LOOP;
+
+    RETURN 1;
+END
+$BODY$
+ LANGUAGE 'plpgsql' VOLATILE;</src>
+    </Proc>
+    <Proc nm="public.inserir_tramites()">
+      <src>CREATE FUNCTION public.inserir_tramites() 
+ RETURNS integer AS 
+$BODY$
+DECLARE
+    processo RECORD;
+    tramite RECORD;
+    setorOrigem tramites.setor_origem_id%TYPE;    
+    setorRecebimento tramites.setor_origem_id%TYPE;
+    servidorOrigem tramites.setor_origem_id%TYPE;
+    servidorRecebimento tramites.setor_origem_id%TYPE;
+BEGIN
+
+--criando indices
+CREATE INDEX idx_setores_id_uncisal ON setores (id_uncisal);
+CREATE INDEX idx_servidores_id_uncisal ON servidores (id_uncisal);
+CREATE INDEX idx_processos_id_uncisal ON processos (id_uncisal);
+CREATE INDEX idx_tramites_processo_id ON sipa_uncisal.tramites (processo_id);
+
+    --Para cada processo importado da uncisal
+    FOR processo IN SELECT id,numero_orgao,numero_processo,numero_ano,id_uncisal FROM processos WHERE id_uncisal is not null ORDER BY id LOOP
+
+        RAISE NOTICE 'processo: %-%/%id=%/id_uncisal=%', processo.numero_orgao, processo.numero_processo, processo.numero_ano, processo.id,processo.id_uncisal;
+
+        FOR tramite IN SELECT * FROM sipa_uncisal.tramites WHERE processo_id = processo.id_uncisal LOOP
+            SELECT id INTO setorOrigem FROM setores WHERE id_uncisal = tramite.setor_origem_id;
+            SELECT id INTO setorRecebimento FROM setores WHERE id_uncisal = tramite.setor_recebimento_id;
+            SELECT id INTO servidorOrigem FROM servidores WHERE id_uncisal = tramite.servidor_origem_id;
+            SELECT id INTO servidorRecebimento FROM servidores WHERE id_uncisal = tramite.servidor_recebimento_id;    
+
+            INSERT INTO tramites (processo_id, setor_origem_id, servidor_origem_id, data_tramite, setor_recebimento_id, servidor_recebimento_id, data_recebimento, flag_recebimento, observacoes) 
+VALUES (processo.id, setorOrigem, servidorOrigem, tramite.data_tramite, setorRecebimento, servidorRecebimento, tramite.data_recebimento, tramite.flag_recebimento, 'PROCESSO IMPORTADO DA UNCISAL');
+
+            RAISE NOTICE 'tramite: %', tramite.data_tramite;
+
+        END LOOP;
+    END LOOP;
+
+DROP INDEX idx_setores_id_uncisal;
+DROP INDEX idx_servidores_id_uncisal;
+DROP INDEX idx_processos_id_uncisal;
+DROP INDEX sipa_uncisal.idx_tramites_processo_id;
+
+    RETURN 1;
+END
+$BODY$
+ LANGUAGE 'plpgsql' VOLATILE;</src>
+    </Proc>
+    <Seq incr="1" nm="arquivamentos_id_seq"/>
+    <Seq incr="1" nm="assuntos_mensagem_id_seq"/>
+    <Seq incr="1" nm="cargos_id_seq"/>
+    <Seq incr="1" nm="divisoes_id_seq"/>
+    <Seq incr="1" nm="emails_suporte_id_seq"/>
+    <Seq incr="1" nm="etiquetas_id_seq"/>
+    <Seq incr="1" nm="grupos_usuario_id_seq"/>
+    <Seq incr="1" nm="historico_devolucoes_id_seq"/>
+    <Seq incr="1" nm="historico_divisoes_id_seq"/>
+    <Seq incr="1" nm="interessados_id_seq"/>
+    <Seq incr="1" nm="logs_id_seq"/>
+    <Seq incr="1" nm="mensagens_suporte_id_seq"/>
+    <Seq incr="1" nm="modulos_id_seq"/>
+    <Seq incr="1" nm="naturezas_id_seq"/>
+    <Seq incr="1" nm="orgaos_id_seq"/>
+    <Seq incr="1" nm="paralisacoes_id_seq"/>
+    <Seq incr="1" nm="permissoes_grupo_id_seq"/>
+    <Seq incr="1" nm="permissoes_servidor_id_seq"/>
+    <Seq incr="1" nm="processos_anexos_id_seq"/>
+    <Seq incr="1" nm="processos_id_seq"/>
+    <Seq incr="1" nm="servidores_id_seq"/>
+    <Seq incr="1" nm="setores_id_seq"/>
+    <Seq incr="1" nm="setores_servidores_id_seq"/>
+    <Seq incr="1" nm="situacoes_id_seq"/>
+    <Seq incr="1" nm="tipos_interessado_id_seq"/>
+    <Seq incr="1" nm="tipos_mensagem_id_seq"/>
+    <Seq incr="1" nm="tipos_tramite_id_seq"/>
+    <Seq incr="1" nm="tramites_id_seq"/>
+  </Sch>
+  <Sch Cm="" nm="sipa_uncisal">
+    <Tbl UsSo="1" nm="arquivamentos">
+      <Cm>Guarda historico de arquivamentos dos processos</Cm>
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="id" nm="pkarquivamentos"/>
+      <Cl au="1" df="nextval('sipa_uncisal.arquivamentos_id_seq'::regclass)" nm="id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="processo_id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="setor_id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+        <Cm>Setor onde o processo foi arquivado</Cm>
+      </Cl>
+      <Cl au="0" df="" nm="motivo" nu="0">
+        <DT ds="Text" en="" id="703" ln="null" sc="null" sg="1"/>
+        <Cm>Motivo ou observacoes a respeito do arquivamento.</Cm>
+      </Cl>
+      <Cl au="0" df="now()" nm="data" nu="0">
+        <DT ds="TimeStamp" en="" id="93" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="data_desarquivamento" nu="1">
+        <DT ds="TimeStamp" en="" id="93" ln="null" sc="null" sg="1"/>
+        <Cm>Data em que o processo foi desarquivado.</Cm>
+      </Cl>
+      <Cl au="0" df="" nm="motivo_desarquivamento" nu="1">
+        <DT ds="Text" en="" id="703" ln="null" sc="null" sg="1"/>
+        <Cm>Motivo do desarquivamento.</Cm>
+      </Cl>
+      <Fk deAc="3" nm="fk_arquivamentos_processos" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="processos" oe="1" sch="sipa_uncisal" zr="0"/>
+        <CdTb mn="1" nm="arquivamentos" oe="1" sch="sipa_uncisal" zr="1"/>
+        <ClPr cdCl="processo_id" prCl="id"/>
+      </Fk>
+      <Fk deAc="3" nm="fk_arquivamentos_setores" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="setores" oe="1" sch="sipa_uncisal" zr="0"/>
+        <CdTb mn="1" nm="arquivamentos" oe="1" sch="sipa_uncisal" zr="1"/>
+        <ClPr cdCl="setor_id" prCl="id"/>
+      </Fk>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="assuntos_mensagem">
+      <Cm>Assuntos da mensagem</Cm>
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="id" nm="pkassuntos_mensagem"/>
+      <Cl au="1" df="nextval('sipa_uncisal.assuntos_mensagem_id_seq'::regclass)" nm="id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="descricao" nu="0">
+        <DT ds="VarChar" en="" id="12" ln="150" sc="null" sg="1"/>
+      </Cl>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="cargos">
+      <Cm>Cargos do funcionario</Cm>
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="id" nm="pkcargos"/>
+      <Cl au="1" df="nextval('sipa_uncisal.cargos_id_seq'::regclass)" nm="id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="descricao" nu="0">
+        <DT ds="VarChar" en="" id="12" ln="200" sc="null" sg="1"/>
+      </Cl>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="divisoes">
+      <Cm>O processo pode ser dividido para varios servidores</Cm>
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="id" nm="pkdivisoes"/>
+      <Cl au="1" df="nextval('sipa_uncisal.divisoes_id_seq'::regclass)" nm="id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="processo_id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="servidor_id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Fk deAc="3" nm="fk_divisoes_processos" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="processos" oe="1" sch="sipa_uncisal" zr="0"/>
+        <CdTb mn="1" nm="divisoes" oe="1" sch="sipa_uncisal" zr="1"/>
+        <ClPr cdCl="processo_id" prCl="id"/>
+      </Fk>
+      <Fk deAc="3" nm="fk_divisoes_servidores" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="servidores" oe="1" sch="sipa_uncisal" zr="0"/>
+        <CdTb mn="1" nm="divisoes" oe="1" sch="sipa_uncisal" zr="1"/>
+        <ClPr cdCl="servidor_id" prCl="id"/>
+      </Fk>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="emails_suporte">
+      <Cm>Endereços de email do suporte - as mensagens deverão ser enviadas para todos os e-mails cadastrados</Cm>
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="id" nm="pkemails_suporte"/>
+      <Cl au="1" df="nextval('sipa_uncisal.emails_suporte_id_seq'::regclass)" nm="id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="descricao" nu="0">
+        <DT ds="VarChar" en="" id="12" ln="150" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="email" nu="0">
+        <DT ds="VarChar" en="" id="12" ln="100" sc="null" sg="1"/>
+      </Cl>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="etiquetas">
+      <Cm>Configurações de etiquetas disponíveis</Cm>
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="id" nm="pketiquetas"/>
+      <Cl au="1" df="nextval('sipa_uncisal.etiquetas_id_seq'::regclass)" nm="id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="descricao" nu="0">
+        <DT ds="VarChar" en="" id="12" ln="100" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="linhas" nu="0">
+        <DT ds="SmallInt" en="" id="5" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="margem_esquerda" nu="0">
+        <DT ds="Numeric" en="" id="2" ln="5" sc="2" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="margem_superior" nu="0">
+        <DT ds="Numeric" en="" id="2" ln="5" sc="2" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="largura" nu="0">
+        <DT ds="Numeric" en="" id="2" ln="6" sc="2" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="altura" nu="0">
+        <DT ds="Numeric" en="" id="2" ln="6" sc="2" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="margem_entre_etiquetas" nu="0">
+        <DT ds="Numeric" en="" id="2" ln="5" sc="2" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="altura_texto" nu="0">
+        <DT ds="Numeric" en="" id="2" ln="5" sc="2" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="margem_seguranca_lateral" nu="0">
+        <DT ds="Numeric" en="" id="2" ln="5" sc="2" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="margem_seguranca_superior" nu="0">
+        <DT ds="Numeric" en="" id="2" ln="5" sc="2" sg="1"/>
+      </Cl>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="grupos_usuario">
+      <Cm>Grupos de usuario para definicao de permissoes</Cm>
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="id" nm="pkgrupos_usuario"/>
+      <Cl au="1" df="nextval('sipa_uncisal.grupos_usuario_id_seq'::regclass)" nm="id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="descricao" nu="0">
+        <DT ds="VarChar" en="" id="12" ln="100" sc="null" sg="1"/>
+      </Cl>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="interessados">
+      <Cm>Cadastro de interessados</Cm>
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="id" nm="pkinteressados"/>
+      <Cl au="1" df="nextval('sipa_uncisal.interessados_id_seq'::regclass)" nm="id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="tipo_interessado_id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="nome" nu="0">
+        <DT ds="VarChar" en="" id="12" ln="150" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="cpf_cnpj" nu="1">
+        <DT ds="VarChar" en="" id="12" ln="18" sc="null" sg="1"/>
+        <Cm>CPF ou CNPJ do interessado</Cm>
+      </Cl>
+      <Cl au="0" df="" nm="matricula" nu="1">
+        <DT ds="VarChar" en="" id="12" ln="50" sc="null" sg="1"/>
+      </Cl>
+      <Fk deAc="3" nm="fk_interessados_tipos_interessado" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="tipos_interessado" oe="1" sch="sipa_uncisal" zr="0"/>
+        <CdTb mn="1" nm="interessados" oe="1" sch="sipa_uncisal" zr="1"/>
+        <ClPr cdCl="tipo_interessado_id" prCl="id"/>
+      </Fk>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="logs">
+      <Cm>Guarda historico das principais acoes dos servidores no sistema para auditoria</Cm>
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="id" nm="pklogs"/>
+      <Cl au="1" df="nextval('sipa_uncisal.logs_id_seq'::regclass)" nm="id" nu="0">
+        <DT ds="BigInt" en="" id="-5" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="acao" nu="0">
+        <DT ds="VarChar" en="" id="12" ln="100" sc="null" sg="1"/>
+        <Cm>Acao efetuada (Login, Cadastro, Atualizacao)</Cm>
+      </Cl>
+      <Cl au="0" df="" nm="servidor_id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+        <Cm>Servidor que efetuou a acao</Cm>
+      </Cl>
+      <Cl au="0" df="" nm="entidade" nu="0">
+        <DT ds="VarChar" en="" id="12" ln="200" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="objeto_id" nu="1">
+        <DT ds="BigInt" en="" id="-5" ln="null" sc="null" sg="1"/>
+        <Cm>PK do objeto que sofreu a acao</Cm>
+      </Cl>
+      <Cl au="0" df="" nm="objeto_original" nu="1">
+        <DT ds="Text" en="" id="703" ln="null" sc="null" sg="1"/>
+        <Cm>Objeto serializado antes da acao</Cm>
+      </Cl>
+      <Cl au="0" df="" nm="objeto_modificado" nu="1">
+        <DT ds="Text" en="" id="703" ln="null" sc="null" sg="1"/>
+        <Cm>Objeto serializado apos a acao</Cm>
+      </Cl>
+      <Cl au="0" df="now()" nm="criacao" nu="0">
+        <DT ds="TimeStamp" en="" id="93" ln="null" sc="null" sg="1"/>
+        <Cm>Data e hora de criacao da acao, adicionado automaticamente</Cm>
+      </Cl>
+      <Fk deAc="3" nm="fk_logs_servidores" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="servidores" oe="1" sch="sipa_uncisal" zr="0"/>
+        <CdTb mn="1" nm="logs" oe="1" sch="sipa_uncisal" zr="1"/>
+        <ClPr cdCl="servidor_id" prCl="id"/>
+      </Fk>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="mensagens_suporte">
+      <Cm>Mensagens enviadas para o suporte técnico</Cm>
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="id" nm="pkmensagens_suporte"/>
+      <Cl au="1" df="nextval('sipa_uncisal.mensagens_suporte_id_seq'::regclass)" nm="id" nu="0">
+        <DT ds="BigInt" en="" id="-5" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="assunto_mensagem_id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="tipo_mensagem_id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="nome" nu="0">
+        <DT ds="VarChar" en="" id="12" ln="100" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="orgao_id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="telefone" nu="0">
+        <DT ds="VarChar" en="" id="12" ln="15" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="email" nu="0">
+        <DT ds="VarChar" en="" id="12" ln="100" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="mensagem" nu="0">
+        <DT ds="Text" en="" id="703" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="data_cadastro" nu="0">
+        <DT ds="Date" en="" id="91" ln="null" sc="null" sg="1"/>
+        <Cm>now()</Cm>
+      </Cl>
+      <Cl au="0" df="false" nm="resolvido" nu="0">
+        <DT ds="Boolean" en="" id="16" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Fk deAc="3" nm="fk_mensagens_suporte_assuntos_mensagem" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="assuntos_mensagem" oe="1" sch="sipa_uncisal" zr="0"/>
+        <CdTb mn="1" nm="mensagens_suporte" oe="1" sch="sipa_uncisal" zr="1"/>
+        <ClPr cdCl="assunto_mensagem_id" prCl="id"/>
+      </Fk>
+      <Fk deAc="3" nm="fk_mensagens_suporte_orgaos" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="orgaos" oe="1" sch="sipa_uncisal" zr="0"/>
+        <CdTb mn="1" nm="mensagens_suporte" oe="1" sch="sipa_uncisal" zr="1"/>
+        <ClPr cdCl="orgao_id" prCl="id"/>
+      </Fk>
+      <Fk deAc="3" nm="fk_mensagens_suporte_tipos_mensagem" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="tipos_mensagem" oe="1" sch="sipa_uncisal" zr="0"/>
+        <CdTb mn="1" nm="mensagens_suporte" oe="1" sch="sipa_uncisal" zr="1"/>
+        <ClPr cdCl="tipo_mensagem_id" prCl="id"/>
+      </Fk>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="modulos">
+      <Cm>Modulos do sistema</Cm>
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="id" nm="pkmodulos"/>
+      <Cl au="1" df="nextval('sipa_uncisal.modulos_id_seq'::regclass)" nm="id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="descricao" nu="0">
+        <DT ds="VarChar" en="" id="12" ln="100" sc="null" sg="1"/>
+      </Cl>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="naturezas">
+      <Cm>Cadastro das possiveis naturezas do processo</Cm>
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="id" nm="pknaturezas"/>
+      <Cl au="1" df="nextval('sipa_uncisal.naturezas_id_seq'::regclass)" nm="id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="descricao" nu="0">
+        <DT ds="VarChar" en="" id="12" ln="200" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="true" nm="ativo" nu="0">
+        <DT ds="Boolean" en="" id="16" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="orgaos">
+      <Cm>Orgaos publicos do estado</Cm>
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="id" nm="pkorgaos"/>
+      <Cl au="1" df="nextval('sipa_uncisal.orgaos_id_seq'::regclass)" nm="id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="codigo" nu="1">
+        <DT ds="VarChar" en="" id="12" ln="100" sc="null" sg="1"/>
+        <Cm>Codigo do orgao no cadastro estadual</Cm>
+      </Cl>
+      <Cl au="0" df="" nm="descricao" nu="1">
+        <DT ds="VarChar" en="" id="12" ln="200" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="sigla" nu="1">
+        <DT ds="VarChar" en="" id="12" ln="100" sc="null" sg="1"/>
+        <Cm>Sigla ou mnemonico do orgao</Cm>
+      </Cl>
+      <Cl au="0" df="true" nm="ativo" nu="0">
+        <DT ds="Boolean" en="" id="16" ln="null" sc="null" sg="1"/>
+        <Cm>Se o orgao esta ativo ou nao</Cm>
+      </Cl>
+      <Cl au="0" df="false" nm="externo" nu="0">
+        <DT ds="Boolean" en="" id="16" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="codigo_antigo" nu="1">
+        <DT ds="VarChar" en="" id="12" ln="100" sc="null" sg="1"/>
+        <Cm>Código do órgão no sistema do SGP</Cm>
+      </Cl>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="paralisacoes">
+      <Cm>Paralisacoes sofridas pelos processos. Serve para guardar o historico e obter informacoes no futuro.</Cm>
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="id" nm="pkparalisacoes"/>
+      <Cl au="1" df="nextval('sipa_uncisal.paralisacoes_id_seq'::regclass)" nm="id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="processo_id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="setor_id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+        <Cm>Setor onde o processo foi paralisado</Cm>
+      </Cl>
+      <Cl au="0" df="" nm="motivo" nu="0">
+        <DT ds="Text" en="" id="703" ln="null" sc="null" sg="1"/>
+        <Cm>Motivo ou observacoes a respeito da paralisacao.</Cm>
+      </Cl>
+      <Cl au="0" df="now()" nm="data" nu="0">
+        <DT ds="TimeStamp" en="" id="93" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Fk deAc="3" nm="fk_paralisacoes_processos" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="processos" oe="1" sch="sipa_uncisal" zr="0"/>
+        <CdTb mn="1" nm="paralisacoes" oe="1" sch="sipa_uncisal" zr="1"/>
+        <ClPr cdCl="processo_id" prCl="id"/>
+      </Fk>
+      <Fk deAc="3" nm="fk_paralisacoes_setores" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="setores" oe="1" sch="sipa_uncisal" zr="0"/>
+        <CdTb mn="1" nm="paralisacoes" oe="1" sch="sipa_uncisal" zr="1"/>
+        <ClPr cdCl="setor_id" prCl="id"/>
+      </Fk>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="permissoes_grupo">
+      <Cm>Permissoes do grupo de usuario</Cm>
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="id" nm="pkpermissoes_grupo"/>
+      <Cl au="1" df="nextval('sipa_uncisal.permissoes_grupo_id_seq'::regclass)" nm="id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="modulo_id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="grupo_usuario_id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Fk deAc="3" nm="fk_permissoes_grupo_grupos_usuario" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="grupos_usuario" oe="1" sch="sipa_uncisal" zr="0"/>
+        <CdTb mn="1" nm="permissoes_grupo" oe="1" sch="sipa_uncisal" zr="1"/>
+        <ClPr cdCl="grupo_usuario_id" prCl="id"/>
+      </Fk>
+      <Fk deAc="3" nm="fk_permissoes_grupo_niveis" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="modulos" oe="1" sch="sipa_uncisal" zr="0"/>
+        <CdTb mn="1" nm="permissoes_grupo" oe="1" sch="sipa_uncisal" zr="1"/>
+        <ClPr cdCl="modulo_id" prCl="id"/>
+      </Fk>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="permissoes_servidor">
+      <Cm>Permissoes que o servidor possui, independente do grupo de usuario ao qual ele pertence</Cm>
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="id" nm="pkpermissoes_servidor"/>
+      <Cl au="1" df="nextval('sipa_uncisal.permissoes_servidor_id_seq'::regclass)" nm="id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="modulo_id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="servidor_id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Fk deAc="3" nm="fk_permissoes_servidor_niveis" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="modulos" oe="1" sch="sipa_uncisal" zr="0"/>
+        <CdTb mn="1" nm="permissoes_servidor" oe="1" sch="sipa_uncisal" zr="1"/>
+        <ClPr cdCl="modulo_id" prCl="id"/>
+      </Fk>
+      <Fk deAc="3" nm="fk_permissoes_servidor_servidores" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="servidores" oe="1" sch="sipa_uncisal" zr="0"/>
+        <CdTb mn="1" nm="permissoes_servidor" oe="1" sch="sipa_uncisal" zr="1"/>
+        <ClPr cdCl="servidor_id" prCl="id"/>
+      </Fk>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="processos">
+      <Cm>Guarda informacoes sobre os processos</Cm>
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="id" nm="pkprocessos"/>
+      <Cl au="1" df="nextval('sipa_uncisal.processos_id_seq'::regclass)" nm="id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="interessado_id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="natureza_id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="servidor_id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="setor_id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+        <Cm>Setor em que o processo foi cadastrado. É importante manter este dado já que o servidor pode mudar de setor.</Cm>
+      </Cl>
+      <Cl au="0" df="" nm="situacao_id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="numero_orgao" nu="0">
+        <DT ds="VarChar" en="" id="12" ln="100" sc="null" sg="1"/>
+        <Cm>O numero do processo e: orgao-numero/ano</Cm>
+      </Cl>
+      <Cl au="0" df="" nm="numero_processo" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+        <Cm>O numero do processo e: orgao-numero/ano</Cm>
+      </Cl>
+      <Cl au="0" df="" nm="numero_ano" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+        <Cm>O numero do processo e: orgao-numero/ano</Cm>
+      </Cl>
+      <Cl au="0" df="" nm="titulo_assunto" nu="0">
+        <DT ds="VarChar" en="" id="12" ln="200" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="assunto" nu="0">
+        <DT ds="Text" en="" id="703" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="1" nm="volumes" nu="1">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+        <Cm>Quantidade de volumes do processo</Cm>
+      </Cl>
+      <Cl au="0" df="1" nm="paginas" nu="1">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+        <Cm>Número de páginas do processo</Cm>
+      </Cl>
+      <Cl au="0" df="false" nm="processo_externo" nu="0">
+        <DT ds="Boolean" en="" id="16" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="now()" nm="data_cadastro" nu="0">
+        <DT ds="TimeStamp" en="" id="93" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="documento_numero" nu="1">
+        <DT ds="VarChar" en="" id="12" ln="50" sc="null" sg="1"/>
+        <Cm>Número do documento (ofício, memorando etc) que gerou o processo</Cm>
+      </Cl>
+      <Fk deAc="3" nm="fk_processos_interessados" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="interessados" oe="1" sch="sipa_uncisal" zr="0"/>
+        <CdTb mn="1" nm="processos" oe="1" sch="sipa_uncisal" zr="1"/>
+        <ClPr cdCl="interessado_id" prCl="id"/>
+      </Fk>
+      <Fk deAc="3" nm="fk_processos_naturezas" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="naturezas" oe="1" sch="sipa_uncisal" zr="0"/>
+        <CdTb mn="1" nm="processos" oe="1" sch="sipa_uncisal" zr="1"/>
+        <ClPr cdCl="natureza_id" prCl="id"/>
+      </Fk>
+      <Fk deAc="3" nm="fk_processos_servidores" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="servidores" oe="1" sch="sipa_uncisal" zr="0"/>
+        <CdTb mn="1" nm="processos" oe="1" sch="sipa_uncisal" zr="1"/>
+        <ClPr cdCl="servidor_id" prCl="id"/>
+      </Fk>
+      <Fk deAc="3" nm="fk_processos_setores" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="setores" oe="1" sch="sipa_uncisal" zr="0"/>
+        <CdTb mn="1" nm="processos" oe="1" sch="sipa_uncisal" zr="1"/>
+        <ClPr cdCl="setor_id" prCl="id"/>
+      </Fk>
+      <Fk deAc="3" nm="fk_processos_situacoes" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="situacoes" oe="1" sch="sipa_uncisal" zr="0"/>
+        <CdTb mn="1" nm="processos" oe="1" sch="sipa_uncisal" zr="1"/>
+        <ClPr cdCl="situacao_id" prCl="id"/>
+      </Fk>
+      <Idx clu="0" nm="processos_numero_orgao_numero_processo_numero_ano_idx" unq="1">
+        <ClNs>numero_orgao, numero_processo, numero_ano</ClNs>
+      </Idx>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="processos_anexos">
+      <Cm>Guarda informacoes sobre anexacao de processos</Cm>
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="id" nm="pkprocessos_anexos"/>
+      <Cl au="1" df="nextval('sipa_uncisal.processos_anexos_id_seq'::regclass)" nm="id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="processo_principal_id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="processo_anexo_id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="true" nm="ativo" nu="0">
+        <DT ds="Boolean" en="" id="16" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Fk deAc="3" nm="fk_processos_anexos_processos_anexo" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="processos" oe="1" sch="sipa_uncisal" zr="0"/>
+        <CdTb mn="1" nm="processos_anexos" oe="1" sch="sipa_uncisal" zr="1"/>
+        <ClPr cdCl="processo_anexo_id" prCl="id"/>
+      </Fk>
+      <Fk deAc="3" nm="fk_processos_anexos_processos_principal" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="processos" oe="1" sch="sipa_uncisal" zr="0"/>
+        <CdTb mn="1" nm="processos_anexos" oe="1" sch="sipa_uncisal" zr="1"/>
+        <ClPr cdCl="processo_principal_id" prCl="id"/>
+      </Fk>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="servidores">
+      <Cm>Servidores estaduais</Cm>
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="id" nm="pkservidores"/>
+      <Cl au="1" df="nextval('sipa_uncisal.servidores_id_seq'::regclass)" nm="id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="setor_id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+        <Cm>Setor ao qual o servidor esta atrelado</Cm>
+      </Cl>
+      <Cl au="0" df="" nm="grupo_usuario_id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+        <Cm>Grupo ao qual o servidor pertence</Cm>
+      </Cl>
+      <Cl au="0" df="" nm="cargo_id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="nome" nu="0">
+        <DT ds="VarChar" en="" id="12" ln="200" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="cpf" nu="0">
+        <DT ds="VarChar" en="" id="12" ln="14" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="matricula" nu="0">
+        <DT ds="VarChar" en="" id="12" ln="50" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="login" nu="0">
+        <DT ds="VarChar" en="" id="12" ln="50" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="senha" nu="0">
+        <DT ds="VarChar" en="" id="12" ln="100" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="true" nm="ativo" nu="0">
+        <DT ds="Boolean" en="" id="16" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="now()" nm="data_cadastro" nu="0">
+        <DT ds="Date" en="" id="91" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="data_permissao_inicio" nu="1">
+        <DT ds="Date" en="" id="91" ln="null" sc="null" sg="1"/>
+        <Cm>Se estiver preenchido, este campo define a partir de que data o servidor tem acesso ao sistema</Cm>
+      </Cl>
+      <Cl au="0" df="" nm="data_permissao_fim" nu="1">
+        <DT ds="Date" en="" id="91" ln="null" sc="null" sg="1"/>
+        <Cm>Se estiver preenchido, este campo define ate qual data o servidor tem acesso ao sistema</Cm>
+      </Cl>
+      <Fk deAc="3" nm="fk_servidores_cargos" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="cargos" oe="1" sch="sipa_uncisal" zr="0"/>
+        <CdTb mn="1" nm="servidores" oe="1" sch="sipa_uncisal" zr="1"/>
+        <ClPr cdCl="cargo_id" prCl="id"/>
+      </Fk>
+      <Fk deAc="3" nm="fk_servidores_grupos_usuario" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="grupos_usuario" oe="1" sch="sipa_uncisal" zr="0"/>
+        <CdTb mn="1" nm="servidores" oe="1" sch="sipa_uncisal" zr="1"/>
+        <ClPr cdCl="grupo_usuario_id" prCl="id"/>
+      </Fk>
+      <Fk deAc="3" nm="fk_servidores_setores" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="setores" oe="1" sch="sipa_uncisal" zr="0"/>
+        <CdTb mn="1" nm="servidores" oe="1" sch="sipa_uncisal" zr="1"/>
+        <ClPr cdCl="setor_id" prCl="id"/>
+      </Fk>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="setores">
+      <Cm>Setores dos orgaos</Cm>
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="id" nm="pksetores"/>
+      <Cl au="1" df="nextval('sipa_uncisal.setores_id_seq'::regclass)" nm="id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="orgao_id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+        <Cm>Orgao ao qual o setor pertence</Cm>
+      </Cl>
+      <Cl au="0" df="" nm="sigla" nu="1">
+        <DT ds="VarChar" en="" id="12" ln="100" sc="null" sg="1"/>
+        <Cm>Mnemonico ou sigla para o setor</Cm>
+      </Cl>
+      <Cl au="0" df="" nm="descricao" nu="1">
+        <DT ds="VarChar" en="" id="12" ln="200" sc="null" sg="1"/>
+        <Cm>Descricao ou nome do setor</Cm>
+      </Cl>
+      <Cl au="0" df="true" nm="ativo" nu="0">
+        <DT ds="Boolean" en="" id="16" ln="null" sc="null" sg="1"/>
+        <Cm>Se esta ativo ou nao</Cm>
+      </Cl>
+      <Cl au="0" df="false" nm="permite_divisao" nu="1">
+        <DT ds="Boolean" en="" id="16" ln="null" sc="null" sg="1"/>
+        <Cm>Define se o setor permite que o processo seja dividido entre os servidores</Cm>
+      </Cl>
+      <Fk deAc="3" nm="fk_setores_orgaos" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="orgaos" oe="1" sch="sipa_uncisal" zr="0"/>
+        <CdTb mn="1" nm="setores" oe="1" sch="sipa_uncisal" zr="1"/>
+        <ClPr cdCl="orgao_id" prCl="id"/>
+      </Fk>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="setores_servidores">
+      <Cm>Setores pelos quais um servidor pode responder, além do setor principal (associado diretamente à tabela de servidores)</Cm>
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="id" nm="pksetores_servidores"/>
+      <Cl au="1" df="nextval('sipa_uncisal.setores_servidores_id_seq'::regclass)" nm="id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="setor_id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="servidor_id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Fk deAc="3" nm="fk_setores_servidores_servidores" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="servidores" oe="1" sch="sipa_uncisal" zr="0"/>
+        <CdTb mn="1" nm="setores_servidores" oe="1" sch="sipa_uncisal" zr="1"/>
+        <ClPr cdCl="servidor_id" prCl="id"/>
+      </Fk>
+      <Fk deAc="3" nm="fk_setores_servidores_setores" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="setores" oe="1" sch="sipa_uncisal" zr="0"/>
+        <CdTb mn="1" nm="setores_servidores" oe="1" sch="sipa_uncisal" zr="1"/>
+        <ClPr cdCl="setor_id" prCl="id"/>
+      </Fk>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="situacoes">
+      <Cm>Situacoes do processo</Cm>
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="id" nm="pksituacoes"/>
+      <Cl au="1" df="nextval('sipa_uncisal.situacoes_id_seq'::regclass)" nm="id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="descricao" nu="0">
+        <DT ds="VarChar" en="" id="12" ln="100" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="sigla" nu="0">
+        <DT ds="Char" en="" id="1" ln="1" sc="null" sg="1"/>
+      </Cl>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="tipos_interessado">
+      <Cm>Tipos de interessado (Pessoa Fisica, Juridica etc)</Cm>
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="id" nm="pktipos_interessado"/>
+      <Cl au="1" df="nextval('sipa_uncisal.tipos_interessado_id_seq'::regclass)" nm="id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="descricao" nu="0">
+        <DT ds="VarChar" en="" id="12" ln="50" sc="null" sg="1"/>
+      </Cl>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="tipos_mensagem">
+      <Cm>Tipos de mensagem (dúvida, sugestão, reclamação)</Cm>
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="id" nm="pktipos_mensagem"/>
+      <Cl au="1" df="nextval('sipa_uncisal.tipos_mensagem_id_seq'::regclass)" nm="id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="descricao" nu="0">
+        <DT ds="VarChar" en="" id="12" ln="150" sc="null" sg="1"/>
+      </Cl>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="tramites">
+      <Cm>Tramitacoes do processo</Cm>
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="id" nm="pktramites"/>
+      <Cl au="1" df="nextval('sipa_uncisal.tramites_id_seq'::regclass)" nm="id" nu="0">
+        <DT ds="BigInt" en="" id="-5" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="processo_id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="setor_origem_id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="servidor_origem_id" nu="0">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+        <Cm>Servidor que cadastrou o tramite</Cm>
+      </Cl>
+      <Cl au="0" df="now()" nm="data_tramite" nu="0">
+        <DT ds="TimeStamp" en="" id="93" ln="null" sc="null" sg="1"/>
+        <Cm>Data de cadastro do tramite</Cm>
+      </Cl>
+      <Cl au="0" df="" nm="setor_recebimento_id" nu="1">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="servidor_recebimento_id" nu="1">
+        <DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+        <Cm>Servidor que recebeu o processo</Cm>
+      </Cl>
+      <Cl au="0" df="" nm="data_recebimento" nu="1">
+        <DT ds="TimeStamp" en="" id="93" ln="null" sc="null" sg="1"/>
+        <Cm>Data de recebimento do processo</Cm>
+      </Cl>
+      <Cl au="0" df="false" nm="flag_recebimento" nu="0">
+        <DT ds="Boolean" en="" id="16" ln="null" sc="null" sg="1"/>
+        <Cm>Se o processo foi recebido no destino ou nao</Cm>
+      </Cl>
+      <Cl au="0" df="" nm="numero_folhas" nu="1">
+        <DT ds="SmallInt" en="" id="5" ln="null" sc="null" sg="1"/>
+      </Cl>
+      <Cl au="0" df="" nm="observacoes" nu="1">
+        <DT ds="Text" en="" id="703" ln="null" sc="null" sg="1"/>
+        <Cm>Observações acerca do trâmite/processo</Cm>
+      </Cl>
+      <Fk deAc="3" nm="fk_tramites_processos" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="processos" oe="1" sch="sipa_uncisal" zr="0"/>
+        <CdTb mn="1" nm="tramites" oe="1" sch="sipa_uncisal" zr="1"/>
+        <ClPr cdCl="processo_id" prCl="id"/>
+      </Fk>
+      <Fk deAc="3" nm="fk_tramites_servidores" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="servidores" oe="1" sch="sipa_uncisal" zr="0"/>
+        <CdTb mn="1" nm="tramites" oe="1" sch="sipa_uncisal" zr="1"/>
+        <ClPr cdCl="servidor_origem_id" prCl="id"/>
+      </Fk>
+      <Fk deAc="3" nm="fk_tramites_servidores_recebimento" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="servidores" oe="1" sch="sipa_uncisal" zr="1"/>
+        <CdTb mn="1" nm="tramites" oe="1" sch="sipa_uncisal" zr="1"/>
+        <ClPr cdCl="servidor_recebimento_id" prCl="id"/>
+      </Fk>
+      <Fk deAc="3" nm="fk_tramites_setores_origem" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="setores" oe="1" sch="sipa_uncisal" zr="0"/>
+        <CdTb mn="1" nm="tramites" oe="1" sch="sipa_uncisal" zr="1"/>
+        <ClPr cdCl="setor_origem_id" prCl="id"/>
+      </Fk>
+      <Fk deAc="3" nm="fk_tramites_setores_recebimento" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="setores" oe="1" sch="sipa_uncisal" zr="1"/>
+        <CdTb mn="1" nm="tramites" oe="1" sch="sipa_uncisal" zr="1"/>
+        <ClPr cdCl="setor_recebimento_id" prCl="id"/>
+      </Fk>
+      <SchTrHis/>
+    </Tbl>
+    <Seq incr="1" nm="arquivamentos_id_seq"/>
+    <Seq incr="1" nm="assuntos_mensagem_id_seq"/>
+    <Seq incr="1" nm="cargos_id_seq"/>
+    <Seq incr="1" nm="divisoes_id_seq"/>
+    <Seq incr="1" nm="emails_suporte_id_seq"/>
+    <Seq incr="1" nm="etiquetas_id_seq"/>
+    <Seq incr="1" nm="grupos_usuario_id_seq"/>
+    <Seq incr="1" nm="interessados_id_seq"/>
+    <Seq incr="1" nm="logs_id_seq"/>
+    <Seq incr="1" nm="mensagens_suporte_id_seq"/>
+    <Seq incr="1" nm="modulos_id_seq"/>
+    <Seq incr="1" nm="naturezas_id_seq"/>
+    <Seq incr="1" nm="orgaos_id_seq"/>
+    <Seq incr="1" nm="paralisacoes_id_seq"/>
+    <Seq incr="1" nm="permissoes_grupo_id_seq"/>
+    <Seq incr="1" nm="permissoes_servidor_id_seq"/>
+    <Seq incr="1" nm="processos_anexos_id_seq"/>
+    <Seq incr="1" nm="processos_id_seq"/>
+    <Seq incr="1" nm="servidores_id_seq"/>
+    <Seq incr="1" nm="setores_id_seq"/>
+    <Seq incr="1" nm="setores_servidores_id_seq"/>
+    <Seq incr="1" nm="situacoes_id_seq"/>
+    <Seq incr="1" nm="tipos_interessado_id_seq"/>
+    <Seq incr="1" nm="tipos_mensagem_id_seq"/>
+    <Seq incr="1" nm="tipos_tramite_id_seq"/>
+    <Seq incr="1" nm="tramites_id_seq"/>
+  </Sch>
+  <Dgm nm="diagramA">
+    <RnCf FtSz="9" lkStgy="OffsetDirect" zm="1.0">
+      <VbCfg>
+        <Fg ky="Auto Number" vl="0"/>
+        <Fg ky="Check" vl="0"/>
+        <Fg ky="Comment" vl="0"/>
+        <Fg ky="Data Type" vl="1"/>
+        <Fg ky="Default" vl="0"/>
+        <Fg ky="ENUM Values" vl="0"/>
+        <Fg ky="Length" vl="1"/>
+        <Fg ky="Name" vl="1"/>
+        <Fg ky="Nullable" vl="0"/>
+        <Fg ky="Schema Name" vl="0"/>
+        <Fg ky="Signed" vl="0"/>
+      </VbCfg>
+    </RnCf>
+    <TbGl bkCl="ffffffe6" sch="public" tbl="arquivamentos" x="795" y="117"/>
+    <TbGl bkCl="ffffffe6" sch="public" tbl="assuntos_mensagem" x="1307" y="966"/>
+    <TbGl bkCl="ffffffe6" sch="public" tbl="cargos" x="847" y="900"/>
+    <TbGl bkCl="ffffffe6" sch="public" tbl="divisoes" x="576" y="232"/>
+    <TbGl bkCl="ffffffe6" sch="public" tbl="emails_suporte" x="1594" y="50"/>
+    <TbGl bkCl="ffffffe6" sch="public" tbl="etiquetas" x="1791" y="50"/>
+    <TbGl bkCl="ffffffe6" sch="public" tbl="grupos_usuario" x="847" y="824"/>
+    <TbGl bkCl="ffffffe6" sch="public" tbl="interessados" x="556" y="505"/>
+    <TbGl bkCl="ffffffe6" sch="public" tbl="logs" x="847" y="713"/>
+    <TbGl bkCl="ffffffe6" sch="public" tbl="mensagens_suporte" x="1015" y="966"/>
+    <TbGl bkCl="ffffffe6" sch="public" tbl="modulos" x="1065" y="586"/>
+    <TbGl bkCl="ffffffe6" sch="public" tbl="naturezas" x="50" y="50"/>
+    <TbGl bkCl="ffffffe6" sch="public" tbl="orgaos" x="794" y="966"/>
+    <TbGl bkCl="ffffffe6" sch="public" tbl="paralisacoes" x="586" y="28"/>
+    <TbGl bkCl="ffffffe6" sch="public" tbl="permissoes_grupo" x="1044" y="824"/>
+    <TbGl bkCl="ffffffe6" sch="public" tbl="permissoes_servidor" x="867" y="586"/>
+    <TbGl bkCl="ffffffe6" sch="public" tbl="processos" x="257" y="50"/>
+    <TbGl bkCl="ffffffe6" sch="public" tbl="processos_anexos" x="566" y="293"/>
+    <TbGl bkCl="ffffffe6" sch="public" tbl="servidores" x="556" y="586"/>
+    <TbGl bkCl="ffffffe6" sch="public" tbl="setores" x="556" y="966"/>
+    <TbGl bkCl="ffffffe6" sch="public" tbl="setores_servidores" x="857" y="652"/>
+    <TbGl bkCl="ffffffe6" sch="public" tbl="situacoes" x="50" y="111"/>
+    <TbGl bkCl="ffffffe6" sch="public" tbl="tipos_interessado" x="814" y="505"/>
+    <TbGl bkCl="ffffffe6" sch="public" tbl="tipos_mensagem" x="1307" y="1017"/>
+    <TbGl bkCl="ffffffe6" sch="public" tbl="tramites" x="556" y="364"/>
+    <TbGl bkCl="ffffffe6" sch="sipa_uncisal" tbl="arquivamentos" x="586" y="1228"/>
+    <TbGl bkCl="ffffffe6" sch="sipa_uncisal" tbl="assuntos_mensagem" x="1307" y="2083"/>
+    <TbGl bkCl="ffffffe6" sch="sipa_uncisal" tbl="cargos" x="847" y="2017"/>
+    <TbGl bkCl="ffffffe6" sch="sipa_uncisal" tbl="divisoes" x="596" y="1167"/>
+    <TbGl bkCl="ffffffe6" sch="sipa_uncisal" tbl="emails_suporte" x="1594" y="191"/>
+    <TbGl bkCl="ffffffe6" sch="sipa_uncisal" tbl="etiquetas" x="1791" y="191"/>
+    <TbGl bkCl="ffffffe6" sch="sipa_uncisal" tbl="grupos_usuario" x="847" y="1941"/>
+    <TbGl bkCl="ffffffe6" sch="sipa_uncisal" tbl="interessados" x="556" y="1622"/>
+    <TbGl bkCl="ffffffe6" sch="sipa_uncisal" tbl="logs" x="847" y="1830"/>
+    <TbGl bkCl="ffffffe6" sch="sipa_uncisal" tbl="mensagens_suporte" x="1015" y="2083"/>
+    <TbGl bkCl="ffffffe6" sch="sipa_uncisal" tbl="modulos" x="1065" y="1703"/>
+    <TbGl bkCl="ffffffe6" sch="sipa_uncisal" tbl="naturezas" x="50" y="1167"/>
+    <TbGl bkCl="ffffffe6" sch="sipa_uncisal" tbl="orgaos" x="794" y="2083"/>
+    <TbGl bkCl="ffffffe6" sch="sipa_uncisal" tbl="paralisacoes" x="576" y="1329"/>
+    <TbGl bkCl="ffffffe6" sch="sipa_uncisal" tbl="permissoes_grupo" x="1044" y="1941"/>
+    <TbGl bkCl="ffffffe6" sch="sipa_uncisal" tbl="permissoes_servidor" x="867" y="1703"/>
+    <TbGl bkCl="ffffffe6" sch="sipa_uncisal" tbl="processos" x="257" y="1167"/>
+    <TbGl bkCl="ffffffe6" sch="sipa_uncisal" tbl="processos_anexos" x="566" y="1410"/>
+    <TbGl bkCl="ffffffe6" sch="sipa_uncisal" tbl="servidores" x="556" y="1703"/>
+    <TbGl bkCl="ffffffe6" sch="sipa_uncisal" tbl="setores" x="556" y="2083"/>
+    <TbGl bkCl="ffffffe6" sch="sipa_uncisal" tbl="setores_servidores" x="857" y="1769"/>
+    <TbGl bkCl="ffffffe6" sch="sipa_uncisal" tbl="situacoes" x="50" y="1228"/>
+    <TbGl bkCl="ffffffe6" sch="sipa_uncisal" tbl="tipos_interessado" x="814" y="1622"/>
+    <TbGl bkCl="ffffffe6" sch="sipa_uncisal" tbl="tipos_mensagem" x="1307" y="2134"/>
+    <TbGl bkCl="ffffffe6" sch="sipa_uncisal" tbl="tramites" x="556" y="1481"/>
+    <TbGl bkCl="ffffffe6" sch="public" tbl="historico_divisoes" x="26" y="332"/>
+    <TbGl bkCl="ffffffe6" sch="public" tbl="historico_devolucoes" x="216" y="332"/>
+    <FkGl bkCl="ff000000" nm="public.arquivamentos.fk_arquivamentos_processos"/>
+    <FkGl bkCl="ff000000" nm="public.arquivamentos.fk_arquivamentos_setores"/>
+    <FkGl bkCl="ff000000" nm="public.divisoes.fk_divisoes_processos"/>
+    <FkGl bkCl="ff000000" nm="public.divisoes.fk_divisoes_servidores"/>
+    <FkGl bkCl="ff000000" nm="public.historico_devolucoes.fk_historico_devolucoes_processos"/>
+    <FkGl bkCl="ff000000" nm="public.historico_devolucoes.fk_historico_devolucoes_servidores"/>
+    <FkGl bkCl="ff000000" nm="public.historico_divisoes.fk_historico_divisoes_processos"/>
+    <FkGl bkCl="ff000000" nm="public.historico_divisoes.fk_historico_divisoes_servidores"/>
+    <FkGl bkCl="ff000000" nm="public.interessados.fk_interessados_tipos_interessado"/>
+    <FkGl bkCl="ff000000" nm="public.logs.fk_logs_servidores"/>
+    <FkGl bkCl="ff000000" nm="public.mensagens_suporte.fk_mensagens_suporte_assuntos_mensagem"/>
+    <FkGl bkCl="ff000000" nm="public.mensagens_suporte.fk_mensagens_suporte_orgaos"/>
+    <FkGl bkCl="ff000000" nm="public.mensagens_suporte.fk_mensagens_suporte_tipos_mensagem"/>
+    <FkGl bkCl="ff000000" nm="public.paralisacoes.fk_paralisacoes_processos"/>
+    <FkGl bkCl="ff000000" nm="public.paralisacoes.fk_paralisacoes_servidores"/>
+    <FkGl bkCl="ff000000" nm="public.paralisacoes.fk_paralisacoes_setores"/>
+    <FkGl bkCl="ff000000" nm="public.permissoes_grupo.fk_permissoes_grupo_grupos_usuario"/>
+    <FkGl bkCl="ff000000" nm="public.permissoes_grupo.fk_permissoes_grupo_niveis"/>
+    <FkGl bkCl="ff000000" nm="public.permissoes_servidor.fk_permissoes_servidor_niveis"/>
+    <FkGl bkCl="ff000000" nm="public.permissoes_servidor.fk_permissoes_servidor_servidores"/>
+    <FkGl bkCl="ff000000" nm="public.processos.fk_processos_interessados"/>
+    <FkGl bkCl="ff000000" nm="public.processos.fk_processos_naturezas"/>
+    <FkGl bkCl="ff000000" nm="public.processos.fk_processos_servidores"/>
+    <FkGl bkCl="ff000000" nm="public.processos.fk_processos_setores"/>
+    <FkGl bkCl="ff000000" nm="public.processos.fk_processos_situacoes"/>
+    <FkGl bkCl="ff000000" nm="public.processos_anexos.fk_processos_anexos_processos_anexo"/>
+    <FkGl bkCl="ff000000" nm="public.processos_anexos.fk_processos_anexos_processos_principal"/>
+    <FkGl bkCl="ff000000" nm="public.servidores.fk_servidores_cargos"/>
+    <FkGl bkCl="ff000000" nm="public.servidores.fk_servidores_grupos_usuario"/>
+    <FkGl bkCl="ff000000" nm="public.servidores.fk_servidores_setores"/>
+    <FkGl bkCl="ff000000" nm="public.setores.fk_setores_orgaos"/>
+    <FkGl bkCl="ff000000" nm="public.setores_servidores.fk_setores_servidores_servidores"/>
+    <FkGl bkCl="ff000000" nm="public.setores_servidores.fk_setores_servidores_setores"/>
+    <FkGl bkCl="ff000000" nm="public.tramites.fk_tramites_processos"/>
+    <FkGl bkCl="ff000000" nm="public.tramites.fk_tramites_servidores"/>
+    <FkGl bkCl="ff000000" nm="public.tramites.fk_tramites_servidores_recebimento"/>
+    <FkGl bkCl="ff000000" nm="public.tramites.fk_tramites_setores_origem"/>
+    <FkGl bkCl="ff000000" nm="public.tramites.fk_tramites_setores_recebimento"/>
+    <FkGl bkCl="ff000000" nm="sipa_uncisal.arquivamentos.fk_arquivamentos_processos"/>
+    <FkGl bkCl="ff000000" nm="sipa_uncisal.arquivamentos.fk_arquivamentos_setores"/>
+    <FkGl bkCl="ff000000" nm="sipa_uncisal.divisoes.fk_divisoes_processos"/>
+    <FkGl bkCl="ff000000" nm="sipa_uncisal.divisoes.fk_divisoes_servidores"/>
+    <FkGl bkCl="ff000000" nm="sipa_uncisal.interessados.fk_interessados_tipos_interessado"/>
+    <FkGl bkCl="ff000000" nm="sipa_uncisal.logs.fk_logs_servidores"/>
+    <FkGl bkCl="ff000000" nm="sipa_uncisal.mensagens_suporte.fk_mensagens_suporte_assuntos_mensagem"/>
+    <FkGl bkCl="ff000000" nm="sipa_uncisal.mensagens_suporte.fk_mensagens_suporte_orgaos"/>
+    <FkGl bkCl="ff000000" nm="sipa_uncisal.mensagens_suporte.fk_mensagens_suporte_tipos_mensagem"/>
+    <FkGl bkCl="ff000000" nm="sipa_uncisal.paralisacoes.fk_paralisacoes_processos"/>
+    <FkGl bkCl="ff000000" nm="sipa_uncisal.paralisacoes.fk_paralisacoes_setores"/>
+    <FkGl bkCl="ff000000" nm="sipa_uncisal.permissoes_grupo.fk_permissoes_grupo_grupos_usuario"/>
+    <FkGl bkCl="ff000000" nm="sipa_uncisal.permissoes_grupo.fk_permissoes_grupo_niveis"/>
+    <FkGl bkCl="ff000000" nm="sipa_uncisal.permissoes_servidor.fk_permissoes_servidor_niveis"/>
+    <FkGl bkCl="ff000000" nm="sipa_uncisal.permissoes_servidor.fk_permissoes_servidor_servidores"/>
+    <FkGl bkCl="ff000000" nm="sipa_uncisal.processos.fk_processos_interessados"/>
+    <FkGl bkCl="ff000000" nm="sipa_uncisal.processos.fk_processos_naturezas"/>
+    <FkGl bkCl="ff000000" nm="sipa_uncisal.processos.fk_processos_servidores"/>
+    <FkGl bkCl="ff000000" nm="sipa_uncisal.processos.fk_processos_setores"/>
+    <FkGl bkCl="ff000000" nm="sipa_uncisal.processos.fk_processos_situacoes"/>
+    <FkGl bkCl="ff000000" nm="sipa_uncisal.processos_anexos.fk_processos_anexos_processos_anexo"/>
+    <FkGl bkCl="ff000000" nm="sipa_uncisal.processos_anexos.fk_processos_anexos_processos_principal"/>
+    <FkGl bkCl="ff000000" nm="sipa_uncisal.servidores.fk_servidores_cargos"/>
+    <FkGl bkCl="ff000000" nm="sipa_uncisal.servidores.fk_servidores_grupos_usuario"/>
+    <FkGl bkCl="ff000000" nm="sipa_uncisal.servidores.fk_servidores_setores"/>
+    <FkGl bkCl="ff000000" nm="sipa_uncisal.setores.fk_setores_orgaos"/>
+    <FkGl bkCl="ff000000" nm="sipa_uncisal.setores_servidores.fk_setores_servidores_servidores"/>
+    <FkGl bkCl="ff000000" nm="sipa_uncisal.setores_servidores.fk_setores_servidores_setores"/>
+    <FkGl bkCl="ff000000" nm="sipa_uncisal.tramites.fk_tramites_processos"/>
+    <FkGl bkCl="ff000000" nm="sipa_uncisal.tramites.fk_tramites_servidores"/>
+    <FkGl bkCl="ff000000" nm="sipa_uncisal.tramites.fk_tramites_servidores_recebimento"/>
+    <FkGl bkCl="ff000000" nm="sipa_uncisal.tramites.fk_tramites_setores_origem"/>
+    <FkGl bkCl="ff000000" nm="sipa_uncisal.tramites.fk_tramites_setores_recebimento"/>
+  </Dgm>
+  <RnmMgr NxRnmId="1"/>
+  <DbDocOptionMgr>
+    <BasicOptionMgr>
+      <Name>db.doc.option.mgr</Name>
+      <BoolOpt lbl="Diagrams" nm="doc.diagrams" on="1" spl="0"/>
+      <BoolOpt lbl="Foreign Keys" nm="doc.fks" on="1" spl="0"/>
+      <BoolOpt lbl="Indexes" nm="doc.indexes" on="1" spl="0"/>
+      <BoolOpt lbl="Overwrite CSS File" nm="doc.overwrite.css" on="1" spl="0"/>
+      <BoolOpt lbl="Procedures" nm="doc.procs" on="1" spl="0"/>
+      <BoolOpt lbl="Schemas" nm="doc.schemas" on="1" spl="0"/>
+      <BoolOpt lbl="Sequences" nm="doc.sequences" on="1" spl="0"/>
+      <BoolOpt lbl="Tables" nm="doc.tables" on="1" spl="0"/>
+      <BoolOpt lbl="Triggers" nm="doc.triggers" on="1" spl="0"/>
+      <BoolOpt lbl="Views" nm="doc.views" on="1" spl="0"/>
+    </BasicOptionMgr>
+  </DbDocOptionMgr>
+</Db>

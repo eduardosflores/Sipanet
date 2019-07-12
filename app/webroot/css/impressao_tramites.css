@@ -1,0 +1,57 @@
+/* 
+    Document   : impressao_tramites
+    Created on : 21/01/2010, 10:39:15
+    Author     : alann flaubert
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+body {
+    size: landscape;
+    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+    margin: 10px 0 10px 0px;
+    background-color: #ffffff;
+    font-size:10pt;
+}
+
+.aviso {
+    font-size:8pt;
+}
+
+img {
+    margin:0;
+    border:0;
+    padding:0;
+}
+
+#head {
+    font-size:14pt;
+    margin:10px 0 10px;
+}
+
+#content {
+
+}
+
+#content .tramites {
+    font-size:10pt;
+}
+
+.tramites td{
+    border-right:1px solid #ccc;
+    border-bottom:1px solid #ccc;
+}
+
+.tramites table {
+    border: 2px solid #cccccc;
+}
+
+#content .fluxo_tramites {
+ display:none;
+}
+
