@@ -1,7 +1,7 @@
 <?php
 /**
- *  SipaNet 2.0 - Sistema de Informaï¿½ï¿½o Processual e Arquivo
- Copyright (C) 2008 Universidade Estadual de Ciï¿½ncias da Saï¿½de de Alagoas - UNCISAL <http://www.uncisal.edu.br>
+ *  SipaNet 2.0 - Sistema de Informação Processual e Arquivo
+ Copyright (C) 2008 Universidade Estadual de Ciências da Saúde de Alagoas - UNCISAL <http://www.uncisal.edu.br>
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -47,18 +47,18 @@ class RelatoriosController extends AppController {
     }
 
     /**
-     * Relatï¿½rio de processos com busca completa
+     * Relatório de processos com busca completa
      * **/
     function processos() {
     //Consulta geral dos processos
-        $this->set('fieldSetTitle', 'Relatï¿½rio - Processos');
+        $this->set('fieldSetTitle', 'Relatório - Processos');
 
-        // Listas necessï¿½rias para popular campos de seleï¿½ï¿½o
+        // Listas necessárias para popular campos de seleção
         $this->set('orgaos', $this->Orgao->listar());
         $this->set('naturezas', $this->Natureza->find('all', array('order' => 'descricao asc', 'recursive' => -1)));
         $this->set('situacoes', $this->Situacao->listar());
 
-        // Caso os dados tenham sido passados via URL, repassa os dados para a variï¿½vel $this->data['Busca']. A partir desta variï¿½vel serï¿½ feita a consulta
+        // Caso os dados tenham sido passados via URL, repassa os dados para a variável $this->data['Busca']. A partir desta variável será feita a consulta
         if(count($this->params['named']) > 0) {
             $this->data['Busca'] = $this->params['named'];
         }
@@ -78,51 +78,51 @@ class RelatoriosController extends AppController {
                 $this->data['Busca'] = array_merge($this->data['Busca'], $datas);
             }
 
-            // Formata a URL que serï¿½ chamada na paginaï¿½ï¿½o
+            // Formata a URL que será chamada na paginação
             $this->set('url', $this->gerarNamedUrl($this->data['Busca']));
 
-            // Verifica se o ï¿½rgï¿½o foi passado. Se foi, resgata a lista de setores para exibiï¿½ï¿½o
+            // Verifica se o órgão foi passado. Se foi, resgata a lista de setores para exibição
             if(array_key_exists('orgao_id', $this->data['Busca']) && ($this->data['Busca']['orgao_id'] != "")) {
-            // Lista de seleï¿½ï¿½o de setores - jï¿½ que o ï¿½rgï¿½o foi selecionado, podemos retornar o setor para exibiï¿½ï¿½o
+            // Lista de seleção de setores - já que o órgão foi selecionado, podemos retornar o setor para exibição
                 $this->set('setores', $this->Setor->findByOrgao($this->data['Busca']['orgao_id']));
             }
 
-            // Resgata os critï¿½rios para busca
+            // Resgata os critérios para busca
             $criterios = $this->Processo->resgatarCriteriosBusca($this->data['Busca']);
 
             if($criterios) {
-            // Define os critï¿½rios da pï¿½ginaï¿½ï¿½o
+            // Define os critérios da páginação
                 $this->paginate = array('limit' => 30, 'page' => 1, 'recursive' => 1, 'order' => array('Processo.data_cadastro' => 'asc'));
 
                 // Realiza a busca
                 $this->set('processos', $this->paginate('Processo', $criterios));
             }
             else {
-                $this->setMessage('erro', 'Nenhum critï¿½rio de busca informado.');
+                $this->setMessage('erro', 'Nenhum critério de busca informado.');
             }
         }
     }
 
     /**
-     * Relatï¿½rio de processos lentos.
-     * Sï¿½o resgatados os processos nï¿½o recebidos e encaminhados determinada quantidade de dias atrï¿½s
+     * Relatório de processos lentos.
+     * São resgatados os processos não recebidos e encaminhados determinada quantidade de dias atrás
      * **/
     function processos_lentos() {
-        $this->set('fieldSetTitle', 'Relatï¿½rio - Processos Lentos');
+        $this->set('fieldSetTitle', 'Relatório - Processos Lentos');
 
-        // Caso os dados tenham sido passados via URL, repassa os dados para a variï¿½vel $this->data['Busca']. A partir desta variï¿½vel serï¿½ feita a consulta
+        // Caso os dados tenham sido passados via URL, repassa os dados para a variável $this->data['Busca']. A partir desta variável será feita a consulta
         if(count($this->params['named']) > 0) {
             $this->data['Busca'] = $this->params['named'];
         }
 
         if(isset($this->data)) {
-        // Formata a URL que serï¿½ chamada na paginaï¿½ï¿½o
+        // Formata a URL que será chamada na paginação
             $this->set('url', $this->gerarNamedUrl($this->data['Busca']));
 
             $dias = (strlen($this->data['Busca']['dias']) > 0) ? $this->data['Busca']['dias'] : 5;
             $data = date('Y-m-d', mktime(null, null, null, date('m'), date('d') - $dias, date('Y')));
 
-            // Remove associaï¿½ï¿½es desnecessï¿½rias
+            // Remove associações desnecessárias
             $this->Tramite->unbindModel(
                 array('belongsTo' => array(
                 'TipoTramite',
@@ -156,7 +156,7 @@ class RelatoriosController extends AppController {
                 )
             );
 
-            // Define os critï¿½rios da pï¿½ginaï¿½ï¿½o
+            // Define os critérios da páginação
             $this->paginate = array('limit' => 30, 'page' => 1, 'order' => array('data_tramite' => 'asc'), 'recursive' => 2);
 
             // Realiza a busca
@@ -166,25 +166,25 @@ class RelatoriosController extends AppController {
 
 
     /**
-     * Relatorio para exibiï¿½ï¿½o de dos processos que estï¿½o atrasados, de acordo
-     * com a configuraï¿½ï¿½o existem em dias na mesa.
+     * Relatorio para exibição de dos processos que estão atrasados, de acordo
+     * com a configuração existem em dias na mesa.
      */
 
     function processos_atrasados() {
 
-        $this->set('fieldSetTitle', 'Relatï¿½rio - Processos Atrasados');
+        $this->set('fieldSetTitle', 'Relatório - Processos Atrasados');
 
-                // Listas necessï¿½rias para popular campos de seleï¿½ï¿½o
+                // Listas necessárias para popular campos de seleção
         $this->set('orgaos', $this->Orgao->listar());
 
-        // Caso os dados tenham sido passados via URL, repassa os dados para a variï¿½vel $this->data['Busca']. A partir desta variï¿½vel serï¿½ feita a consulta
+        // Caso os dados tenham sido passados via URL, repassa os dados para a variável $this->data['Busca']. A partir desta variável será feita a consulta
         if(count($this->params['named']) > 0) {
             $this->data['Busca'] = $this->params['named'];
         }
 
         if(isset($this->data)) {
             if(array_key_exists('OrgaoSelect', $this->params['form']) && ($this->params['form']['OrgaoSelect'] != "")) {
-            // Lista de seleï¿½ï¿½o de setores - jï¿½ que o ï¿½rgï¿½o foi selecionado, podemos retornar o setor para exibiï¿½ï¿½o
+            // Lista de seleção de setores - já que o órgão foi selecionado, podemos retornar o setor para exibição
                 $this->set('setores', $this->Setor->findByOrgao($this->params['form']['OrgaoSelect']));
             }
 
@@ -239,23 +239,23 @@ class RelatoriosController extends AppController {
     }
 
     /**
-     * Relatï¿½rio com busca pelos trï¿½mites
+     * Relatório com busca pelos trâmites
      * **/
     function tramites() {
     //Consulta geral dos processos
-        $this->set('fieldSetTitle', 'Relatï¿½rio - Trï¿½mites');
+        $this->set('fieldSetTitle', 'Relatório - Trâmites');
 
-        // Listas necessï¿½rias para popular campos de seleï¿½ï¿½o
+        // Listas necessárias para popular campos de seleção
         $this->set('orgaos', $this->Orgao->listar());
 
-        // Caso os dados tenham sido passados via URL, repassa os dados para a variï¿½vel $this->data['Busca']. A partir desta variï¿½vel serï¿½ feita a consulta
+        // Caso os dados tenham sido passados via URL, repassa os dados para a variável $this->data['Busca']. A partir desta variável será feita a consulta
         if(count($this->params['named']) > 0) {
             $this->data['Busca'] = $this->params['named'];
         }
 
         if(isset($this->data)) {
             if(array_key_exists('OrgaoSelect', $this->params['form']) && ($this->params['form']['OrgaoSelect'] != "")) {
-            // Lista de seleï¿½ï¿½o de setores - jï¿½ que o ï¿½rgï¿½o foi selecionado, podemos retornar o setor para exibiï¿½ï¿½o
+            // Lista de seleção de setores - já que o órgão foi selecionado, podemos retornar o setor para exibição
                 $this->set('setores', $this->Setor->findByOrgao($this->params['form']['OrgaoSelect']));
             }
 
@@ -274,13 +274,13 @@ class RelatoriosController extends AppController {
                 $this->data['Busca'] = array_merge($this->data['Busca'], $datas, $orgao);
             }
 
-            // Formata a URL que serï¿½ chamada na paginaï¿½ï¿½o
+            // Formata a URL que será chamada na paginação
             $this->set('url', $this->gerarNamedUrl($this->data['Busca']));
 
-            // Define os critï¿½rios da pï¿½ginaï¿½ï¿½o
+            // Define os critérios da páginação
             $this->paginate = array('limit' => 30, 'page' => 1, 'order' => array('Processo.numero_orgao ASC','Processo.numero_processo ASC', 'Processo.numero_ano ASC', 'Tramite.data_tramite asc'), 'recursive' => 2);
 
-            // Resgata os critï¿½rios para busca
+            // Resgata os critérios para busca
             //pr($this->data['Busca']);
             //die();
             $criterios = $this->Tramite->resgatarCriteriosBusca($this->data['Busca']);
@@ -338,23 +338,23 @@ class RelatoriosController extends AppController {
 
 
     /**
-     * Relatï¿½rio com busca pelos trï¿½mites nï¿½o recebidos
+     * Relatório com busca pelos trâmites não recebidos
      * **/
     function tramites_nao_recebidos() {
     //Consulta geral dos processos
-        $this->set('fieldSetTitle', 'Relatï¿½rio - Trï¿½mites');
+        $this->set('fieldSetTitle', 'Relatório - Trâmites');
 
-        // Listas necessï¿½rias para popular campos de seleï¿½ï¿½o
+        // Listas necessárias para popular campos de seleção
         $this->set('orgaos', $this->Orgao->listar());
 
-        // Caso os dados tenham sido passados via URL, repassa os dados para a variï¿½vel $this->data['Busca']. A partir desta variï¿½vel serï¿½ feita a consulta
+        // Caso os dados tenham sido passados via URL, repassa os dados para a variável $this->data['Busca']. A partir desta variável será feita a consulta
         if(count($this->params['named']) > 0) {
             $this->data['Busca'] = $this->params['named'];
         }
 
         if(isset($this->data)) {
             if(array_key_exists('OrgaoSelect', $this->params['form']) && ($this->params['form']['OrgaoSelect'] != "")) {
-            // Lista de seleï¿½ï¿½o de setores - jï¿½ que o ï¿½rgï¿½o foi selecionado, podemos retornar o setor para exibiï¿½ï¿½o
+            // Lista de seleção de setores - já que o órgão foi selecionado, podemos retornar o setor para exibição
                 $this->set('setores', $this->Setor->findByOrgao($this->params['form']['OrgaoSelect']));
             }
 
@@ -373,20 +373,20 @@ class RelatoriosController extends AppController {
                 $this->data['Busca'] = array_merge($this->data['Busca'], $datas, $orgao);
             }
 
-            // Informa o setor de origem como o setor onde o usuï¿½rio estï¿½ logado
+            // Informa o setor de origem como o setor onde o usuário está logado
             $this->data['Busca']['setor_origem_id'] = $this->Session->read('Setor.id');
 
-            // Informa que deve retornar apenas os trï¿½mites nï¿½o recebidos
+            // Informa que deve retornar apenas os trâmites não recebidos
             $this->data['Busca']['flag_recebimento'] = 'false';
 
-            // Formata a URL que serï¿½ chamada na paginaï¿½ï¿½o
+            // Formata a URL que será chamada na paginação
             $this->set('url', $this->gerarNamedUrl($this->data['Busca']));
 
-            // Define os critï¿½rios da pï¿½ginaï¿½ï¿½o
+            // Define os critérios da páginação
             $this->paginate = array('limit' => 30, 'page' => 1, 'order' => array('Tramite.data_tramite' => 'asc'), 'recursive' => 2);
 
 
-            // Resgata os critï¿½rios para busca
+            // Resgata os critérios para busca
             $criterios = $this->Tramite->resgatarCriteriosBusca($this->data['Busca']);
 
             // Remove relacionamentos indesejados
@@ -441,22 +441,22 @@ class RelatoriosController extends AppController {
 
 
     /**
-     * Relatï¿½rio com busca pelos trï¿½mites
+     * Relatório com busca pelos trâmites
      * **/
     function tramitacao_entre_setores() {
     //Consulta geral dos processos
-        $this->set('fieldSetTitle', 'Relatï¿½rio - Tramitaï¿½ï¿½o entre setores');
+        $this->set('fieldSetTitle', 'Relatório - Tramitação entre setores');
 
-        // Listas necessï¿½rias para popular campos de seleï¿½ï¿½o
+        // Listas necessárias para popular campos de seleção
         $this->set('orgaos', $this->Orgao->listar());
 
-        // Caso os dados tenham sido passados via URL, repassa os dados para a variï¿½vel $this->data['Busca']. A partir desta variï¿½vel serï¿½ feita a consulta
+        // Caso os dados tenham sido passados via URL, repassa os dados para a variável $this->data['Busca']. A partir desta variável será feita a consulta
         if(count($this->params['named']) > 0) {
             $this->data['Busca'] = $this->params['named'];
         }
 
         if(isset($this->data) && ($this->data['Busca']['setor_origem_id'] != '') && ($this->data['Busca']['setor_recebimento_id'] != '')) {
-        // Lista de seleï¿½ï¿½o de setores - jï¿½ que o ï¿½rgï¿½o foi selecionado, podemos retornar o setor para exibiï¿½ï¿½o
+        // Lista de seleção de setores - já que o órgão foi selecionado, podemos retornar o setor para exibição
             $this->set('setoresOrigem', $this->Setor->findByOrgao($this->data['Busca']['orgao_origem_id']));
             $this->set('setoresRecebimento', $this->Setor->findByOrgao($this->data['Busca']['orgao_recebimento_id']));
 
@@ -474,13 +474,13 @@ class RelatoriosController extends AppController {
                 $this->data['Busca'] = array_merge($this->data['Busca'], $datas);
             }
 
-            // Formata a URL que serï¿½ chamada na paginaï¿½ï¿½o
+            // Formata a URL que será chamada na paginação
             $this->set('url', $this->gerarNamedUrl($this->data['Busca']));
 
-            // Define os critï¿½rios da pï¿½ginaï¿½ï¿½o
+            // Define os critérios da páginação
             $this->paginate = array('limit' => 30, 'page' => 1, 'order' => array('Tramite.data_tramite' => 'asc'), 'recursive' => 2);
 
-            // Resgata os critï¿½rios para busca
+            // Resgata os critérios para busca
             $criterios = $this->Tramite->resgatarCriteriosBusca($this->data['Busca']);
 
             // Remove relacionamentos indesejados
@@ -542,7 +542,7 @@ class RelatoriosController extends AppController {
         // Lista de orgaos para a pesquisa
             $this->set('orgaos', $this->Orgao->listar());
 
-            // Lista as etiquetas disponï¿½veis
+            // Lista as etiquetas disponíveis
             $this->set('etiquetas', $this->Etiqueta->find('all', array('order' => 'descricao')));
 
             $this->render('impressao_etiqueta_busca');
@@ -555,17 +555,14 @@ class RelatoriosController extends AppController {
             $processo = $this->Processo->findByNumero($this->data['Processo']['numero_orgao'], $this->data['Processo']['numero_processo'], $this->data['Processo']['numero_ano']);
 
             // Dados da etiqueta
-            
-            $etiqueta = $this->Etiqueta->read(null, $this->data['Etiqueta']['id']);
+            $etiqueta = $this->Etiqueta->read(array('id', 'linhas'), $this->data['Etiqueta']['id']);
             $this->set('etiqueta', $etiqueta);
-            
+
             // Linha impressa
-            $this->set("etiqueta_impressa", $this->data['Etiqueta']['linha']);;
+            $this->set("linha_impressa", $this->data['Etiqueta']['linha']);;
 
             // Dados do processo
             $this->set("processo", $processo);
-
-            $this->render('impressao_etiqueta_pdf_cmg','');
         }
     }
 
@@ -591,15 +588,15 @@ class RelatoriosController extends AppController {
     }
 
     /**
-     * Impressï¿½o do boletim de informaï¿½ï¿½o. Primeiro passo, busca pelos trï¿½mites.
-     * O BI ï¿½ um documento contendo processos encaminhados de um setor para o outro e as assinaturas de envio e recebimento.
+     * Impressão do boletim de informação. Primeiro passo, busca pelos trâmites.
+     * O BI é um documento contendo processos encaminhados de um setor para o outro e as assinaturas de envio e recebimento.
      * **/
     function boletim_de_informacao() {
-        $this->set('fieldSetTitle', 'Imprimir Boletim de Informaï¿½ï¿½o');
+        $this->set('fieldSetTitle', 'Imprimir Boletim de Informação');
 
-        // Listas necessï¿½rias para popular campos de seleï¿½ï¿½o
+        // Listas necessárias para popular campos de seleção
         $this->set('orgaos', $this->Orgao->listar());
-        // Setores do ï¿½rgï¿½o onde o usuï¿½rio estï¿½ logado
+        // Setores do órgão onde o usuário está logado
         $this->set('setoresDoUsuario', $this->Setor->findByOrgao($this->Session->read('Orgao.id')));
 
         // Verifica se a busca ja foi realizada
@@ -612,10 +609,10 @@ class RelatoriosController extends AppController {
 
             $this->data['Busca'] = array_merge($this->data['Busca'], $datas);
 
-            // Formata a URL que serï¿½ chamada para impressï¿½o
+            // Formata a URL que será chamada para impressão
             $this->set('url', join('/', $this->gerarNamedUrl($this->data['Busca'])));
 
-            // Resgata os critï¿½rios para busca
+            // Resgata os critérios para busca
             $criterios = $this->Tramite->resgatarCriteriosBusca($this->data['Busca']);
 
             // Remove relacionamentos indesejados
@@ -671,13 +668,13 @@ class RelatoriosController extends AppController {
     }
     /**
      *
-     * Impressï¿½o do boletim de informaï¿½ï¿½o de processos distribuidos. Primeiro passo, buscar processos distribuidos para o servidor selecionado.
-     * O BI de distribuicao ï¿½ um documento contendo processos encaminhados para um servidor e as assinaturas de envio e recebimento.
+     * Impressão do boletim de informação de processos distribuidos. Primeiro passo, buscar processos distribuidos para o servidor selecionado.
+     * O BI de distribuicao é um documento contendo processos encaminhados para um servidor e as assinaturas de envio e recebimento.
      * **/
     function boletim_de_informacao_de_distribuicao() {
-        $this->set('fieldSetTitle', 'Imprimir Boletim de Informaï¿½ï¿½o de Distribuiï¿½ï¿½o');
+        $this->set('fieldSetTitle', 'Imprimir Boletim de Informação de Distribuição');
 
-        // Setores do ï¿½rgï¿½o onde o usuï¿½rio estï¿½ logado
+        // Setores do órgão onde o usuário está logado
 
         $this->set('servidores',$this->Servidor->find('all',array('conditions' => array(
             "Setor.orgao_id" => $this->Session->read('Orgao.id'),
@@ -698,11 +695,11 @@ class RelatoriosController extends AppController {
 
             $this->data['Busca'] = array_merge($this->data['Busca'], $datas);
 
-            // Formata a URL que serï¿½ chamada para impressï¿½o
+            // Formata a URL que será chamada para impressão
             $this->set('url', join('/', $this->gerarNamedUrl($this->data['Busca'])));
 
 
-            // Resgata os critï¿½rios para busca
+            // Resgata os critérios para busca
             $criterios = $this->HistoricoDivisao->resgatarCriteriosBusca($this->data['Busca']);
 
             // Faz a busca
@@ -716,7 +713,7 @@ class RelatoriosController extends AppController {
     }
 
     /**
-     * Impressï¿½o do boletim de informaï¿½ï¿½o. Segundo passo, geraï¿½ï¿½o do pdf.
+     * Impressão do boletim de informação. Segundo passo, geração do pdf.
      * **/
     function boletim_de_informacao_pdf() {
         if(count($this->data['Busca']['Tramites']) > 0) {
@@ -802,9 +799,9 @@ class RelatoriosController extends AppController {
 
     function distribuicao() {
 
-        $this->set('fieldSetTitle', 'Imprimir Relatï¿½rio de Distribuiï¿½ï¿½o');
+        $this->set('fieldSetTitle', 'Imprimir Relatório de Distribuição');
 
-        // Setores do ï¿½rgï¿½o onde o usuï¿½rio estï¿½ logado
+        // Setores do órgão onde o usuário está logado
 
         $this->set('servidores',$this->Servidor->find('all',array('conditions' => array(
             "Setor.orgao_id" => $this->Session->read('Orgao.id'),
@@ -825,11 +822,11 @@ class RelatoriosController extends AppController {
 
             $this->data['Busca'] = array_merge($this->data['Busca'], $datas);
 
-            // Formata a URL que serï¿½ chamada para impressï¿½o
+            // Formata a URL que será chamada para impressão
             $this->set('url', join('/', $this->gerarNamedUrl($this->data['Busca'])));
 
 
-            // Resgata os critï¿½rios para busca
+            // Resgata os critérios para busca
             $criterios = $this->HistoricoDivisao->resgatarCriteriosBusca($this->data['Busca']);
 
             // Faz a busca

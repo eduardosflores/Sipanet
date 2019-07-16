@@ -560,12 +560,12 @@ class RelatoriosController extends AppController {
             $this->set('etiqueta', $etiqueta);
             
             // Linha impressa
-            $this->set("etiqueta_impressa", $this->data['Etiqueta']['linha']);;
+            $this->set("linha_impressa", $this->data['Etiqueta']['linha']);;
 
             // Dados do processo
             $this->set("processo", $processo);
 
-            $this->render('impressao_etiqueta_pdf_cmg','');
+            $this->render('impressao_etiqueta_pdf','');
         }
     }
 

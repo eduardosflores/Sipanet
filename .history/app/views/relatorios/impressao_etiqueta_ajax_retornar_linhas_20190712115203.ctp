@@ -8,7 +8,7 @@ if($etiqueta['Etiqueta']['id'] != "")
     for($i = 1; $i <= $etiqueta['Etiqueta']['linhas']; $i++)
     {
     	?>
-        <option value="<?php echo $i; ?>">Etiqueta <?php echo $i; ?></option>
+        <option value="<?php echo $i; ?>">Linha <?php echo $i; ?></option>
         <?php
     }
 }

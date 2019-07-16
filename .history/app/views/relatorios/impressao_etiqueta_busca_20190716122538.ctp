@@ -7,7 +7,7 @@
             <table cellpadding="2" cellspacing="0" border="0" class="tbFrm">
                 <tr>
                     <td colspan="2" align="left">
-                        <br /><label class="lbInfoPagFrm">Preencha os dados do formulário para pesquisar o Processo:</label>
+                        <br /><label class="lbInfoPagFrm">Preencha os dados do formul?rio para pesquisar o Processo:</label>
                     </td>
                 </tr>
                 <tr>

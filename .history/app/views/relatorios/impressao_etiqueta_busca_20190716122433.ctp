@@ -7,7 +7,7 @@
             <table cellpadding="2" cellspacing="0" border="0" class="tbFrm">
                 <tr>
                     <td colspan="2" align="left">
-                        <br /><label class="lbInfoPagFrm">Preencha os dados do formulário para pesquisar o Processo:</label>
+                        <br /><label class="lbInfoPagFrm">Preencha os dados do formulï¿½rio para pesquisar o Processo:</label>
                     </td>
                 </tr>
                 <tr>
@@ -16,10 +16,10 @@
                     </td>
                 </tr>
 
-				<!-- ?rg?o -->
+				<!-- ï¿½rgï¿½o -->
 				<tr>
                     <td class="tbTituloFrm">
-                        Órgão:
+                        ï¿½rgï¿½o:
                     </td>
                    <td class="tbFieldFrm">
                         <select name="data[Processo][numero_orgao]" id="ProcessoNumeroOrgao" class="comboBox textFieldWidth240">
@@ -39,10 +39,10 @@
                    </td>
                 </tr>
 
-				<!-- Processo N? -->
+				<!-- Processo Nï¿½ -->
 				<tr>
                     <td class="tbTituloFrm">
-                        Processo Nº:
+                        Processo Nï¿½:
                     </td>
                    <td class="tbFieldFrm">
                         <?php echo $form->input('Processo.numero_processo', array('label'=>false,'class'=>'textArea textFieldWidth120'))?>
@@ -86,10 +86,10 @@
                 
                 
                 
-                <!-- Linha -->
+                <!-- Etiqueta -->
                 <tr>
                     <td class="tbTituloFrm">
-                        Linha da etiqueta a ser impressa:
+                        Etiqueta a ser impressa:
                     </td>
                    <td class="tbFieldFrm">
                         <select name="data[Etiqueta][linha]" id="EtiquetaLinha" class="comboBox textFieldWidth240">

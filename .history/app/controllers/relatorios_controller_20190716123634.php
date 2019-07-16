@@ -565,7 +565,7 @@ class RelatoriosController extends AppController {
             // Dados do processo
             $this->set("processo", $processo);
 
-            $this->render('impressao_etiqueta_pdf_cmg','');
+            $this->render('impressao_etiqueta_pdf_Cmg','');
         }
     }
 

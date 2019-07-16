@@ -16,7 +16,7 @@
                     </td>
                 </tr>
 
-				<!-- ?rg?o -->
+				<!-- Órgão -->
 				<tr>
                     <td class="tbTituloFrm">
                         Órgão:
@@ -39,7 +39,7 @@
                    </td>
                 </tr>
 
-				<!-- Processo N? -->
+				<!-- Processo Nº -->
 				<tr>
                     <td class="tbTituloFrm">
                         Processo Nº:
