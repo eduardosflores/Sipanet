@@ -2192,47 +2192,22 @@ public function recebimento_lote() {
 
         /**
      * Tramitar processo. Primeiro passo, busca e confirma??o
-     * http://sistema/processos/add_paginas_processo **/
+     * http://sistema/processos/addpaginasprocesso **/
      public function add_paginas_processo() {
     
         $id = $this->data['Processo']['id'];
 
         $processo = $this->Processo->find('first', array('conditions' => "Processo.id = {$id}"));
 
-        $chaveArquivo = $this->data['chaveArquivo']['valor'];
+        $chaveArquivo = data['chaveArquivo']['valor'];
 
         $arquivo = $_FILES["upload"];
-
+        $servidor = Configure::read("servidor_ftp");
+        $usuario = Configure::read("usuario_ftp");
+        $senha = Configure::read("senha_ftp");
+        $resposta="";
         $ftp = new FTPHelper();
-
-        if($ftp->verificarDiretorioExiste('/'.$processo['Processo']['id'])==false){
-            if($ftp->criarDiretorio('/'.$processo['Processo']['id'])!=false){
-                if ($ftp->criarDiretorio('/'.$processo['Processo']['id'].'/tmp')==false){
-                    $this->set("nome_arquivo",$arquivo['name']);
-                    $this->set("status_arquivo","NOT OK");
-                    $this->render(null,'ajax');
-                }
-            }
-        }
-        else{
-            if($ftp->verificarDiretorioExiste('/'.$processo['Processo']['id'].'/tmp')==false){
-                if($ftp->criarDiretorio('/'.$processo['Processo']['id'].'/tmp')==false){
-                    $this->set("nome_arquivo",$arquivo['name']);
-                    $this->set("status_arquivo","NOT OK");
-                    $this->render(null,'ajax');
-                };
-            }
-        }
-
-        if($ftp->enviarArquivo($id.'/tmp/'.$chaveArquivo.'_'.date('His').'_'.$id.'.pdf',$arquivo)){
-            $this->set("nome_arquivo",$arquivo['name']);
-            $this->set("status_arquivo","OK");
-            $this->render(null,'ajax');
-        }else {
-            $this->set("nome_arquivo",$arquivo['name']);
-            $this->set("status_arquivo","NOT OK");
-            $this->render(null,'ajax');
-        }
+        $ftp->enviarArquivo('/',$arquivo);
 
     }
 

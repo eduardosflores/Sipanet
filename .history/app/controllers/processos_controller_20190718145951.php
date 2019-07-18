@@ -2208,31 +2208,17 @@ public function recebimento_lote() {
         if($ftp->verificarDiretorioExiste('/'.$processo['Processo']['id'])==false){
             if($ftp->criarDiretorio('/'.$processo['Processo']['id'])!=false){
                 if ($ftp->criarDiretorio('/'.$processo['Processo']['id'].'/tmp')==false){
-                    $this->set("nome_arquivo",$arquivo['name']);
-                    $this->set("status_arquivo","NOT OK");
-                    $this->render(null,'ajax');
+                    return false;
                 }
             }
         }
         else{
             if($ftp->verificarDiretorioExiste('/'.$processo['Processo']['id'].'/tmp')==false){
-                if($ftp->criarDiretorio('/'.$processo['Processo']['id'].'/tmp')==false){
-                    $this->set("nome_arquivo",$arquivo['name']);
-                    $this->set("status_arquivo","NOT OK");
-                    $this->render(null,'ajax');
-                };
+                $ftp->criarDiretorio('/'.$processo['Processo']['id'].'/tmp');
             }
         }
 
-        if($ftp->enviarArquivo($id.'/tmp/'.$chaveArquivo.'_'.date('His').'_'.$id.'.pdf',$arquivo)){
-            $this->set("nome_arquivo",$arquivo['name']);
-            $this->set("status_arquivo","OK");
-            $this->render(null,'ajax');
-        }else {
-            $this->set("nome_arquivo",$arquivo['name']);
-            $this->set("status_arquivo","NOT OK");
-            $this->render(null,'ajax');
-        }
+        $ftp->enviarArquivo($id.'/tmp/'.$chaveArquivo.'_'.date('His').'_'.$id.'.pdf',$arquivo);
 
     }
 

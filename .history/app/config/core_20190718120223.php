@@ -228,6 +228,4 @@
 	Cache::config('default', array('engine' => 'File'));
 
 	Configure::write('servidor_ftp','10.0.0.244');
-	Configure::write('usuario_ftp','ftpserver');
-	Configure::write('senha_ftp','pepa123');
 ?>

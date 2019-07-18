@@ -1,7 +1,7 @@
 <?php
 /**
- *  SipaNet 2.0 - Sistema de Informação Processual e Arquivo
- Copyright (C) 2008 Universidade Estadual de Ciências da Saúde de Alagoas - UNCISAL <http://www.uncisal.edu.br>
+ *  SipaNet 2.0 - Sistema de Informa??o Processual e Arquivo
+ Copyright (C) 2008 Universidade Estadual de Ci?ncias da Sa?de de Alagoas - UNCISAL <http://www.uncisal.edu.br>
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -33,6 +33,7 @@
         <script language="JavaScript" type="text/javascript">
             var myThemePanelBase = "<?php echo $this->webroot; ?>js/jscookmenu/ThemePanel/";
         </script>
+        <script language="JavaScript" type="text/javascript" src="<?php echo $this->webroot; ?>js/jquery.js"></script>
         <script language="JavaScript" type="text/javascript" src="<?php echo $this->webroot; ?>js/prototype.js"></script>
         <script language="JavaScript" type="text/javascript" src="<?php echo $this->webroot; ?>js/fastinit.js"></script>
         <script language="JavaScript" type="text/javascript" src="<?php echo $this->webroot; ?>js/tablesort.js"></script>
@@ -40,6 +41,7 @@
         <script language="JavaScript" type="text/javascript" src="<?php echo $this->webroot; ?>js/default.js"></script>
         <script language="JavaScript" type="text/javascript" src="<?php echo $this->webroot; ?>js/jscookmenu/JSCookMenu.js"></script>
         <script language="JavaScript" type="text/javascript" src="<?php echo $this->webroot; ?>js/jscookmenu/ThemePanel/theme.js"></script>
+        
 
 
         <style type="text/css">
@@ -97,7 +99,7 @@
                 <tr>
                     <td colspan="2" class="td_menu">
                         <?php
-                        // Exibe o cabeçalho apenas se estiver logado
+                        // Exibe o cabe?alho apenas se estiver logado
                         if($session->check('Servidor.id') && !$session->check('EsconderMenu')) {
                             ?>
                         <table width="100%" cellpadding="0" cellspacing="0">
@@ -108,7 +110,7 @@
                                         <script language="JavaScript" type="text/javascript">
                                             var myMenu =
                                                 [
-                                                ['', 'Início', '<?php echo $this->webroot; ?>acesso/boas_vindas', '_self', ''],  // a menu item
+                                                ['', 'In?cio', '<?php echo $this->webroot; ?>acesso/boas_vindas', '_self', ''],  // a menu item
                                                 _cmSplit,
                                                 ['', 'Processos', '#', '', null,
                                                     ['', 'Cadastrar', '<?php echo $this->webroot; ?>processos/cadastrar', '_self', ''],
@@ -116,16 +118,16 @@
                                                     ['', 'Tramitar processo', '<?php echo $this->webroot; ?>processos/tramite', '_self', ''],
                                                     ['', 'Receber processo', '<?php echo $this->webroot; ?>processos/recebimento', '_self', ''],
                                                     ['', 'Receber processo externo', '<?php echo $this->webroot; ?>processos/recebimento_externo', '_self', ''],
-                                                    ['', 'Cancelar Tramitação', '<?php echo $this->webroot; ?>processos/cancelamento_tramite', '_self', ''],
+                                                    ['', 'Cancelar Tramita??o', '<?php echo $this->webroot; ?>processos/cancelamento_tramite', '_self', ''],
                                                     _cmSplit,
                                                     ['', 'Arquivar', '<?php echo $this->webroot; ?>processos/arquivamento', '_self', ''],
                                                     ['', 'Desarquivar', '<?php echo $this->webroot; ?>processos/desarquivamento', '_self', ''],
                                                     ['', 'Paralisar', '<?php echo $this->webroot; ?>processos/paralisacao', '_self', ''],
                                                     ['', 'Liberar processo paralisado', '<?php echo $this->webroot; ?>processos/liberacao', '_self', ''],
-                                                    ['', 'Anexação/Desanexação de processos', '<?php echo $this->webroot; ?>processos/anexacao', '_self', ''],
+                                                    ['', 'Anexa??o/Desanexa??o de processos', '<?php echo $this->webroot; ?>processos/anexacao', '_self', ''],
                                                     _cmSplit,
                                                     ['', 'Distribuir processo', '<?php echo $this->webroot; ?>processos/divisao', '_self', ''],
-                                                    ['', 'Devolver processo distribuído', '<?php echo $this->webroot; ?>processos/devolucao', '_self', ''],
+                                                    ['', 'Devolver processo distribu?do', '<?php echo $this->webroot; ?>processos/devolucao', '_self', ''],
                                                     _cmSplit,
                                                     ['', 'Cadastrar processo antigo', '<?php echo $this->webroot; ?>processos/cadastrar_antigos', '_self', ''],
                                                 ],  // a menu item
@@ -133,10 +135,10 @@
                                                 ['', 'Consultar', '', '', '',
                                                     ['', 'Processos', '<?php echo $this->webroot; ?>processos/consultar', '_self', null],
                                                     ['', 'Todos os Processos', '<?php echo $this->webroot; ?>processos/index', '_self', null],
-                                                    ['', 'Tramitação', '<?php echo $this->webroot; ?>processos/tramitacao', '_self', null],
+                                                    ['', 'Tramita??o', '<?php echo $this->webroot; ?>processos/tramitacao', '_self', null],
                                                     _cmSplit,
                                                     ['', 'Interessados', '<?php echo $this->webroot; ?>interessados/consultar', '_self', null],
-                                                    ['', 'Órgãos', '<?php echo $this->webroot; ?>orgaos/consultar', '_self', null],
+                                                    ['', '?rg?os', '<?php echo $this->webroot; ?>orgaos/consultar', '_self', null],
                                                     ['', 'Setores', '<?php echo $this->webroot; ?>setores/consultar', '_self', null],
                                                     ['', 'Servidores', '<?php echo $this->webroot; ?>servidores/consultar', '_self', null],
                                                 ],
@@ -154,13 +156,13 @@
                                                         ]
                                                     ],
 
-                                                    ['', 'Módulos', '<?php echo $this->webroot; ?>modulos/', '_self', null],
+                                                    ['', 'M?dulos', '<?php echo $this->webroot; ?>modulos/', '_self', null],
 
                                                     ['', 'Naturezas', '<?php echo $this->webroot; ?>naturezas/', '_self', null,
                                                         ['', 'Cadastrar', '<?php echo $this->webroot; ?>naturezas/cadastrar/', '_self', ''],
                                                     ],
 
-                                                    ['', 'Órgãos', '<?php echo $this->webroot; ?>orgaos/', '_self', null,
+                                                    ['', '?rg?os', '<?php echo $this->webroot; ?>orgaos/', '_self', null,
                                                         ['', 'Cadastrar', '<?php echo $this->webroot; ?>orgaos/cadastrar/', '_self', ''],
                                                     ],
 
@@ -172,7 +174,7 @@
                                                         ['', 'Cadastrar', '<?php echo $this->webroot; ?>servidores/cadastrar/', '_self', ''],
                                                     ],
 
-                                                    ['', 'Situações', '<?php echo $this->webroot; ?>situacoes/', '_self', null],
+                                                    ['', 'Situa??es', '<?php echo $this->webroot; ?>situacoes/', '_self', null],
                                                     _cmSplit,
                                                     ['', 'Trocar Senha', '<?php echo $this->webroot; ?>servidores/alterar_senha', '_self', null],
     <?php
@@ -184,29 +186,29 @@
     ?>
             ],
             _cmSplit,
-            ['', 'Relatórios', '', '', '',
+            ['', 'Relat?rios', '', '', '',
                 ['', 'Processos', '<?php echo $this->webroot; ?>relatorios/processos', '_self', null],
                 ['', 'Processos Lentos', '<?php echo $this->webroot; ?>relatorios/processos_lentos', '_self', null],
                 <?php if ($session->check('Servidor.isAdmin')) { ?>
                 ['', 'Processos Atrasados', '<?php echo $this->webroot; ?>relatorios/processos_atrasados', '_self', null],
                 <?php } ?>
-                ['', 'Trâmites', '<?php echo $this->webroot; ?>relatorios/tramites', '_self', null],
-                ['', 'Trâmites não recebidos', '<?php echo $this->webroot; ?>relatorios/tramites_nao_recebidos', '_self', null],
-                ['', 'Tramitação entre Setores', '<?php echo $this->webroot; ?>relatorios/tramitacao_entre_setores', '_self', null],
+                ['', 'Tr?mites', '<?php echo $this->webroot; ?>relatorios/tramites', '_self', null],
+                ['', 'Tr?mites n?o recebidos', '<?php echo $this->webroot; ?>relatorios/tramites_nao_recebidos', '_self', null],
+                ['', 'Tramita??o entre Setores', '<?php echo $this->webroot; ?>relatorios/tramitacao_entre_setores', '_self', null],
                 ['', 'Etiquetas de Capa (PDF)', '<?php echo $this->webroot; ?>relatorios/impressao_etiqueta', '_self', null],
-                ['', 'Distribuição de Processos (PDF)', '<?php echo $this->webroot; ?>relatorios/distribuicao', '_self', null],
-                ['', 'Boletim de Informação (PDF)', '<?php echo $this->webroot; ?>relatorios/boletim_de_informacao', '_self', null],
-                ['', 'Boletim de Informação de Distribuição (PDF)', '<?php echo $this->webroot; ?>relatorios/boletim_de_informacao_de_distribuicao', '_self', null],
+                ['', 'Distribui??o de Processos (PDF)', '<?php echo $this->webroot; ?>relatorios/distribuicao', '_self', null],
+                ['', 'Boletim de Informa??o (PDF)', '<?php echo $this->webroot; ?>relatorios/boletim_de_informacao', '_self', null],
+                ['', 'Boletim de Informa??o de Distribui??o (PDF)', '<?php echo $this->webroot; ?>relatorios/boletim_de_informacao_de_distribuicao', '_self', null],
             ],
             _cmSplit,
-            ['', 'Gráficos', '', '', '',
-                ['', 'Processos por Confirmação', '<?php echo $this->webroot; ?>graficos/processos_por_confirmacao', '_self', null],
-                ['', 'Processos por Situação', '<?php echo $this->webroot; ?>graficos/processos_por_situacao', '_self', null],
+            ['', 'Gr?ficos', '', '', '',
+                ['', 'Processos por Confirma??o', '<?php echo $this->webroot; ?>graficos/processos_por_confirmacao', '_self', null],
+                ['', 'Processos por Situa??o', '<?php echo $this->webroot; ?>graficos/processos_por_situacao', '_self', null],
             ],
     <?php if ($session->check('Servidor.isAdmin')) { ?>
             _cmSplit,
-            ['', 'Administração', '<?php echo $this->webroot; ?>administracao/', '_self', 'null',
-                ['', 'Cancelamento de Trâmite', '<?php echo $this->webroot; ?>administracao/cancelamento_tramite', '_self', null],
+            ['', 'Administra??o', '<?php echo $this->webroot; ?>administracao/', '_self', 'null',
+                ['', 'Cancelamento de Tr?mite', '<?php echo $this->webroot; ?>administracao/cancelamento_tramite', '_self', null],
                 ['', 'Alterar dados do Processo', '<?php echo $this->webroot; ?>administracao/alteracao_processo', '_self', null],
                 ['', 'Max dias processo na mesa', '<?php echo $this->webroot; ?>administracao/maximo_index', '_self', null,
                     ['', 'Cadastrar', '<?php echo $this->webroot; ?>administracao/maximo_cadastrar', '_self', null],
@@ -217,8 +219,8 @@
             _cmSplit,
             ['', 'Ajuda', '', '', '',
                 ['', 'Principal', '<?php echo $this->webroot; ?>ajuda', '_self', null],
-                ['', 'Manual de Alterações', '<?php echo $this->webroot; ?>docs/SIPANet_manual_modificacoes.pdf', '_self', null],
-                ['', 'Suporte Técnico', '<?php echo $this->webroot; ?>ajuda/suporte', '_self', null],
+                ['', 'Manual de Altera??es', '<?php echo $this->webroot; ?>docs/SIPANet_manual_modificacoes.pdf', '_self', null],
+                ['', 'Suporte T?cnico', '<?php echo $this->webroot; ?>ajuda/suporte', '_self', null],
             ],
             _cmSplit,
         ];
@@ -250,17 +252,17 @@
             if($session->check('Servidor.id') && !$session->check('EsconderMenu')) {
                 ?>
             <div class="div_ola_usuario">
-                Olá, <?php echo ucw($session->read('Servidor.nome')); ?>&nbsp;|&nbsp;Setor: <?php echo $session->read('Setor.sigla'); ?>&nbsp;|&nbsp;Órgão: <?php echo $session->read('Orgao.sigla'); ?>
+                Ol?, <?php echo ucw($session->read('Servidor.nome')); ?>&nbsp;|&nbsp;Setor: <?php echo $session->read('Setor.sigla'); ?>&nbsp;|&nbsp;?rg?o: <?php echo $session->read('Orgao.sigla'); ?>
             </div>
             <?php
             }
             ?>
            <!-- <div id="desativacao" style="margin:5px auto;width:70%;text-align:center;background-color:#FFE951;border:1px solid #666;">
-                <p><strong>Aviso Importante:</strong> O SipaNET será desativado na próxima Quarta-Feira dia 02/06/2010 a partir das 15:00, <br />e retornará no dia 07/06/2010 (Segunda-Feira) com o novo sistema de gestão pública, o INTEGRA com o módulo de protocolo CPAV<br />
+                <p><strong>Aviso Importante:</strong> O SipaNET ser? desativado na pr?xima Quarta-Feira dia 02/06/2010 a partir das 15:00, <br />e retornar? no dia 07/06/2010 (Segunda-Feira) com o novo sistema de gest?o p?blica, o INTEGRA com o m?dulo de protocolo CPAV<br />
                 </p>
             </div>-->
             <?php 
-           //Espaço para avisos
+           //Espa?o para avisos
             if(isset($message_status)) {
            ?>
            
@@ -275,7 +277,7 @@
            
 
             <?php
-            // Espaço para mensagens
+            // Espa?o para mensagens
             if($session->check('Message.flash')) {
                 echo "<div id='mensagem_conteudo'>";
                 $session->flash();
@@ -298,9 +300,9 @@
 
         <!--content principal-->
         <div id="div_rodape">
-            <strong>Sistema de Informação Processual e Arquivo - SipaNet 2.4.1&nbsp;</strong><br />
-            Acordo de Cooperação Técnica ITEC/UNCISAL - 2008&nbsp;<br />
-            Desenvolvido por: <?php echo $html->link('Gerência de Tecnologia da Informação (GTIN) - UNCISAL', 'http://gtin.uncisal.edu.br', array('target' => 'blank')); ?>&nbsp;
+            <strong>Sistema de Informa??o Processual e Arquivo - SipaNet 2.4.1&nbsp;</strong><br />
+            Acordo de Coopera??o T?cnica ITEC/UNCISAL - 2008&nbsp;<br />
+            Desenvolvido por: <?php echo $html->link('Ger?ncia de Tecnologia da Informa??o (GTIN) - UNCISAL', 'http://gtin.uncisal.edu.br', array('target' => 'blank')); ?>&nbsp;
         </div>
         <!--END content principal-->
 

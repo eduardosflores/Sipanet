@@ -33,6 +33,7 @@
         <script language="JavaScript" type="text/javascript">
             var myThemePanelBase = "<?php echo $this->webroot; ?>js/jscookmenu/ThemePanel/";
         </script>
+    
         <script language="JavaScript" type="text/javascript" src="<?php echo $this->webroot; ?>js/prototype.js"></script>
         <script language="JavaScript" type="text/javascript" src="<?php echo $this->webroot; ?>js/fastinit.js"></script>
         <script language="JavaScript" type="text/javascript" src="<?php echo $this->webroot; ?>js/tablesort.js"></script>
@@ -40,6 +41,7 @@
         <script language="JavaScript" type="text/javascript" src="<?php echo $this->webroot; ?>js/default.js"></script>
         <script language="JavaScript" type="text/javascript" src="<?php echo $this->webroot; ?>js/jscookmenu/JSCookMenu.js"></script>
         <script language="JavaScript" type="text/javascript" src="<?php echo $this->webroot; ?>js/jscookmenu/ThemePanel/theme.js"></script>
+        
 
 
         <style type="text/css">

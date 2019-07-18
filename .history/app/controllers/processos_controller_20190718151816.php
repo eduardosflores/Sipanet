@@ -2230,8 +2230,8 @@ public function recebimento_lote() {
             $this->render(null,'ajax');
         }else {
             $this->set("nome_arquivo",$arquivo['name']);
-            $this->set("status_arquivo","NOT OK");
-            $this->render(null,'ajax');
+                $this->set("status_arquivo","NOT OK");
+                $this->render(null,'ajax');
         }
 
     }

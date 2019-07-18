@@ -1,8 +1,7 @@
 <div class="div_principal">
-	<form action="<?php echo $html->url('/processos/tramitar/' . $processo['Processo']['id'])?>" method="post" name="addform" id="form_tramite">
+	<form action="<?php echo $html->url('/processos/tramitar/' . $processo['Processo']['id'])?>" method="post" name="addform">
 
-        <input type="hidden" name="data[Processo][id]" id="ProcessoId" value="<?php echo $processo['Processo']['id']; ?>" />
-        <input type="hidden" name="data[chaveArquivo][valor]" id="chaveArquivo" value="<?php echo $chaveArquivo; ?>" />
+		<input type="hidden" name="data[Processo][id]" id="ProcessoId" value="<?php echo $processo['Processo']['id']; ?>" />
 
         <fieldset class="fieldset">
             <legend>
@@ -158,7 +157,7 @@
                         Upload de Arquivos
                     </td>
                    <td class="tbFieldFrm">
-                        <input type="file" id="paginas" name="uploadfile" accept="application/pdf" />                            
+                        <input type="file" id="páginas" name="uploadfile" accept="application/pdf" />                            
                    </td>                        
                 </tr>
                 <tr>
@@ -166,31 +165,9 @@
                      
                     </td>
                    <td class="tbFieldFrm">
-                        <input type="button" value="Enviar Arquivo" onclick="upload()" />
+                        <input type="button" value="upload" onclick="upload()" />
                    </td>                        
                 </tr>
-
-                <tr>
-                    <td colspan="2">
-                        <b>Arquivos adicionados</b>
-                    </td>                    
-                </tr>
-                <tr>
-                    <td colspan="2">
-                    <table cellpadding="2" cellspacing="0" border="0" class="tbFrm" id="tblUpload">
-                        <tr>
-                            <td class="tbTituloFrm">
-                                <b>Nome do Arquivo</b>
-                            <td>                  
-                            <td class="tbFieldFrm">
-                                <b>Status Upload</b>
-                            <td>    
-                        </tr>
-                    </table>        
-                    </td>        
-                </tr>
-
-
                 <tr>
                     <td class="tbTituloFrm">
                         &nbsp;
@@ -200,9 +177,7 @@
                         <input type="button" id="btnCancelar" name="btnCancelar" onclick="javascript:window.location='<?php echo $this->webroot . 'processos/tramite/' ?>'" value="Cancelar" />
                     </td>
                 </tr>
-
                 
-
                 <?php
                 if($processosAnexados)
                 {

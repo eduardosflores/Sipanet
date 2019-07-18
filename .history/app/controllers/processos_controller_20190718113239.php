@@ -19,8 +19,6 @@
 
  */
 
-App::import('Plugin', 'FTPHelper', array('file'=>'ftphelper.php'));
-
 /**
  * @property Arquivo $Arquivo
  * @property Processo $Processo
@@ -1384,7 +1382,6 @@ class ProcessosController extends AppController {
 
             $this->set('processo', $processo);
             $this->set('processosAnexados', $processosAnexados);
-            $this->set('chaveArquivo',date('YmdHis'));
 
             $this->render();
         }
@@ -2192,48 +2189,56 @@ public function recebimento_lote() {
 
         /**
      * Tramitar processo. Primeiro passo, busca e confirma??o
-     * http://sistema/processos/add_paginas_processo **/
-     public function add_paginas_processo() {
-    
-        $id = $this->data['Processo']['id'];
+     * http://sistema/processos/tramite **/
+     public function addpaginasprocesso() {
+        $this->verificarLogin(1);
 
-        $processo = $this->Processo->find('first', array('conditions' => "Processo.id = {$id}"));
+        $this->set('fieldSetTitle', 'Tramitar Processo');
+        $this->set('action_form', '/processos/tramite');
 
-        $chaveArquivo = $this->data['chaveArquivo']['valor'];
+        // Lista de orgaos para a pesquisa
+        $this->set('orgaos', $this->Orgao->listar());
 
-        $arquivo = $_FILES["upload"];
+        // Lista os setores do orgao em sessao
+        $this->set('setores', $this->Setor->findByOrgao($this->Session->read('Orgao.id'), true));
 
-        $ftp = new FTPHelper();
+        // Verifica se a busca ja foi realizada
+        if (empty($this->data)) {
+            $this->render('busca_generica');
+        } else {
+            // Busca o processo e verifica se foi encontrado
+            $this->Processo->unbindModel(array('hasMany' => array('Tramite')));
+            $this->Processo->recursive = 1;
+            $processo = $this->buscarProcesso($this->data['Processo']['numero_orgao'], $this->data['Processo']['numero_processo'], $this->data['Processo']['numero_ano'], 'tramite');
 
-        if($ftp->verificarDiretorioExiste('/'.$processo['Processo']['id'])==false){
-            if($ftp->criarDiretorio('/'.$processo['Processo']['id'])!=false){
-                if ($ftp->criarDiretorio('/'.$processo['Processo']['id'].'/tmp')==false){
-                    $this->set("nome_arquivo",$arquivo['name']);
-                    $this->set("status_arquivo","NOT OK");
-                    $this->render(null,'ajax');
-                }
+            // Verifica se o processo se encontra na situa??o NORMAL
+            $this->verificarSituacao($processo, 'N', 'tramite');
+
+            // Verifica se o processo se encontra no setor do servidor
+            $this->verificarSeProcessoEstaNoSetor($processo, 'tramite');
+
+            // Verifica se o processo est? anexado a outro
+            $this->verificarSeEstaAnexado($processo, 'tramite');
+
+            // Verifica se o processo esta dividido para servidores
+            $this->Divisao->recursive = -1;
+            $divisao = $this->Divisao->find('all', array('conditions' => "processo_id = {$processo['Processo']['id']}"));
+
+            if(count($divisao) > 0) {
+                $this->setMessage("erro", "N?o ? poss?vel tramitar o processo pois ele se encontra dividido entre Servidores deste setor.");
+                $this->redirect('/processos/tramite/');
             }
-        }
-        else{
-            if($ftp->verificarDiretorioExiste('/'.$processo['Processo']['id'].'/tmp')==false){
-                if($ftp->criarDiretorio('/'.$processo['Processo']['id'].'/tmp')==false){
-                    $this->set("nome_arquivo",$arquivo['name']);
-                    $this->set("status_arquivo","NOT OK");
-                    $this->render(null,'ajax');
-                };
-            }
-        }
 
-        if($ftp->enviarArquivo($id.'/tmp/'.$chaveArquivo.'_'.date('His').'_'.$id.'.pdf',$arquivo)){
-            $this->set("nome_arquivo",$arquivo['name']);
-            $this->set("status_arquivo","OK");
-            $this->render(null,'ajax');
-        }else {
-            $this->set("nome_arquivo",$arquivo['name']);
-            $this->set("status_arquivo","NOT OK");
-            $this->render(null,'ajax');
-        }
+            // Se cumpriu as exig?ncias, exibe a view
 
+            // Busca os processos anexados a ele
+            $processosAnexados = $this->ProcessoAnexo->findByProcessoPrincipal($processo['Processo']['id']);
+
+            $this->set('processo', $processo);
+            $this->set('processosAnexados', $processosAnexados);
+
+            $this->render();
+        }
     }
 
 }

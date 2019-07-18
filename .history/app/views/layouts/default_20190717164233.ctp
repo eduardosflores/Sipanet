@@ -40,6 +40,7 @@
         <script language="JavaScript" type="text/javascript" src="<?php echo $this->webroot; ?>js/default.js"></script>
         <script language="JavaScript" type="text/javascript" src="<?php echo $this->webroot; ?>js/jscookmenu/JSCookMenu.js"></script>
         <script language="JavaScript" type="text/javascript" src="<?php echo $this->webroot; ?>js/jscookmenu/ThemePanel/theme.js"></script>
+        
 
 
         <style type="text/css">

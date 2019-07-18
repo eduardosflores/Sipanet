@@ -177,13 +177,13 @@
                 </tr>
                 <tr>
                     <td colspan="2">
-                    <table cellpadding="2" cellspacing="0" border="0" class="tbFrm" id="tblUpload">
+                    <table cellpadding="2" cellspacing="0" border="0" class="tbFrm">
                         <tr>
-                            <td class="tbTituloFrm">
+                            <td class="tbFieldFrm">
                                 <b>Nome do Arquivo</b>
                             <td>                  
                             <td class="tbFieldFrm">
-                                <b>Status Upload</b>
+                                <b>Nome do Arquivo</b>
                             <td>    
                         </tr>
                     </table>        

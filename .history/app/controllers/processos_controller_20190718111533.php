@@ -19,8 +19,6 @@
 
  */
 
-App::import('Plugin', 'FTPHelper', array('file'=>'ftphelper.php'));
-
 /**
  * @property Arquivo $Arquivo
  * @property Processo $Processo
@@ -1384,7 +1382,6 @@ class ProcessosController extends AppController {
 
             $this->set('processo', $processo);
             $this->set('processosAnexados', $processosAnexados);
-            $this->set('chaveArquivo',date('YmdHis'));
 
             $this->render();
         }
@@ -1398,7 +1395,7 @@ class ProcessosController extends AppController {
 
         // Verifica se o id passado ? v?lido
         if( ! $this->checkValidId($id) ) {
-            $this->setMessage("erro", "Código Inválido");
+            $this->setMessage("erro", "C?digo Inv?lido");
             $this->redirect('/processos/tramite/');
         }
 
@@ -1414,7 +1411,7 @@ class ProcessosController extends AppController {
 
             // Verifica se os dados de volumes foi passado
             if(empty($this->data['Processo']['volumes'])) {
-                $this->setMessage("erro", "Número de volumes não informado.");
+                $this->setMessage("erro", "N?mero de volumes n?o informado.");
                 $this->redirect('/processos/tramite/');
             }
 
@@ -2188,52 +2185,6 @@ public function recebimento_lote() {
                 $this->redirect('recebimento');
             }
         }
-    }
-
-        /**
-     * Tramitar processo. Primeiro passo, busca e confirma??o
-     * http://sistema/processos/add_paginas_processo **/
-     public function add_paginas_processo() {
-    
-        $id = $this->data['Processo']['id'];
-
-        $processo = $this->Processo->find('first', array('conditions' => "Processo.id = {$id}"));
-
-        $chaveArquivo = $this->data['chaveArquivo']['valor'];
-
-        $arquivo = $_FILES["upload"];
-
-        $ftp = new FTPHelper();
-
-        if($ftp->verificarDiretorioExiste('/'.$processo['Processo']['id'])==false){
-            if($ftp->criarDiretorio('/'.$processo['Processo']['id'])!=false){
-                if ($ftp->criarDiretorio('/'.$processo['Processo']['id'].'/tmp')==false){
-                    $this->set("nome_arquivo",$arquivo['name']);
-                    $this->set("status_arquivo","NOT OK");
-                    $this->render(null,'ajax');
-                }
-            }
-        }
-        else{
-            if($ftp->verificarDiretorioExiste('/'.$processo['Processo']['id'].'/tmp')==false){
-                if($ftp->criarDiretorio('/'.$processo['Processo']['id'].'/tmp')==false){
-                    $this->set("nome_arquivo",$arquivo['name']);
-                    $this->set("status_arquivo","NOT OK");
-                    $this->render(null,'ajax');
-                };
-            }
-        }
-
-        if($ftp->enviarArquivo($id.'/tmp/'.$chaveArquivo.'_'.date('His').'_'.$id.'.pdf',$arquivo)){
-            $this->set("nome_arquivo",$arquivo['name']);
-            $this->set("status_arquivo","OK");
-            $this->render(null,'ajax');
-        }else {
-            $this->set("nome_arquivo",$arquivo['name']);
-            $this->set("status_arquivo","NOT OK");
-            $this->render(null,'ajax');
-        }
-
     }
 
 }

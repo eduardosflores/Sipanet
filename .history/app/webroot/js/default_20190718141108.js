@@ -20,10 +20,7 @@ function upload(){
     client.open("post", "add_paginas_processo", true);
     client.onreadystatechange = function(){
        if (client.readyState == 4 && client.status == 200){
-            var tableRef = document.getElementById('tblUpload').getElementsByTagName('tbody')[0];
-            var newRow   = tableRef.insertRow(tableRef.rows.length);
-
-            newRow.innerHTML = client.responseText;
+          $("#resposta").html(client.responseText);
        }
     };
   

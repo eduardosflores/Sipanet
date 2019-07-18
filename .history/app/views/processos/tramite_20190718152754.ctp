@@ -173,23 +173,9 @@
                 <tr>
                     <td colspan="2">
                         <b>Arquivos adicionados</b>
-                    </td>                    
-                </tr>
-                <tr>
-                    <td colspan="2">
-                    <table cellpadding="2" cellspacing="0" border="0" class="tbFrm" id="tblUpload">
-                        <tr>
-                            <td class="tbTituloFrm">
-                                <b>Nome do Arquivo</b>
-                            <td>                  
-                            <td class="tbFieldFrm">
-                                <b>Status Upload</b>
-                            <td>    
-                        </tr>
-                    </table>        
-                    </td>        
-                </tr>
 
+                    </td>
+                </tr>
 
                 <tr>
                     <td class="tbTituloFrm">
