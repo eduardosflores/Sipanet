@@ -94,6 +94,16 @@
         }
 
 
+        function recuperarArquivoComNome($caminho){
+            $con_id = $this->getCon();
+            $local_file = $nomeArquivo;
+            $handle = fopen($local_file, 'w');
+            if($con_id){
+                return ftp_get_contents($con_id, $caminho, FTP_BINARY);                
+            } else {
+                return false;         
+            }            
+        }
 
         function deletaArquivo($caminho){
             $con_id = $this->getCon();

@@ -2365,7 +2365,7 @@ public function recebimento_lote() {
 
         $ftp = new FTPHelper();
 
-        $arquivoBinario = $ftp->recuperarConteudoArquivo('/'.$arquivo['Arquivo']['id_processos'].'/'.$arquivo['Arquivo']['nome_arquivo']);
+        $arquivoBinario = $ftp->recuperarArquivoComNome('/'.$arquivo['Arquivo']['id_processos'].'/'.$arquivo['Arquivo']['nome_arquivo']);
         
 //        $this->set("arquivo",$arquivoBinario);
 
@@ -2376,8 +2376,10 @@ public function recebimento_lote() {
         header("Content-Type: application/pdf");
         header("Content-Transfer-Encoding: binary");
         
-        echo $arquivoBinario;
-        
+        while(!feof($arquivoBinario)) {
+            $buffer = fread($arquivoBinario, 2048);
+            echo $buffer;
+        }
 
         exit;
     }
