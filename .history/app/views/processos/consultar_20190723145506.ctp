@@ -533,7 +533,7 @@
         </legend>
         <form action="<?php echo $form->url("/processos/consultar/"); ?>" method="post" name="addform">
             <div class="impressao">
-                <input type="button" value="Imprimir Capa" onclick="abrirCapaProcesso('<?php echo $processo['Processo']['id']?>');"/>
+                <input type="button" value="Imprimir Capa" onclick="abrirCapaProcesso('<?php echo $processo['Processo']['numero_processo']?>');"/>
             </div>
 
         </form>

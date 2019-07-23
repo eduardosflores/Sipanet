@@ -873,8 +873,8 @@ class RelatoriosController extends AppController {
         $divisoes = $this->Divisao->find('all', array('conditions' => "processo_id = {$processo['Processo']['id']}"));
         $this->set('divisoes', $divisoes);
 
-        $servidor = $this->Session->read('Servidor.nome');
-        $this->set('servidor', $servidor);
+        $this->Servidor->find('all',array('conditions' => array("id" => $this->Session->read('Orgao.id'))));
+
         
 
         $this->render('impressao_capa_pdf', '');

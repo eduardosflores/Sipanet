@@ -30,7 +30,7 @@ class RelatoriosController extends AppController {
     'Etiqueta',
     'Servidor',
     'HistoricoDivisao',
-    'Divisao',
+
 
     );
     var $helpers = array (
@@ -868,14 +868,10 @@ class RelatoriosController extends AppController {
         $setor = $this->Setor->read(null, $processo['Processo']['setor_id']);
         $this->set('setor',$setor);
 
-        // Busca divisões do processo
+        // Busca divis?es do processo
         $this->Divisao->unbindModel( array('belongsTo' => array('Processo')) );
         $divisoes = $this->Divisao->find('all', array('conditions' => "processo_id = {$processo['Processo']['id']}"));
         $this->set('divisoes', $divisoes);
-
-        $servidor = $this->Session->read('Servidor.nome');
-        $this->set('servidor', $servidor);
-        
 
         $this->render('impressao_capa_pdf', '');
 

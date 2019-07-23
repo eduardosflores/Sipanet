@@ -44,8 +44,7 @@ function upload(){
   }
 
 
-function abrirCapaProcesso(id) {
-    alert(id);
-    var redirectWindow = window.open('/sipanet/relatorios/impressao_capa_pdf/'+id, '_blank');
+function abrirCapaProcesso() {
+    var redirectWindow = window.open('http://google.com', '_blank');
     redirectWindow.location;
 };

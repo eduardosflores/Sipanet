@@ -533,7 +533,12 @@
         </legend>
         <form action="<?php echo $form->url("/processos/consultar/"); ?>" method="post" name="addform">
             <div class="impressao">
-                <input type="button" value="Imprimir Capa" onclick="abrirCapaProcesso('<?php echo $processo['Processo']['id']?>');"/>
+                <input type="hidden" name="imprimir" value="true"/>
+                <input type="hidden" name="data[Processo][numero_ano]" value="<?php echo $processo['Processo']['numero_ano']?>"/>
+                <input type="hidden" name="data[Processo][numero_orgao]" value="<?php echo $processo['Processo']['numero_orgao']?>"/>
+                <input type="hidden" name="data[Processo][numero_processo]" value="<?php echo $processo['Processo']['numero_processo']?>"/>
+                <label style="font-size:8pt">Internet Explorer: Imprimir somente em "Paisagem"</label><br />
+                <input type="submit" value="Imprimir Capa"/>
             </div>
 
         </form>

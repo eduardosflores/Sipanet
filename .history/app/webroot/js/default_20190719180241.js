@@ -42,10 +42,3 @@ function upload(){
   
     client.send(formData);
   }
-
-
-function abrirCapaProcesso(id) {
-    alert(id);
-    var redirectWindow = window.open('/sipanet/relatorios/impressao_capa_pdf/'+id, '_blank');
-    redirectWindow.location;
-};
