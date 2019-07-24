@@ -1031,7 +1031,7 @@ class Controller extends CakeObject {
 			if (!in_array($keys[$i], $vars, true)) {
 				unset($options[$keys[$i]]);
 			}
- 			if (empty($whitelist) && ($keys[$i] === 'fields' || $keys[$i] === 'recursive')) {
+			if (empty($whitelist) && ($keys[$i] === 'fields' || $keys[$i] === 'recursive')) {
 				unset($options[$keys[$i]]);
 			} elseif (!empty($whitelist) && !in_array($keys[$i], $whitelist)) {
 				unset($options[$keys[$i]]);

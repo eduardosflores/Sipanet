@@ -185,9 +185,14 @@ class ProcessosController extends AppController {
         // Busca os dados e envia para a view
         $this->set('processos', $this->paginate('Processo',$this->Session->read('condicoes_busca')));
 
-        $this->render('busca_consulta');
+        $this->render('index');
     }
 
+    /**
+     * Consultar processo.
+     * http://sistema/processos/consultar/
+     * http://sistema/processos/consultar/$id
+     * * */
     public function consultar($id = null) {
         $this->set('fieldSetTitle', 'Consultar Processo');
         $this->set('action_form', '/processos/consultar');
@@ -198,7 +203,7 @@ class ProcessosController extends AppController {
             $this->set('orgaos', $this->Orgao->listar());
         /// Lista tipos de processo para exibic?o
             $this->set('tipos_processo', $this->TipoProcesso->listar());
-            $this->render('busca_generica');
+            $this->render('busca_generica_campos');
         } else {
 
             $action_retorno = 'consultar';
@@ -211,7 +216,24 @@ class ProcessosController extends AppController {
             if($id) {
                 $processo = $this->Processo->read(null, $id);
             } else {
-                $processo = $this->buscarProcesso($this->data['Processo']['numero_orgao'], $this->data['Processo']['numero_processo'], $this->data['Processo']['numero_ano'], $action_retorno);
+                //$processo = $this->buscarProcesso($this->data['Processo']['numero_orgao'], $this->data['Processo']['numero_processo'], $this->data['Processo']['numero_ano'], $action_retorno);
+                $processo = $this->Processo->findByNumero(($this->data['Processo']['numero_orgao'], $this->data['Processo']['numero_processo'], $this->data['Processo']['numero_ano']);
+
+                if(!$processo){
+                    //$processo= $this->Processo->findByBusca("Solicita");
+
+                    $this->verificarLogin(13);
+
+                    $this->set('fieldSetTitle', 'Lista de Processos');
+            
+                    // Define a recursividade. Caso seja necess?rio exibir dados de tabelas relacionadas.
+                    $this->Processo->recursive = 1;
+
+                    $this->Session->write('condicoes_busca', "busca @@ to_tsquery('".$this->data[busca][conteudo]."')");                                
+
+                    $this->redirect('busca_consulta');
+                }
+
             }
 
             // Dados completos do setor onde o processo foi criado
@@ -266,78 +288,6 @@ class ProcessosController extends AppController {
             if ($this->params['form']['imprimir']) {
                 $this->render(null, false, 'consultar_impressao');
             }
-        }
-    }
-
-    /**
-     * Consultar processo.
-     * http://sistema/processos/consultar/
-     * http://sistema/processos/consultar/$id
-     * * */
-    public function consultar_completo() {
-        $this->set('fieldSetTitle', 'Consultar Processo');
-        $this->set('action_form', '/processos/consultar_completo');
-
-        // Verifica se a busca ja foi realizada ou se o $id foi informado
-        if (empty($this->data)) {
-            // Lista de orgaos para a pesquisa
-            $this->set('orgaos', $this->Orgao->listar());
-        /// Lista tipos de processo para exibic?o
-            $this->set('tipos_processo', $this->TipoProcesso->listar());
-            $this->render('busca_generica_campos');
-        } else {
-
-            $action_retorno = 'consultar_completo';
-
-            // Busca os dados do processo
-            $this->Processo->unbindModel(array('hasMany' => array('Tramite')));
-            $this->Processo->recursive = 1;
-
-        // Se foi passado o id, busca pelo id. Sen?o, busca pelo n?mero
-
-            //$processo = $this->buscarProcesso($this->data['Processo']['numero_orgao'], $this->data['Processo']['numero_processo'], $this->data['Processo']['numero_ano'], $action_retorno);
-        
-            //$processo= $this->Processo->findByBusca("Solicita");
-
-            $this->verificarLogin(13);
-
-            $this->set('fieldSetTitle', 'Lista de Processos');
-    
-            // Define a recursividade. Caso seja necess?rio exibir dados de tabelas relacionadas.
-            $this->Processo->recursive = 1;
-
-            $condicoes = "";
-
-            if ($this->data['busca']['conteudo']!=""){
-                $condicoes = "busca @@ to_tsquery('pg_catalog.portuguese','".$this->data['busca']['conteudo']."')";
-            }
-
-            if ($this->data['Processo']['numero_orgao']!=""){
-                if($condicoes!=""){
-                    $condicoes=$condicoes." and ";
-                }
-                $condicoes = $condicoes."Processo.numero_orgao = ('".$this->data['Processo']['numero_orgao']."')";
-            }
-
-            if ($this->data['Processo']['numero_processo']!=""){
-                if($condicoes!=""){
-                    $condicoes=$condicoes." and ";
-                }
-                $condicoes = $condicoes."Processo.numero_processo = ('".$this->data['Processo']['numero_processo']."')";
-            }
-
-            if ($this->data['Processo']['numero_ano']!=""){
-                if($condicoes!=""){
-                    $condicoes=$condicoes." and ";
-                }
-                $condicoes = $condicoes."Processo.numero_ano = ('".$this->data['Processo']['numero_ano']."')";
-            }            
-
-            $this->Session->write('condicoes_busca', $condicoes);                                
-
-            $this->redirect('busca_consulta');
-                        
-            
         }
     }
 

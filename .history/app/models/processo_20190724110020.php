@@ -252,13 +252,13 @@ class Processo extends AppModel {
     
     function paginateCount($conditions = null, $recursive = null) {
         $this->unbindModel(array('hasMany'=> array('Tramite', 'Divisao')));
-        return $this->find("count",compact('conditions', 'recursive'));
+        return $this->findCount($conditions, $recursive);
     } 
     
     function paginate($conditions = null, $fields = null, $order = null, $limit = null, $page = 1, $recursive = null)
     {
         $this->unbindModel(array('hasMany'=> array('Tramite', 'Divisao')));
-    	return $this->find("all",compact('conditions', 'fields', 'order', 'limit', 'page', 'recursive', 'group')); 
+    	return $this->findAll($conditions, $fields, $order, $limit, $page, $recursive); 
     }
 }
 ?>

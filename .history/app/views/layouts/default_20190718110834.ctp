@@ -131,7 +131,7 @@
                                                 ],  // a menu item
                                                 _cmSplit,
                                                 ['', 'Consultar', '', '', '',
-                                                    ['', 'Processos', '<?php echo $this->webroot; ?>processos/consultar_completo', '_self', null],
+                                                    ['', 'Processos', '<?php echo $this->webroot; ?>processos/consultar', '_self', null],
                                                     ['', 'Todos os Processos', '<?php echo $this->webroot; ?>processos/index', '_self', null],
                                                     ['', 'Tramitação', '<?php echo $this->webroot; ?>processos/tramitacao', '_self', null],
                                                     _cmSplit,

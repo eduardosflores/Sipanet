@@ -185,7 +185,7 @@ class ProcessosController extends AppController {
         // Busca os dados e envia para a view
         $this->set('processos', $this->paginate('Processo',$this->Session->read('condicoes_busca')));
 
-        $this->render('busca_consulta');
+        $this->render('index');
     }
 
     public function consultar($id = null) {
@@ -308,32 +308,32 @@ class ProcessosController extends AppController {
 
             $condicoes = "";
 
-            if ($this->data['busca']['conteudo']!=""){
-                $condicoes = "busca @@ to_tsquery('pg_catalog.portuguese','".$this->data['busca']['conteudo']."')";
+            if ($this->data[busca][conteudo]!=""){
+                $condicoes = "busca @@ to_tsquery('".$this->data[busca][conteudo]."')";
             }
 
             if ($this->data['Processo']['numero_orgao']!=""){
-                if($condicoes!=""){
+                if($condicoes==""){
                     $condicoes=$condicoes." and ";
                 }
-                $condicoes = $condicoes."Processo.numero_orgao = ('".$this->data['Processo']['numero_orgao']."')";
+                $condicoes = $condicoes."Processo.numero_orgao = ('".data['Processo']['numero_orgao']."')";
             }
 
             if ($this->data['Processo']['numero_processo']!=""){
-                if($condicoes!=""){
+                if($condicoes==""){
                     $condicoes=$condicoes." and ";
                 }
-                $condicoes = $condicoes."Processo.numero_processo = ('".$this->data['Processo']['numero_processo']."')";
+                $condicoes = $condicoes."Processo.numero_processo = ('".data['Processo']['numero_processo']."')";
             }
 
             if ($this->data['Processo']['numero_ano']!=""){
-                if($condicoes!=""){
+                if($condicoes==""){
                     $condicoes=$condicoes." and ";
                 }
-                $condicoes = $condicoes."Processo.numero_ano = ('".$this->data['Processo']['numero_ano']."')";
+                $condicoes = $condicoes."Processo.numero_ano = ('".data['Processo']['numero_ano']."')";
             }            
 
-            $this->Session->write('condicoes_busca', $condicoes);                                
+            $this->Session->write('condicoes_busca', "busca @@ to_tsquery('".$condicoes."')");                                
 
             $this->redirect('busca_consulta');
                         

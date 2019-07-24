@@ -185,7 +185,7 @@ class ProcessosController extends AppController {
         // Busca os dados e envia para a view
         $this->set('processos', $this->paginate('Processo',$this->Session->read('condicoes_busca')));
 
-        $this->render('busca_consulta');
+        $this->render('index');
     }
 
     public function consultar($id = null) {
@@ -308,8 +308,8 @@ class ProcessosController extends AppController {
 
             $condicoes = "";
 
-            if ($this->data['busca']['conteudo']!=""){
-                $condicoes = "busca @@ to_tsquery('pg_catalog.portuguese','".$this->data['busca']['conteudo']."')";
+            if ($this->data[busca][conteudo]!=""){
+                $condicoes = "busca @@ to_tsquery('".$this->data[busca][conteudo]."')";
             }
 
             if ($this->data['Processo']['numero_orgao']!=""){
@@ -333,7 +333,7 @@ class ProcessosController extends AppController {
                 $condicoes = $condicoes."Processo.numero_ano = ('".$this->data['Processo']['numero_ano']."')";
             }            
 
-            $this->Session->write('condicoes_busca', $condicoes);                                
+            $this->Session->write('condicoes_busca', "busca @@ to_tsquery('".$condicoes."')");                                
 
             $this->redirect('busca_consulta');
                         

@@ -308,8 +308,8 @@ class ProcessosController extends AppController {
 
             $condicoes = "";
 
-            if ($this->data['busca']['conteudo']!=""){
-                $condicoes = "busca @@ to_tsquery('pg_catalog.portuguese','".$this->data['busca']['conteudo']."')";
+            if ($this->data[busca][conteudo]!=""){
+                $condicoes = "busca @@ to_tsquery('".$this->data[busca][conteudo]."')";
             }
 
             if ($this->data['Processo']['numero_orgao']!=""){

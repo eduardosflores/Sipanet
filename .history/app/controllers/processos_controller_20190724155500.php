@@ -185,7 +185,7 @@ class ProcessosController extends AppController {
         // Busca os dados e envia para a view
         $this->set('processos', $this->paginate('Processo',$this->Session->read('condicoes_busca')));
 
-        $this->render('busca_consulta');
+        $this->render('index');
     }
 
     public function consultar($id = null) {
@@ -276,7 +276,7 @@ class ProcessosController extends AppController {
      * * */
     public function consultar_completo() {
         $this->set('fieldSetTitle', 'Consultar Processo');
-        $this->set('action_form', '/processos/consultar_completo');
+        $this->set('action_form', '/processos/consultar');
 
         // Verifica se a busca ja foi realizada ou se o $id foi informado
         if (empty($this->data)) {
@@ -287,7 +287,7 @@ class ProcessosController extends AppController {
             $this->render('busca_generica_campos');
         } else {
 
-            $action_retorno = 'consultar_completo';
+            $action_retorno = 'consultar';
 
             // Busca os dados do processo
             $this->Processo->unbindModel(array('hasMany' => array('Tramite')));
@@ -295,7 +295,7 @@ class ProcessosController extends AppController {
 
         // Se foi passado o id, busca pelo id. Sen?o, busca pelo n?mero
 
-            //$processo = $this->buscarProcesso($this->data['Processo']['numero_orgao'], $this->data['Processo']['numero_processo'], $this->data['Processo']['numero_ano'], $action_retorno);
+            $processo = $this->buscarProcesso($this->data['Processo']['numero_orgao'], $this->data['Processo']['numero_processo'], $this->data['Processo']['numero_ano'], $action_retorno);
         
             //$processo= $this->Processo->findByBusca("Solicita");
 
@@ -308,32 +308,11 @@ class ProcessosController extends AppController {
 
             $condicoes = "";
 
-            if ($this->data['busca']['conteudo']!=""){
-                $condicoes = "busca @@ to_tsquery('pg_catalog.portuguese','".$this->data['busca']['conteudo']."')";
+            if ($this->data[busca][conteudo]!=""){
+                $condicoes = $this->data[busca][conteudo];
             }
 
-            if ($this->data['Processo']['numero_orgao']!=""){
-                if($condicoes!=""){
-                    $condicoes=$condicoes." and ";
-                }
-                $condicoes = $condicoes."Processo.numero_orgao = ('".$this->data['Processo']['numero_orgao']."')";
-            }
-
-            if ($this->data['Processo']['numero_processo']!=""){
-                if($condicoes!=""){
-                    $condicoes=$condicoes." and ";
-                }
-                $condicoes = $condicoes."Processo.numero_processo = ('".$this->data['Processo']['numero_processo']."')";
-            }
-
-            if ($this->data['Processo']['numero_ano']!=""){
-                if($condicoes!=""){
-                    $condicoes=$condicoes." and ";
-                }
-                $condicoes = $condicoes."Processo.numero_ano = ('".$this->data['Processo']['numero_ano']."')";
-            }            
-
-            $this->Session->write('condicoes_busca', $condicoes);                                
+            $this->Session->write('condicoes_busca', "busca @@ to_tsquery('".$this->data[busca][conteudo]."')");                                
 
             $this->redirect('busca_consulta');
                         

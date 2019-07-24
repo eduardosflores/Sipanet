@@ -51,7 +51,7 @@ $pdf->SetXY(10,125);
 $pdf->MultiCell(75,5,"Tipo de Processo:",0,'R',false,1);
 
 $pdf->SetXY(10,140);
-$pdf->MultiCell(75,5,"Autor:",0,'R',false,1);
+$pdf->MultiCell(75,5,"Autor:",0,'R',false,2);
 
 $pdf->SetXY(10,170);
 $pdf->MultiCell(75,5,"CPF/CNPJ:",0,'R',false,1);
@@ -75,7 +75,7 @@ $pdf->SetXY(90,125);
 $pdf->MultiCell(75,5, $processo['Natureza']['descricao'] ,0,'L',false,1);
 
 $pdf->SetXY(90,140);
-$pdf->MultiCell(75,5, $processo['Interessado']['nome'] ,0,'L',false,3);
+$pdf->MultiCell(75,5, $processo['Interessado']['nome'] ,0,'L',false,1);
 
 $pdf->SetXY(90,170);
 $pdf->MultiCell(75,5, $processo['Interessado']['cpf_cnpj'] ,0,'L',false,1);
