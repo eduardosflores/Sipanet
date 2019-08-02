@@ -230,6 +230,4 @@
 	Configure::write('servidor_ftp','10.0.0.244');
 	Configure::write('usuario_ftp','ftpserver');
 	Configure::write('senha_ftp','pepa123');
-
-	date_default_timezone_set('America/Sao_Paulo'); 
 ?>

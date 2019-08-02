@@ -309,7 +309,7 @@ class ProcessosController extends AppController {
             $condicoes = "";
 
             if ($this->data['busca']['conteudo']!=""){
-                $condicoes = "busca @@ plainto_tsquery('pg_catalog.portuguese','".$this->data['busca']['conteudo']."')";
+                $condicoes = "busca @@ to_tsquery('pg_catalog.portuguese','".$this->data['busca']['conteudo']."')";
             }
 
             if ($this->data['Processo']['numero_orgao']!=""){
@@ -2450,17 +2450,18 @@ public function recebimento_lote() {
 
         $arquivoBinario = $ftp->recuperarConteudoArquivo('/'.$arquivo['Arquivo']['id_processos'].'/'.$arquivo['Arquivo']['nome_arquivo']);
         
-        //$this->set("arquivo",$arquivoBinario);
+//        $this->set("arquivo",$arquivoBinario);
 
         //$file = base64_decode($arquivoBinario);
         header("Cache-Control: no-cache private");
         header("Content-Description: File Transfer");
-        header('Content-disposition: attachment; filename='.str_replace(" ","_",$arquivo['Arquivo']['nome_arquivo']).'');
-        //header("Content-Type: application/pdf");
+        header('Content-disposition: attachment; filename='.$arquivo['Arquivo']['nome_arquivo'].'');
+        header("Content-Type: application/pdf");
         header("Content-Transfer-Encoding: binary");
         
         echo $arquivoBinario;
         
+
         exit;
     }
 
