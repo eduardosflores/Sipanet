@@ -51,12 +51,12 @@ $pdf->SetXY(10,125);
 $pdf->MultiCell(75,5,"Natureza do Processo:",0,'R',false,1);
 
 $pdf->SetXY(10,140);
-$pdf->MultiCell(75,5,"Tipo do Processo:",0,'R',false,1);
+$pdf->MultiCell(75,5,"Natureza do Processo:",0,'R',false,1);
 
 $pdf->SetXY(10,155);
 $pdf->MultiCell(75,5,"Autor:",0,'R',false,1);
 
-$pdf->SetXY(10,170);
+$pdf->SetXY(10,180);
 $pdf->MultiCell(75,5,"Descrição:",0,'R',false,1);
 
 //Define Coluna de Valores
@@ -75,12 +75,12 @@ $pdf->SetXY(90,125);
 $pdf->MultiCell(75,5, $processo['Natureza']['descricao'] ,0,'L',false,1);
 
 $pdf->SetXY(90,140);
-$pdf->MultiCell(75,5, $processo['Processo']['titulo_assunto'] ,0,'L',false,1);
+$pdf->MultiCell(75,5, $processo['Processo']['titulo'] ,0,'L',false,1);
 
 $pdf->SetXY(90,155);
 $pdf->MultiCell(75,5, $processo['Interessado']['nome'] ,0,'L',false,3);
 
-$pdf->SetXY(90,170);
+$pdf->SetXY(90,200);
 $pdf->MultiCell(75,5, $processo['Processo']['assunto'] ,0,'L',false,15);
 
 

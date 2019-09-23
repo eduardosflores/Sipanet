@@ -83,7 +83,7 @@ class DATABASE_CONFIG {
 	var $default = array(
                 'driver' => 'postgres',
                 'persistent' => false,
-				'host' => 'localhost',
+				'host' => '10.10.7.179',
                 'login' => 'postgres',
                 'password' => '*edurobi%2017',
                 'database' => 'sipanet',

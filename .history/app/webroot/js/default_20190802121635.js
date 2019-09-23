@@ -42,13 +42,12 @@ function upload(){
       formData.append("userfile", 'pdf');
       formData.append("data[Processo][id]", ProcessoId.value);
       formData.append("data[chaveArquivo][valor]", chaveArquivo.value);
-      client.send(formData);
     } else {
       alert("Arquivo deve ser apenas do tipo PDF.");
     }
 
   
-    
+    client.send(formData);
   }
 
 

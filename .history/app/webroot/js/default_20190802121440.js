@@ -32,23 +32,16 @@ function upload(){
   
     var file = document.getElementById("paginas");
     var nomeArquivo = file.files[0].name;
-    var ext = nomeArquivo.split('.').reverse()[0];
-    if((ext=="pdf")||(ext=="pdf")){
-      var ProcessoId = document.getElementById("ProcessoId");
-      var chaveArquivo = document.getElementById("chaveArquivo");
-      var formData = new FormData();
-      formData.append("upload", file.files[0]);
-      formData.append("MAX_FILE_SIZE", '30000');
-      formData.append("userfile", 'pdf');
-      formData.append("data[Processo][id]", ProcessoId.value);
-      formData.append("data[chaveArquivo][valor]", chaveArquivo.value);
-      client.send(formData);
-    } else {
-      alert("Arquivo deve ser apenas do tipo PDF.");
-    }
-
+    var ProcessoId = document.getElementById("ProcessoId");
+    var chaveArquivo = document.getElementById("chaveArquivo");
+    var formData = new FormData();
+    formData.append("upload", file.files[0]);
+    formData.append("MAX_FILE_SIZE", '30000');
+    formData.append("userfile", 'pdf');
+    formData.append("data[Processo][id]", ProcessoId.value);
+    formData.append("data[chaveArquivo][valor]", chaveArquivo.value);
   
-    
+    client.send(formData);
   }
 
 

@@ -51,7 +51,7 @@ $pdf->SetXY(10,125);
 $pdf->MultiCell(75,5,"Natureza do Processo:",0,'R',false,1);
 
 $pdf->SetXY(10,140);
-$pdf->MultiCell(75,5,"Tipo do Processo:",0,'R',false,1);
+$pdf->MultiCell(75,5,"Natureza do Processo:",0,'R',false,1);
 
 $pdf->SetXY(10,155);
 $pdf->MultiCell(75,5,"Autor:",0,'R',false,1);
