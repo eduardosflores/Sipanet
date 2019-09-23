@@ -93,7 +93,7 @@
                             foreach($setores as $setor) {
                             ?>
                                 <option value="<?php echo $setor['Setor']['id']; ?>">
-                                    <?php echo "{$setor['Setor']['sigla']}"." - "."{$setor['Setor']['descricao']}"; ?>
+                                    <?php echo "{$setor['Setor']['sigla']} - $setor['Setor']['descricao']}"; ?>
                                 </option>
                             <?php
                             }

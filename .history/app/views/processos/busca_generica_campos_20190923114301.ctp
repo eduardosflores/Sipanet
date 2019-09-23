@@ -71,7 +71,7 @@
                     </td>
                    <td class="tbFieldFrm">
                         <select name="data[busca][Interessado]" id="Interessado" class="comboBox textFieldWidth480">
-                        "<option value="">SELECIONE...</option>"
+                        "<option value="">Selecione...</option>"
 							<?php
 							/**
 							 * TODO: Modificar para utilizar lista gerada automaticamente

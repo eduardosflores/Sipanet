@@ -335,11 +335,11 @@ class ProcessosController extends AppController {
                 $condicoes = $condicoes."Processo.numero_ano = ('".$this->data['Processo']['numero_ano']."')";
             }           
             
-            if ($this->data['busca']['Interessado']!=""){
+            if ($this->data[busca][Interessado]!=""){
                 if($condicoes!=""){
                     $condicoes=$condicoes." and ";
                 }
-                $condicoes = $condicoes."Interessado.id = ('".$this->data['busca']['Interessado']."')";
+                $condicoes = $condicoes."Processo.numero_ano = ('".$this->data['Processo']['numero_ano']."')";
             }            
 
             $this->Session->write('condicoes_busca', $condicoes);                                

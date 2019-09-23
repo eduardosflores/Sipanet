@@ -339,7 +339,7 @@ class ProcessosController extends AppController {
                 if($condicoes!=""){
                     $condicoes=$condicoes." and ";
                 }
-                $condicoes = $condicoes."Interessado.id = ('".$this->data['busca']['Interessado']."')";
+                $condicoes = $condicoes."Interessado.id = ('".data['busca']['Interessado']."')";
             }            
 
             $this->Session->write('condicoes_busca', $condicoes);                                

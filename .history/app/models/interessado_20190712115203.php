@@ -104,11 +104,6 @@ class Interessado extends AppModel {
         }
     }
     
-    function listar()
-    {
-        return $this->find('all', array('order' => 'trim(nome) asc'));        
-    }
-
     function buscar($condicoes)
     {
         $criterios = $this->resgatarCriteriosBusca($condicoes); 

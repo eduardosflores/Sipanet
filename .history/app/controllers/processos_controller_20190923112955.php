@@ -285,7 +285,7 @@ class ProcessosController extends AppController {
             $this->set('orgaos', $this->Orgao->listar());
         /// Lista tipos de processo para exibic?o
             $this->set('tipos_processo', $this->TipoProcesso->listar());
-            $this->set('interessados',$this->Interessado->listar());
+            $this->set('interessados',$this->Interessado->buscar(""));
             $this->render('busca_generica_campos');
         } else {
 
@@ -333,13 +333,6 @@ class ProcessosController extends AppController {
                     $condicoes=$condicoes." and ";
                 }
                 $condicoes = $condicoes."Processo.numero_ano = ('".$this->data['Processo']['numero_ano']."')";
-            }           
-            
-            if ($this->data['busca']['Interessado']!=""){
-                if($condicoes!=""){
-                    $condicoes=$condicoes." and ";
-                }
-                $condicoes = $condicoes."Interessado.id = ('".$this->data['busca']['Interessado']."')";
             }            
 
             $this->Session->write('condicoes_busca', $condicoes);                                

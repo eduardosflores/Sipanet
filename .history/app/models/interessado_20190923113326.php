@@ -106,7 +106,7 @@ class Interessado extends AppModel {
     
     function listar()
     {
-        return $this->find('all', array('order' => 'trim(nome) asc'));        
+        return $this->find('all', array('order' => 'nome asc'));        
     }
 
     function buscar($condicoes)

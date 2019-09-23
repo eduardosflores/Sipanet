@@ -70,17 +70,14 @@
                         Autor:
                     </td>
                    <td class="tbFieldFrm">
-                        <select name="data[busca][Interessado]" id="Interessado" class="comboBox textFieldWidth480">
-                        "<option value="">SELECIONE...</option>"
+                        <select name="data[Processo][numero_orgao]" id="ProcessoNumeroOrgao" class="comboBox textFieldWidth240">
 							<?php
 							/**
 							 * TODO: Modificar para utilizar lista gerada automaticamente
 							 * **/
-
-                            
 							foreach($interessados as $interessado) {
 							?>
-								<option value="<?php echo $interessado['Interessado']['id']; ?>" >
+								<option value="<?php echo $interessado['Interessado']['id']; ?>" <?php if($orgao['Orgao']['id'] == $session->read('Orgao.id')) { echo "selected=\"selected\""; } ?> >
 									<?php echo "{$interessado['Interessado']['nome']}"; ?>
 								</option>
 							<?php

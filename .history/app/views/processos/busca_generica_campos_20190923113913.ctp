@@ -71,13 +71,10 @@
                     </td>
                    <td class="tbFieldFrm">
                         <select name="data[busca][Interessado]" id="Interessado" class="comboBox textFieldWidth480">
-                        "<option value="">SELECIONE...</option>"
 							<?php
 							/**
 							 * TODO: Modificar para utilizar lista gerada automaticamente
 							 * **/
-
-                            
 							foreach($interessados as $interessado) {
 							?>
 								<option value="<?php echo $interessado['Interessado']['id']; ?>" >
