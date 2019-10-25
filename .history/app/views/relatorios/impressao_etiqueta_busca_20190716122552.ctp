@@ -42,19 +42,10 @@
 				<!-- Processo N? -->
 				<tr>
                     <td class="tbTituloFrm">
-                        Processo Início Nº:
+                        Processo Nº:
                     </td>
                    <td class="tbFieldFrm">
-                        <?php echo $form->input('Processo.numero_processo_inicio', array('label'=>false,'class'=>'textArea textFieldWidth120'))?>
-                   </td>
-                </tr>
-
-                <tr>
-                    <td class="tbTituloFrm">
-                        Processo Fim Nº:
-                    </td>
-                   <td class="tbFieldFrm">
-                        <?php echo $form->input('Processo.numero_processo_fim', array('label'=>false,'class'=>'textArea textFieldWidth120'))?>
+                        <?php echo $form->input('Processo.numero_processo', array('label'=>false,'class'=>'textArea textFieldWidth120'))?>
                    </td>
                 </tr>
 

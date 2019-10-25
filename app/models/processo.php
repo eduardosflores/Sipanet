@@ -180,7 +180,20 @@ class Processo extends AppModel {
         {
         	return false;
         }
-     }
+	 }
+	 
+	 public function findByProcessosNumeroIntervalo($numero_orgao, $numero_processo_inicio, $numero_processo_fim, $numero_ano)
+	 {
+	 	if(!empty($numero_orgao) && !empty($numero_processo_inicio) && !empty($numero_processo_fim) && !empty($numero_ano) &&
+	 		is_int((int)$numero_orgao) && is_int((int)$numero_processo_inicio) && is_int((int)$numero_processo_fim) && is_int((int)$numero_ano))
+		 {			
+			return $this->find('all', array('conditions' => "numero_orgao = '{$numero_orgao}' and numero_processo >= {$numero_processo_inicio} and numero_processo <= {$numero_processo_fim} and numero_ano = {$numero_ano}"));
+		 }
+		 else
+		 {
+			 return false;
+		 }
+	  }
     
     function resgatarCriteriosBusca($condicoes)
     {

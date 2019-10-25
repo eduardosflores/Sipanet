@@ -552,7 +552,7 @@ class RelatoriosController extends AppController {
         // Busca o processo e verifica se foi encontrado
             $this->Processo->recursive = 1;
             $this->Processo->unbindModel( array('hasMany' => array('Tramite')) );
-            $processo = $this->Processo->findByNumero($this->data['Processo']['numero_orgao'], $this->data['Processo']['numero_processo'], $this->data['Processo']['numero_ano']);
+            $processos = $this->Processo->findByProcessosNumeroIntervalo($this->data['Processo']['numero_orgao'], $this->data['Processo']['numero_processo_inicio'], $this->data['Processo']['numero_processo_fim'], $this->data['Processo']['numero_ano']);
 
             // Dados da etiqueta
             
@@ -563,7 +563,7 @@ class RelatoriosController extends AppController {
             $this->set("etiqueta_impressa", $this->data['Etiqueta']['linha']);;
 
             // Dados do processo
-            $this->set("processo", $processo);
+            $this->set("processos", $processos);
 
             $this->render('impressao_etiqueta_pdf_cmg','');
         }
@@ -873,8 +873,8 @@ class RelatoriosController extends AppController {
         $divisoes = $this->Divisao->find('all', array('conditions' => "processo_id = {$processo['Processo']['id']}"));
         $this->set('divisoes', $divisoes);
 
-        $this->Servidor->find('all',array('conditions' => array("id" => $this->Session->read('Orgao.id'))));
-
+        $servidor = $this->Session->read('Servidor.nome');
+        $this->set('servidor', $servidor);
         
 
         $this->render('impressao_capa_pdf', '');
