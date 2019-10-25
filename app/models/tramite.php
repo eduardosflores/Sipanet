@@ -95,29 +95,33 @@ class Tramite extends AppModel {
                             Interessado.nome as Interessado,
                             (select sigla from setores where id = Tramite.setor_origem_id) as Sigla,
                             Servidor.nome,
-                            Tramite.data_recebimento,
+                            COALESCE(Tramite.data_recebimento,Processo.data_cadastro) as data_recebimento,
                             TipoProcesso.descricao as tipo_processo,
                             DiaNaMesa.max_dias_na_mesa
                             from tramites as Tramite
-                            join processos as Processo
+                            right join processos as Processo
                              on (Processo.id = Tramite.processo_id and Processo.situacao_id = 1)
                             join interessados as Interessado on
                             Processo.interessado_id = Interessado.id
                             left join tipos_processo as TipoProcesso
                              on Processo.tipo_processo_id = TipoProcesso.id
-                            join setores as Setor
+                            left join setores as Setor
                              on Tramite.setor_recebimento_id = Setor.id
                             left join dias_na_mesa as DiaNaMesa
                              on (DiaNaMesa.tipo_processo_id = TipoProcesso.id
                             and DiaNaMesa.setor_id = Tramite.setor_recebimento_id)
-                            join servidores as Servidor on
+                            left join servidores as Servidor on
                             Tramite.servidor_recebimento_id = Servidor.id
                             where
-                            Tramite.setor_recebimento_id = ". $setor_id . "
+                            (Tramite.setor_recebimento_id = ". $setor_id . "
                             and
                             Tramite.flag_recebimento = true
                             and
-                            Tramite.flag_encaminhado = false
+                            Tramite.flag_encaminhado = false) or
+                            (
+                                (select count(1) from tramites where tramites.processo_id = Processo.id ) = 0 and
+							    Processo.setor_id = ". $setor_id . "
+                            )
                             order by Tramite.data_recebimento
                             ");
 
