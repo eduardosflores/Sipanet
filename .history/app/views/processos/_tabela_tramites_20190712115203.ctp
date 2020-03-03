@@ -28,7 +28,7 @@
         Data Recebimento
     </td>
     <td class="tdTituloGridTramitacaoDestino nosort">
-        Ver despacho
+        Obs
     </td>
 </tr>
 <?php
@@ -65,14 +65,9 @@ foreach($tramites as $tramite)
             <?php echo $protocolo->showDateBr($tramite['Tramite']['data_recebimento'],true) ?>
         </td>
         <td class="tdConteudoGrid">
-
-            <a href="#" onclick="window.open('<?php echo $html->url('consultar_tramite/'.$tramite['Tramite']['id'])?>', 'buscarInteressados','status=0,scrollbars=1,width=650, height=400')">Exibir Despacho</a>
-
-            
-
-            <!-- <a href="#" class="linkComAjuda"><?php// echo $html->image('expandir.gif', array('alt'=>'Ver Observações', 'title'=>'Ver Observações',  'border' => 'none')); ?>&nbsp;
-                <span><strong>Observações</strong><br /><?php// echo $tramite['Tramite']['observacoes'] ?></span>
-            </a> -->
+            <a href="#" class="linkComAjuda"><?php echo $html->image('expandir.gif', array('alt'=>'Ver Observações', 'title'=>'Ver Observações',  'border' => 'none')); ?>&nbsp;
+                <span><strong>Observações</strong><br /><?php echo $tramite['Tramite']['observacoes'] ?></span>
+            </a>
      
         </td>
     </tr>

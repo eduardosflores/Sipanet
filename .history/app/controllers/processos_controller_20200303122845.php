@@ -191,12 +191,6 @@ class ProcessosController extends AppController {
 
     public function consultar_tramite($id){
         $tramite = $this->Tramite->read(null, $id);
-
-        $this->set('tramite',$tramite);
-
-        $this->set('fieldSetTitle','Exibir Despacho');
-
-        $this->render(null, "popup");
     }
 
     public function consultar($id = null) {

@@ -186,7 +186,17 @@ class ProcessosController extends AppController {
         // Busca os dados e envia para a view
         $this->set('processos', $this->paginate('Processo',$this->Session->read('condicoes_busca')));
 
-        $this->render('busca_consulta');
+        $this->render(null,'busca_consulta');
+    }
+
+    public function consultar_tramite($id){
+        $tramite = $this->Tramite->read(null, $id);
+
+        $this->set('tramite',$tramite);
+
+        $this->set('fieldSetTitle','Exibir Despacho');
+
+        $this->render(null, "popup");
     }
 
     public function consultar($id = null) {
@@ -295,7 +305,7 @@ class ProcessosController extends AppController {
             $this->Processo->unbindModel(array('hasMany' => array('Tramite')));
             $this->Processo->recursive = 1;
 
-        // Se foi passado o id, busca pelo id. Sen?o, busca pelo n?mero
+            // Se foi passado o id, busca pelo id. Sen?o, busca pelo n?mero
 
             //$processo = $this->buscarProcesso($this->data['Processo']['numero_orgao'], $this->data['Processo']['numero_processo'], $this->data['Processo']['numero_ano'], $action_retorno);
         
@@ -335,11 +345,11 @@ class ProcessosController extends AppController {
                 $condicoes = $condicoes."Processo.numero_ano = ('".$this->data['Processo']['numero_ano']."')";
             }           
             
-            if ($this->data[busca][Interessado]!=""){
+            if ($this->data['busca']['Interessado']!=""){
                 if($condicoes!=""){
                     $condicoes=$condicoes." and ";
                 }
-                $condicoes = $condicoes."Processo.numero_ano = ('".$this->data['Processo']['numero_ano']."')";
+                $condicoes = $condicoes."Interessado.id = ('".$this->data['busca']['Interessado']."')";
             }            
 
             $this->Session->write('condicoes_busca', $condicoes);                                
@@ -1689,9 +1699,7 @@ class ProcessosController extends AppController {
 
                 $arquivosDiretorioTemporario = $ftp->recuperaTodosArquivosPasta('/'.$id.'/tmp');
     
-                $this->Arquivo->transactional = true;                
-    
-                $arquivo = array('Arquivo' => array());
+
 
                 $chaveArquivo = $this->data['chaveArquivo']['valor'];
 
@@ -1701,6 +1709,12 @@ class ProcessosController extends AppController {
                     $chaveArquivoFTP = explode("_",$nomeArquivo)[0];
                     if($chaveArquivo == $chaveArquivoFTP){
                         if($ftp->moveArquivo($arquivoTemp,'/'.$id.'/'.$nomeArquivo)){
+                            $this->Arquivo->create();
+                            
+                            $this->Arquivo->transactional = true;                
+    
+                            $arquivo = array('Arquivo' => array());
+
                             $arquivo['Arquivo']['id_processos'] = $id;
                             $arquivo['Arquivo']['nome_arquivo'] = $nomeArquivo;
                             $arquivo['Arquivo']['pagina_inicio'] = 0;

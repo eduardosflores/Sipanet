@@ -186,7 +186,15 @@ class ProcessosController extends AppController {
         // Busca os dados e envia para a view
         $this->set('processos', $this->paginate('Processo',$this->Session->read('condicoes_busca')));
 
-        $this->render('busca_consulta');
+        $this->render(null,'busca_consulta');
+    }
+
+    public function consultar_tramite($id){
+        $tramite = $this->Tramite->read(null, $id);
+
+        $this->set('tramite',$tramite);
+
+        $this->render('_consultar_tramite');
     }
 
     public function consultar($id = null) {
@@ -295,7 +303,7 @@ class ProcessosController extends AppController {
             $this->Processo->unbindModel(array('hasMany' => array('Tramite')));
             $this->Processo->recursive = 1;
 
-        // Se foi passado o id, busca pelo id. Sen?o, busca pelo n?mero
+            // Se foi passado o id, busca pelo id. Sen?o, busca pelo n?mero
 
             //$processo = $this->buscarProcesso($this->data['Processo']['numero_orgao'], $this->data['Processo']['numero_processo'], $this->data['Processo']['numero_ano'], $action_retorno);
         

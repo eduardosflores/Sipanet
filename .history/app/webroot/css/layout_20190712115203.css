@@ -208,7 +208,7 @@ a:hover
 }
 
 
-/* Exibiï¿½ï¿½o de mensagens */
+/* Exibição de mensagens */
 #mensagem_conteudo
 {
     width: 80%;
@@ -285,9 +285,4 @@ div.tooltip h2 {
     margin:0;
     font-size:10pt;
     text-align:center;
-}
-
-xmp{ 
-    white-space:pre-wrap; 
-    word-wrap:break-word; 
 }

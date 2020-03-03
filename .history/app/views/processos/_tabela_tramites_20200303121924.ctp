@@ -66,7 +66,7 @@ foreach($tramites as $tramite)
         </td>
         <td class="tdConteudoGrid">
 
-            <a href="#" onclick="window.open('<?php echo $html->url('consultar_tramite/'.$tramite['Tramite']['id'])?>', 'buscarInteressados','status=0,scrollbars=1,width=650, height=400')">Exibir Despacho</a>
+            <a href="#" onclick="window.open('<?php echo $html->url('consultar_tramite/'.$tramite['Tramite']['id'])?>', 'buscarInteressados', 'scrollbars=1,width=650, height=400')">Exibir Despacho</a>
 
             
 
