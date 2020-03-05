@@ -22,8 +22,13 @@ function enviarInteressado(id, nome)
             <div>
       
               
-                <?php
-                    if ($tramite['Tramite']['observacoes'] != strip_tags($tramite['Tramite']['observacoes'])) echo $tramite['Tramite']['observacoes']; else echo "<xmp>".$tramite['Tramite']['observacoes']."</xmp>";
+                <?php 
+                    
+                    
+                      
+                        
+                      
+                    if ($tramite['Tramite']['observacoes'] != strip_tags($tramite['Tramite']['observacoes'])) echo html_entity_decode($tramite['Tramite']['observacoes']); else echo "<xmp>".$tramite['Tramite']['observacoes']."</xmp>";
                 ?> 
               
       

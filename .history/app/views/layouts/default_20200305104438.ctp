@@ -41,17 +41,7 @@
         <script language="JavaScript" type="text/javascript" src="<?php echo $this->webroot; ?>js/jscookmenu/JSCookMenu.js"></script>
         <script language="JavaScript" type="text/javascript" src="<?php echo $this->webroot; ?>js/jscookmenu/ThemePanel/theme.js"></script>
         <script language="JavaScript" type="text/javascript" src="<?php echo $this->webroot; ?>js/tinymce/tinymce.min.js"></script>
-        <script>tinymce.init({
-            selector:'textarea#TramiteObservacoes',
-            height: 200,
-            width:600,
-            menubar: false,
-            plugins: ['image advlist autolink lists link image charmap print preview anchor','searchreplace visualblocks code fullscreen','insertdatetime media table paste code help wordcount'],
-            toolbar: 'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | image',
-            content_css: ['//fonts.googleapis.com/css?family=Lato:300,300i,400,400i','//www.tiny.cloud/css/codepen.min.css'],
-            entity_encoding : "raw"
-        });
-        </script>
+        
 
 
         <style type="text/css">
