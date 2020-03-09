@@ -609,17 +609,13 @@ class RelatoriosController extends AppController {
             // Dados da etiqueta
             
             $etiqueta = $this->Etiqueta->read(null, $this->data['Etiqueta']['id']);
- 
+            if($etiqueta==""){
+                $etiqueta=0;
+            }
             $this->set('etiqueta', $etiqueta);
             
-
-            $linha = $this->data['Etiqueta']['linha'];
             // Linha impressa
-            if($linha==""){
-                $linha=1;
-            }
-            $this->set("etiqueta_impressa", $linha);
-
+            $this->set("etiqueta_impressa", $this->data['Etiqueta']['linha']);
 
             // Dados do processo
             $this->set("processos", $processos);

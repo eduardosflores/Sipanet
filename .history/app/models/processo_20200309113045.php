@@ -182,17 +182,17 @@ class Processo extends AppModel {
         }
 	 }
 
-	 public function findByProcessosIDs($processos_ids)
+	 public function findByProcessosID($numero_orgao, $processos_id)
 	 {
-		 	$processos_id_str = "";
-			foreach($processos_ids as $processo_id){
-				$processos_id_str .= $processo_id." ";
-			}
-			$processos_id_str = trim($processos_id_str);
-			$processos_id_str = str_replace(" ",",",$processos_id_str);
-			
-			return $this->find('all', array('conditions' => "Processo.id  in ({$processos_id_str})",'order' => 'Processo.numero_ano desc,Processo.numero_processo desc'));
-		
+	 	if(!empty($numero_orgao) && !empty($numero_processo_inicio) && !empty($numero_processo_fim) && !empty($numero_ano) &&
+	 		is_int((int)$numero_orgao) && is_int((int)$numero_processo_inicio) && is_int((int)$numero_processo_fim) && is_int((int)$numero_ano))
+		 {			
+			return $this->find('all', array('conditions' => "numero_orgao = '{$numero_orgao}' and numero_processo >= {$numero_processo_inicio} and numero_processo <= {$numero_processo_fim} and numero_ano = {$numero_ano}"));
+		 }
+		 else
+		 {
+			 return false;
+		 }
 	  }
 	 
 	 public function findByProcessosNumeroIntervalo($numero_orgao, $numero_processo_inicio, $numero_processo_fim, $numero_ano)

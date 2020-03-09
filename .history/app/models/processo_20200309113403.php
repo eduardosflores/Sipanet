@@ -182,16 +182,13 @@ class Processo extends AppModel {
         }
 	 }
 
-	 public function findByProcessosIDs($processos_ids)
+	 public function findByProcessosID($processos_ids)
 	 {
 		 	$processos_id_str = "";
 			foreach($processos_ids as $processo_id){
 				$processos_id_str .= $processo_id." ";
 			}
-			$processos_id_str = trim($processos_id_str);
-			$processos_id_str = str_replace(" ",",",$processos_id_str);
-			
-			return $this->find('all', array('conditions' => "Processo.id  in ({$processos_id_str})",'order' => 'Processo.numero_ano desc,Processo.numero_processo desc'));
+			return $this->find('all', array('conditions' => "numero_orgao = '{$numero_orgao}' and numero_processo >= {$numero_processo_inicio} and numero_processo <= {$numero_processo_fim} and numero_ano = {$numero_ano}"));
 		
 	  }
 	 

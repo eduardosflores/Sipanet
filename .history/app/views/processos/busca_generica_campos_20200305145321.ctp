@@ -80,7 +80,7 @@
 							for($m = 0; $m< count($interessados);$m++) {
 							?>
 								<option value="<?php echo $interessados[$m]['Interessado']['id']; ?>" >
-									<?php echo $interessados[$m]['Interessado']['nome']; ?>
+									<?php echo $interessado[$m]['Interessado']['nome']}; ?>
 								</option>
 							<?php
 							}

@@ -24,7 +24,7 @@ if (count($tramites_nao_encaminhados) == 0) {
         </tr>
         <tr>
             <td class="lbInfoPagFrm" colspan="2" align="left">
-                <b>Processos parados no seu setor.</b>
+                <b>Processos parados no seu setor (informação válida apenas para processos recebidos em 2012).</b>
                 <!--<b><?php echo $totalDeTramitesNaoEncaminhados; ?> processos foram recebidos e ainda não foram encaminhados:</b>-->
             </td>
         </tr>

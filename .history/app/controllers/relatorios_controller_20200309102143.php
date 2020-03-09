@@ -578,7 +578,7 @@ class RelatoriosController extends AppController {
     }
 
     function impressao_etiqueta_lote() {
-        $this->set('action_form', 'impressao_etiqueta_lote');
+        $this->set('action_form', 'impressao_etiqueta');
         $this->set('fieldSetTitle', 'Imprimir Etiqueta do Processo');
 
         // Verifica se a busca ja foi realizada
@@ -604,22 +604,15 @@ class RelatoriosController extends AppController {
         // Busca o processo e verifica se foi encontrado
             $this->Processo->recursive = 1;
             $this->Processo->unbindModel( array('hasMany' => array('Tramite')) );
-            $processos = $this->Processo->findByProcessosIDs($this->data['Processos']);
+            $processos = $this->Processo->findByProcessosNumeroIntervalo($this->data['Processo']['numero_orgao'], $this->data['Processo']['numero_processo_inicio'], $this->data['Processo']['numero_processo_fim'], $this->data['Processo']['numero_ano']);
 
             // Dados da etiqueta
             
             $etiqueta = $this->Etiqueta->read(null, $this->data['Etiqueta']['id']);
- 
             $this->set('etiqueta', $etiqueta);
             
-
-            $linha = $this->data['Etiqueta']['linha'];
             // Linha impressa
-            if($linha==""){
-                $linha=1;
-            }
-            $this->set("etiqueta_impressa", $linha);
-
+            $this->set("etiqueta_impressa", $this->data['Etiqueta']['linha']);;
 
             // Dados do processo
             $this->set("processos", $processos);

@@ -16,7 +16,7 @@
                     </td>
                 </tr>
 
-				<!-- Órgão -->
+				<!-- ?rg?o -->
 				<tr>
                     <td class="tbTituloFrm">
                         Órgão:
@@ -38,21 +38,23 @@
 						</select>
                    </td>
                 </tr>
-                
-                <!-- Processo Nº -->
-				<tr>
-                    <td class="tbTituloFrm">
-                        Processo Nº:
-                    </td>
-                   <td class="tbFieldFrm">
-                        <?php echo $form->input('Processo.numero_processo', array('label'=>false,'class'=>'textArea textFieldWidth120'))?>
-                   </td>
-                </tr>
-                
-                <script language="JavaScript" type="text/javascript">
-                    $('ProcessoNumeroProcesso').focus();
-                </script>
+                <tr>
+                    <td class="tbTituloFrm">Processos</td>
+                    <td>
+                        <div id="checkboxes">                        
+                            <?php                        
+                                foreach($tramites_no_setor as $tramite) {   
+                            ?>
+                                    <label for="one<?php echo $i;?>">
+                                    <input type="checkbox" name="data[Processos][]" id="one<?php echo $i;?>" value="<?php echo $tramite[0]['id_processo'];?>"/><?php echo $tramite[0]['processo'];?></label>                                                                    
+                            <?php                        
+                                }
+                            ?>
+                        </div>
+            
 
+                    </td>
+                </tr>
                 <!-- Ano -->
 				<tr>
                     <td class="tbTituloFrm">
@@ -62,40 +64,45 @@
                         <?php echo $form->input('Processo.numero_ano', array('label'=>false,'class'=>'textArea textFieldWidth40', 'maxlength' => '4', 'value' => date('Y')))?>
                    </td>
                 </tr>
-
-
-				<!-- Autor -->
-				<tr>
+                
+                <!-- Etiqueta -->
+                <tr>
                     <td class="tbTituloFrm">
-                        Autor:
+                        Etiqueta:
                     </td>
                    <td class="tbFieldFrm">
-                        <select name="data[busca][Interessado]" id="Interessado" class="comboBox textFieldWidth480">
-                        "<option value="">SELECIONE...</option>"
-							<?php
-							/**
-							 * TODO: Modificar para utilizar lista gerada automaticamente
-							 * **/                     
-                            
-							for($m = 0; $m< count($interessados);$m++) {
-							?>
-								<option value="<?php echo $interessados[$m]['Interessado']['id']; ?>" >
-									<?php echo $interessados[$m]['Interessado']['nome']; ?>
-								</option>
-							<?php
-							}
-							?>
-						</select>
+                        <select name="data[Etiqueta][id]" id="EtiquetaId" class="comboBox textFieldWidth240">
+                            <option value="">
+                                Selecione
+                            </option>
+                            <?php
+                            foreach($etiquetas as $etiqueta) {
+                            ?>
+                                <option value="<?php echo $etiqueta['Etiqueta']['id']; ?>">
+                                    <?php echo "{$etiqueta['Etiqueta']['descricao']}"; ?>
+                                </option>
+                            <?php
+                            }
+                            ?>
+                        </select>
+                        
+                        <?php echo $ajax->observeField('EtiquetaId', array('url' => '/relatorios/impressao_etiqueta_ajax_retornar_linhas', 'update' => 'EtiquetaLinha', 'conditions' => "$('EtiquetaId').value != ''")); ?>
                    </td>
-                </tr>                
-
-                <!-- Título + Assunto -->
-				<tr>
+                </tr>
+                
+                
+                
+                <!-- Linha -->
+                <tr>
                     <td class="tbTituloFrm">
-                    Título + Assunto:
+                        Linha da etiqueta a ser impressa:
                     </td>
                    <td class="tbFieldFrm">
-                        <input type="text" name="data[busca][conteudo]" class="textArea textFieldWidth240"/>
+                        <select name="data[Etiqueta][linha]" id="EtiquetaLinha" class="comboBox textFieldWidth240">
+                            <option value="">
+                                Selecione o Modelo
+                            </option>
+                        </select>
                    </td>
                 </tr>
 
@@ -121,3 +128,43 @@
 <br />
 
 
+<script type="text/javascript" language="javascript">
+
+
+</script>
+
+<style type="text/css">
+    .multiselect {
+        width: 200px;
+    }
+
+    .selectBox {
+        position: relative;
+    }
+
+    .selectBox select {
+        width: 100%;
+        font-weight: bold;
+    }
+
+    .overSelect {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+    }
+
+    #checkboxes {
+        display: block;
+        text-align: left;
+    }
+
+    #checkboxes label {
+        display: block;
+    }
+
+    #checkboxes label:hover {
+        background-color: #1e90ff;
+    }
+</style>

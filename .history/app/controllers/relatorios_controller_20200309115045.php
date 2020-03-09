@@ -616,7 +616,7 @@ class RelatoriosController extends AppController {
             $linha = $this->data['Etiqueta']['linha'];
             // Linha impressa
             if($linha==""){
-                $linha=1;
+                $linha=0;
             }
             $this->set("etiqueta_impressa", $linha);
 

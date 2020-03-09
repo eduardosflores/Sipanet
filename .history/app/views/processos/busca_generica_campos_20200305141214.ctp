@@ -77,10 +77,10 @@
 							 * TODO: Modificar para utilizar lista gerada automaticamente
 							 * **/                     
                             
-							for($m = 0; $m< count($interessados);$m++) {
+							for($$m = 0; $m< count($interessados);m++) {
 							?>
-								<option value="<?php echo $interessados[$m]['Interessado']['id']; ?>" >
-									<?php echo $interessados[$m]['Interessado']['nome']; ?>
+								<option value="<?php echo $interessado['Interessado']['id']; ?>" >
+									<?php echo "{$interessado['Interessado']['nome']}"; ?>
 								</option>
 							<?php
 							}

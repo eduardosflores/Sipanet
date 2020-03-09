@@ -69,7 +69,6 @@ $irregularPlural = array(
     'historico_devolucao' => 'historico_devolucoes',
     'tipo_processo' => 'tipos_processo',
     'dia_na_mesa' => 'dias_na_mesa',
-    'arquivo_temporario' => 'arquivos_temporarios',
 );
 /**
  * This is a key => value array of regex used to match words.

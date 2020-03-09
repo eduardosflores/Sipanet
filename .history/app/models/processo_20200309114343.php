@@ -191,7 +191,7 @@ class Processo extends AppModel {
 			$processos_id_str = trim($processos_id_str);
 			$processos_id_str = str_replace(" ",",",$processos_id_str);
 			
-			return $this->find('all', array('conditions' => "Processo.id  in ({$processos_id_str})",'order' => 'Processo.numero_ano desc,Processo.numero_processo desc'));
+			return $this->find('all', array('conditions' => "Processo.id  in ({$processos_id_str})"));
 		
 	  }
 	 

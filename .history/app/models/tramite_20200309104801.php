@@ -123,7 +123,7 @@ class Tramite extends AppModel {
                                 (select count(1) from tramites where tramites.processo_id = Processo.id ) = 0 and
 							    Processo.setor_id = ". $setor_id . "
                             )
-                            order by Processo.numero_ano desc,Processo.numero_processo desc
+                            order by Tramite.data_recebimento
                             ");
 
             // pr($result);
